@@ -1,0 +1,37 @@
+---
+const { title } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{title}</title>
+    <style>
+      body { font-family: sans-serif; margin: 0; padding: 0; }
+      header, footer { background: #f0f0f0; padding: 1rem; }
+      nav a { margin-right: 1rem; text-decoration: none; color: #333; }
+      nav a.active { font-weight: bold; }
+      main { padding: 2rem; }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <nav>
+        <a href="/" class={title === 'Home' ? 'active' : ''}>Home</a>
+        <a href="/en/about" class={title === 'About Us' ? 'active' : ''}>About</a>
+        <a href="/en/contact" class={title === 'Contact Us' ? 'active' : ''}>Contact</a>
+      </nav>
+    </header>
+
+    <!-- Page content -->
+    <main>
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2026 My Astro Site</p>
+    </footer>
+  </body>
+</html>

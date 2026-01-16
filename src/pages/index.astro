@@ -1,0 +1,19 @@
+---
+import Layout from '../layouts/Layout.astro'; // correct relative path
+const pageTitle = "About Us";
+---
+
+<Layout title={pageTitle}>
+  <h1>{pageTitle}</h1>
+  <p>Welcome to the About page! Learn more about our team and mission.</p>
+
+  <section>
+    <h2>Our Mission</h2>
+    <p>We aim to build fast, modern websites with Astro!</p>
+  </section>
+
+  <section>
+    <h2>Our Team</h2>
+    <p>We have a small but mighty team of developers and designers.</p>
+  </section>
+</Layout>
