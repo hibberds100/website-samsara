@@ -9,6 +9,10 @@ import endGrainImg from "../../../assets/images/products/product2.jpg";
 import serveImg from "../../../assets/images/products/product4.jpg";
 import bespokeImg from "../../../assets/images/products/product7.jpg";
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 const items = [
   {
     slug: "chopping-boards",
@@ -16,7 +20,7 @@ const items = [
     blurb: "Tábuas premium em madeira maciça, feitas para cozinhas que cozinham a sério.",
     image: chopImg,
     alt: "Tábua de cortar artesanal em madeira sobre uma superfície de linho",
-    href: "/pt/shop/chopping-boards",
+    href: href("/pt/shop/chopping-boards"),
   },
   {
     slug: "end-grain-boards",
@@ -24,7 +28,7 @@ const items = [
     blurb: "Tábuas end-grain robustas, pensadas para durabilidade e cuidado da lâmina.",
     image: endGrainImg,
     alt: "Close-up de uma tábua end-grain tipo bloco de talho",
-    href: "/pt/shop/end-grain-boards",
+    href: href("/pt/shop/end-grain-boards"),
   },
   {
     slug: "serving-boards",
@@ -32,7 +36,7 @@ const items = [
     blurb: "Peças elegantes para servir, partilhar e apresentar.",
     image: serveImg,
     alt: "Tábua de servir em madeira preparada para apresentação",
-    href: "/pt/shop/serving-boards",
+    href: href("/pt/shop/serving-boards"),
   },
   {
     slug: "bespoke",
@@ -40,7 +44,7 @@ const items = [
     blurb: "Peças feitas à medida, pensadas para o seu espaço e uso diário.",
     image: bespokeImg,
     alt: "Projeto de carpintaria por medida em oficina",
-    href: "/pt/bespoke",
+    href: href("/pt/bespoke"),
   },
 ];
 ---

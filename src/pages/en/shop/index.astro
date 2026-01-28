@@ -9,6 +9,10 @@ import endGrainImg from "../../../assets/images/products/product2.jpg";
 import serveImg from "../../../assets/images/products/product4.jpg";
 import bespokeImg from "../../../assets/images/products/product7.jpg";
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 const items = [
   {
     slug: "chopping-boards",
@@ -16,7 +20,7 @@ const items = [
     blurb: "Premium hardwood boards made for kitchens that cook.",
     image: chopImg,
     alt: "Handcrafted hardwood chopping board on a linen surface",
-    href: "/en/shop/chopping-boards",
+    href: href("/en/shop/chopping-boards"),
   },
   {
     slug: "end-grain-boards",
@@ -24,7 +28,7 @@ const items = [
     blurb: "Heavy-duty end-grain boards designed for durability and knife care.",
     image: endGrainImg,
     alt: "End-grain butcher block chopping board close-up",
-    href: "/en/shop/end-grain-boards",
+    href: href("/en/shop/end-grain-boards"),
   },
   {
     slug: "serving-boards",
@@ -32,7 +36,7 @@ const items = [
     blurb: "Elegant boards designed for entertaining and presentation.",
     image: serveImg,
     alt: "Wooden serving board styled for entertaining",
-    href: "/en/shop/serving-boards",
+    href: href("/en/shop/serving-boards"),
   },
   {
     slug: "bespoke",
@@ -40,7 +44,7 @@ const items = [
     blurb: "Made-to-measure pieces tailored to your space and daily use.",
     image: bespokeImg,
     alt: "Bespoke carpentry project in a workshop",
-    href: "/en/bespoke",
+    href: href("/en/bespoke"),
   },
 ];
 ---
@@ -61,7 +65,7 @@ const items = [
     <!-- Canonical + hreflang -->
     <link rel="canonical" href="https://example.com/en/shop" />
     <link rel="alternate" href="https://example.com/en/shop" hreflang="en" />
-    <link rel="alternate" href="https://example.com/pt/loja" hreflang="pt" />
+    <link rel="alternate" href="https://example.com/pt/shop" hreflang="pt" />
     <link rel="alternate" href="https://example.com/en/shop" hreflang="x-default" />
 
     <!-- Structured data: ItemList -->
