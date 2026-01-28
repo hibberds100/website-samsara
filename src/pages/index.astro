@@ -1,4 +1,4 @@
 ---
-import { withBase } from "../lib/url";
-return Astro.redirect(withBase("/en/"));
+const base = (import.meta.env.BASE_URL ?? "/").replace(/\/?$/, "/"); // ensure trailing /
+return Astro.redirect(`${base}en/`);
 ---
