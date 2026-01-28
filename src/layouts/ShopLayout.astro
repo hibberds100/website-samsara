@@ -7,6 +7,16 @@ const {
   title = "Shop",
   description = "Browse handcrafted wooden products.",
 } = Astro.props;
+
+// ✅ GitHub Pages base path (e.g. /website-samsara)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
+// ✅ Sidebar links (BASE_URL-safe)
+const allProductsHref = href(`/${lang}/shop`);
+const choppingBoardsHref = href(`/${lang}/shop/chopping-boards`);
+const endGrainBoardsHref = href(`/${lang}/shop/end-grain-boards`);
+const servingBoardsHref = href(`/${lang}/shop/serving-boards`);
 ---
 
 <BaseLayout lang={lang} currentPage="shop" title={title} description={description}>
@@ -16,33 +26,32 @@ const {
       <aside class="shop-sidebar">
         <h2 class="shop-sidebar-title">Shop</h2>
 
-       <nav class="shop-nav">
-  <a href={`/${lang}/shop`} class={currentPage === "shop" ? "active" : ""}>
-    All Products
-  </a>
+        <nav class="shop-nav">
+          <a href={allProductsHref} class={currentPage === "shop" ? "active" : ""}>
+            All Products
+          </a>
 
-  <a
-    href={`/${lang}/shop/chopping-boards`}
-    class={currentPage === "chopping-boards" ? "active" : ""}
-  >
-    Chopping Boards
-  </a>
+          <a
+            href={choppingBoardsHref}
+            class={currentPage === "chopping-boards" ? "active" : ""}
+          >
+            Chopping Boards
+          </a>
 
-  <a
-    href={`/${lang}/shop/end-grain-boards`}
-    class={currentPage === "end-grain-boards" ? "active" : ""}
-  >
-    End-Grain Boards
-  </a>
+          <a
+            href={endGrainBoardsHref}
+            class={currentPage === "end-grain-boards" ? "active" : ""}
+          >
+            End-Grain Boards
+          </a>
 
-  <a
-    href={`/${lang}/shop/serving-boards`}
-    class={currentPage === "serving-boards" ? "active" : ""}
-  >
-    Serving Boards
-  </a>
-
-</nav>
+          <a
+            href={servingBoardsHref}
+            class={currentPage === "serving-boards" ? "active" : ""}
+          >
+            Serving Boards
+          </a>
+        </nav>
       </aside>
 
       <!-- RIGHT CONTENT -->
