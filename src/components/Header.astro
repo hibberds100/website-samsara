@@ -1,16 +1,26 @@
 ---
-import LanguageSwitcher from './LanguageSwitcher.astro';
-import CartIcon from './CartIcon.astro';
-import logoImg from '../assets/images/banners/Logo.png';
+import LanguageSwitcher from "./LanguageSwitcher.astro";
+import CartIcon from "./CartIcon.astro";
+import logoImg from "../assets/images/banners/Logo.png";
 
-const { lang = 'en', currentPage = '' } = Astro.props;
-const isPT = lang.startsWith('pt');
+const { lang = "en", currentPage = "" } = Astro.props;
+const isPT = lang.startsWith("pt");
 
-const homeHref = isPT ? '/pt/' : '/en/';
-const aboutHref = isPT ? '/pt/about' : '/en/about';
-const shopHref = isPT ? '/pt/shop' : '/en/shop';
-const bespokeHref = isPT ? '/pt/bespoke' : '/en/bespoke';
-const contactHref = isPT ? '/pt/contact' : '/en/contact';
+/**
+ * GitHub Pages uses a sub-path (e.g. /website-samsara)
+ * This derives the base path reliably in production and still works locally.
+ */
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+
+// Prefix internal paths with BASE_URL
+const href = (path: string) => `${basePath}${path}`;
+
+// Language routes
+const homeHref = href(isPT ? "/pt/" : "/en/");
+const aboutHref = href(isPT ? "/pt/about" : "/en/about");
+const shopHref = href(isPT ? "/pt/shop" : "/en/shop");
+const bespokeHref = href(isPT ? "/pt/bespoke" : "/en/bespoke");
+const contactHref = href(isPT ? "/pt/contact" : "/en/contact");
 ---
 <header class="site-header">
   <div class="header-inner">
