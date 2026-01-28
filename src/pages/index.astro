@@ -1,3 +1,18 @@
 ---
-return Astro.redirect(`${import.meta.env.BASE_URL}en/`);
+const to = `${import.meta.env.BASE_URL}en/`;
 ---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${to}`} />
+    <link rel="canonical" href={to} />
+  </head>
+  <body>
+    <script>
+      window.location.replace({JSON.stringify(to)});
+    </script>
+    <p>
+      Redirecting… <a href={to}>Continue</a>
+    </p>
+  </body>
+</html>
