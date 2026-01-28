@@ -16,7 +16,8 @@ const items = [
     blurb: "Premium hardwood boards made for kitchens that cook.",
     image: chopImg,
     alt: "Handcrafted hardwood chopping board on a linen surface",
-    href: "/en/shop/chopping-boards",
+    // ✅ relative to /en/shop/
+    href: "chopping-boards",
   },
   {
     slug: "end-grain-boards",
@@ -24,7 +25,8 @@ const items = [
     blurb: "Heavy-duty end-grain boards designed for durability and knife care.",
     image: endGrainImg,
     alt: "End-grain butcher block chopping board close-up",
-    href: "/en/shop/end-grain-boards",
+    // ✅ relative to /en/shop/
+    href: "end-grain-boards",
   },
   {
     slug: "serving-boards",
@@ -32,7 +34,8 @@ const items = [
     blurb: "Elegant boards designed for entertaining and presentation.",
     image: serveImg,
     alt: "Wooden serving board styled for entertaining",
-    href: "/en/shop/serving-boards",
+    // ✅ relative to /en/shop/
+    href: "serving-boards",
   },
   {
     slug: "bespoke",
@@ -40,7 +43,8 @@ const items = [
     blurb: "Made-to-measure pieces tailored to your space and daily use.",
     image: bespokeImg,
     alt: "Bespoke carpentry project in a workshop",
-    href: "/en/bespoke",
+    // ✅ go up from /en/shop/ -> /en/ then bespoke
+    href: "../bespoke",
   },
 ];
 ---
@@ -56,21 +60,43 @@ const items = [
       content="Explore handcrafted chopping boards, end-grain butcher blocks, serving boards, and bespoke carpentry made in Portugal using sustainably sourced hardwoods."
     />
 
+    <!-- Canonical + hreflang -->
     <link rel="canonical" href="https://example.com/en/shop" />
     <link rel="alternate" href="https://example.com/en/shop" hreflang="en" />
     <link rel="alternate" href="https://example.com/pt/shop" hreflang="pt" />
     <link rel="alternate" href="https://example.com/en/shop" hreflang="x-default" />
 
+    <!-- Structured data: ItemList -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "ItemList",
         "name": "Handcrafted wooden products",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Chopping Boards", "url": "https://example.com/en/shop/chopping-boards" },
-          { "@type": "ListItem", "position": 2, "name": "End-Grain Boards", "url": "https://example.com/en/shop/end-grain-boards" },
-          { "@type": "ListItem", "position": 3, "name": "Serving Boards", "url": "https://example.com/en/shop/serving-boards" },
-          { "@type": "ListItem", "position": 4, "name": "Bespoke Carpentry", "url": "https://example.com/en/bespoke" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Chopping Boards",
+            "url": "https://example.com/en/shop/chopping-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "End-Grain Boards",
+            "url": "https://example.com/en/shop/end-grain-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Serving Boards",
+            "url": "https://example.com/en/shop/serving-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Bespoke Carpentry",
+            "url": "https://example.com/en/bespoke"
+          }
         ]
       }
     </script>
