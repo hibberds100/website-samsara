@@ -3,6 +3,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
 import '../../assets/styles/pages/about.css';
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 const SITE_URL = 'https://example.com'; // ✅ change later
 
 const lang = 'pt';
@@ -133,8 +137,8 @@ const breadcrumbSchema = {
         <p class="about-lede">{copy.lede}</p>
 
         <div class="about-cta-row">
-          <a class="about-btn" href="/pt/contact">{copy.ctaPrimary}</a>
-          <a class="about-btn secondary" href="/pt/shop">{copy.ctaSecondary}</a>
+          <a class="about-btn" href={href("/pt/contact")}>{copy.ctaPrimary}</a>
+          <a class="about-btn secondary" href={href("/pt/shop")}>{copy.ctaSecondary}</a>
         </div>
       </header>
 
@@ -205,8 +209,8 @@ const breadcrumbSchema = {
             <strong>{copy.ctaTitle}</strong> {copy.ctaText}
           </p>
           <div class="about-cta-row">
-            <a class="about-btn" href="/pt/contact">{copy.ctaPrimary}</a>
-            <a class="about-btn secondary" href="/pt/shop">{copy.ctaSecondary}</a>
+            <a class="about-btn" href={href("/pt/contact")}>{copy.ctaPrimary}</a>
+            <a class="about-btn secondary" href={href("/pt/shop")}>{copy.ctaSecondary}</a>
           </div>
         </div>
       </div>
