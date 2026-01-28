@@ -1,32 +1,42 @@
 ---
 const { currentLang } = Astro.props;
 
-// Get current path (e.g. /en/contact or /pt/contact)
-const pathname = Astro.url.pathname;
+/**
+ * GitHub Pages base path (e.g. /website-samsara)
+ */
+const base = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 
-// Detect language from URL
-const isPT = pathname.startsWith('/pt');
-const isEN = pathname.startsWith('/en');
+// Current URL path (example: /website-samsara/en/contact)
+let pathname = Astro.url.pathname;
 
-// Strip language prefix to get base path
-let basePath = pathname;
-if (isPT) basePath = pathname.replace(/^\/pt/, '');
-if (isEN) basePath = pathname.replace(/^\/en/, '');
+// Remove BASE_URL from the front so language logic works
+if (base && pathname.startsWith(base)) {
+  pathname = pathname.slice(base.length) || "/";
+}
 
-// Ensure basePath is never empty
-if (basePath === '') basePath = '/';
+// Detect language
+const isPT = pathname.startsWith("/pt");
+const isEN = pathname.startsWith("/en");
 
-// Build correct language links for the SAME page
+// Remove language prefix
+let pagePath = pathname;
+if (isPT) pagePath = pathname.replace(/^\/pt/, "");
+if (isEN) pagePath = pathname.replace(/^\/en/, "");
+
+// Ensure not empty
+if (pagePath === "") pagePath = "/";
+
+// Build SAME PAGE links with BASE_URL added back
 const languages = [
   {
-    code: 'pt',
-    label: 'PT',
-    href: basePath === '/' ? '/pt/' : `/pt${basePath}`,
+    code: "pt",
+    label: "PT",
+    href: `${base}${pagePath === "/" ? "/pt/" : `/pt${pagePath}`}`,
   },
   {
-    code: 'en',
-    label: 'EN',
-    href: basePath === '/' ? '/en/' : `/en${basePath}`,
+    code: "en",
+    label: "EN",
+    href: `${base}${pagePath === "/" ? "/en/" : `/en${pagePath}`}`,
   },
 ];
 ---
@@ -36,7 +46,7 @@ const languages = [
     <>
       <a
         href={lang.href}
-        class={currentLang === lang.code ? 'active' : ''}
+        class={currentLang === lang.code ? "active" : ""}
       >
         {lang.label}
       </a>
