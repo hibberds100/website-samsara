@@ -10,13 +10,17 @@ const {
 
 // ✅ GitHub Pages base path (e.g. /website-samsara)
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
-const href = (path: string) => `${basePath}${path}`;
 
-// ✅ Sidebar links (BASE_URL-safe)
+// ✅ typed (fixes TS7006)
+const href = (path: string): string =>
+  `${basePath}${path.startsWith("/") ? path : `/${path}`}`;
+
+// ✅ Sidebar links
 const allProductsHref = href(`/${lang}/shop`);
 const choppingBoardsHref = href(`/${lang}/shop/chopping-boards`);
 const endGrainBoardsHref = href(`/${lang}/shop/end-grain-boards`);
 const servingBoardsHref = href(`/${lang}/shop/serving-boards`);
+---
 ---
 
 <BaseLayout lang={lang} currentPage="shop" title={title} description={description}>
