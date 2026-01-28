@@ -19,6 +19,10 @@ import work4 from '../../assets/images/products/product7.jpg';
 // Crafted with Purpose section image
 import craftedImage from '../../assets/images/products/workshop-craft.jpg';
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 // SEO-friendly image data (hero carousel)
 const galleryImages = [
   {
@@ -107,29 +111,29 @@ const galleryImages = [
     </script>
   </Fragment>
 
-<!-- HERO CAROUSEL -->
-<section class="hero-carousel" aria-label="Produtos em destaque">
-  <div class="carousel-wrapper">
-    <button class="hero-arrow hero-prev" aria-label="Imagem anterior">‹</button>
+  <!-- HERO CAROUSEL -->
+  <section class="hero-carousel" aria-label="Produtos em destaque">
+    <div class="carousel-wrapper">
+      <button class="hero-arrow hero-prev" aria-label="Imagem anterior">‹</button>
 
-    <div class="carousel-container">
-      {galleryImages.map((item, index) => (
-        <img
-          src={item.image.src}
-          width={item.image.width}
-          height={item.image.height}
-          alt={item.alt}
-          class={`carousel-image${index === 0 ? ' active' : ''}`}
-          loading={index === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-          fetchpriority={index === 0 ? 'high' : 'auto'}
-        />
-      ))}
+      <div class="carousel-container">
+        {galleryImages.map((item, index) => (
+          <img
+            src={item.image.src}
+            width={item.image.width}
+            height={item.image.height}
+            alt={item.alt}
+            class={`carousel-image${index === 0 ? ' active' : ''}`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            fetchpriority={index === 0 ? 'high' : 'auto'}
+          />
+        ))}
+      </div>
+
+      <button class="hero-arrow hero-next" aria-label="Imagem seguinte">›</button>
     </div>
-
-    <button class="hero-arrow hero-next" aria-label="Imagem seguinte">›</button>
-  </div>
-</section>
+  </section>
 
   <!-- Intro text -->
   <section class="intro-text page-container">
@@ -141,10 +145,10 @@ const galleryImages = [
       e de origem responsável.
     </p>
 
-    <!-- Buttons -->
+    <!-- Buttons (✅ fixed) -->
     <div class="hero-cta">
-      <a href="/pt/loja" class="btn">Comprar Produtos em Madeira</a>
-      <a href="/pt/por-medida" class="btn">Carpintaria por Medida</a>
+      <a href={href("/pt/loja")} class="btn">Comprar Produtos em Madeira</a>
+      <a href={href("/pt/por-medida")} class="btn">Carpintaria por Medida</a>
     </div>
   </section>
 
@@ -162,7 +166,7 @@ const galleryImages = [
     </header>
 
     <div class="work-grid">
-      <a class="work-card" href="/pt/loja/tabuas-de-cortar">
+      <a class="work-card" href={href("/pt/loja/tabuas-de-cortar")}>
         <div class="work-media">
           <img
             src={work1.src}
@@ -180,7 +184,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/pt/loja/tabuas-end-grain">
+      <a class="work-card" href={href("/pt/loja/tabuas-end-grain-boards")}>
         <div class="work-media">
           <img
             src={work2.src}
@@ -198,7 +202,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/pt/loja/tabuas-de-servir">
+      <a class="work-card" href={href("/pt/loja/tabuas-de-servir")}>
         <div class="work-media">
           <img
             src={work3.src}
@@ -216,7 +220,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/pt/por-medida">
+      <a class="work-card" href={href("/pt/por-medida")}>
         <div class="work-media">
           <img
             src={work4.src}
@@ -268,8 +272,8 @@ const galleryImages = [
           </li>
         </ul>
 
-        <!-- CTA -->
-        <a href="/pt/por-medida" class="text-link">
+        <!-- CTA (✅ fixed) -->
+        <a href={href("/pt/por-medida")} class="text-link">
           Falar sobre um projeto por medida →
         </a>
       </div>
