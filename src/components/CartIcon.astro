@@ -2,11 +2,16 @@
 const { lang = "en" } = Astro.props;
 const isPT = lang.startsWith("pt");
 
-// ✅ GitHub Pages base path support (same logic as Header)
-const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
-const href = (path: string) => `${basePath}${path}`;
+/**
+ * Derive GitHub Pages repo base from the current URL.
+ * - Local: /en/... or /pt/... => base ""
+ * - GH Pages: /website-samsara/en/... => base "/website-samsara"
+ */
+const parts = Astro.url.pathname.split("/").filter(Boolean);
+const first = parts[0] || "";
+const basePath = first === "en" || first === "pt" ? "" : `/${first}`;
 
-const cartHref = href(isPT ? "/pt/cart" : "/en/cart");
+const cartHref = `${basePath}${isPT ? "/pt/cart" : "/en/cart"}`;
 ---
 
 <a href={cartHref} class="cart-link" aria-label="View cart">
@@ -14,7 +19,6 @@ const cartHref = href(isPT ? "/pt/cart" : "/en/cart");
   <span class="cart-count" data-cart-count hidden>0</span>
 </a>
 
-<!-- Force plain browser JS (no TS checking / no imports) -->
 <script is:inline>
   function readCart() {
     try {
