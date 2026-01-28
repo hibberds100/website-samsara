@@ -1,0 +1,302 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../assets/styles/pages/bespoke.css";
+
+import img1 from "../../assets/images/products/bespoke1.jpg";
+import img2 from "../../assets/images/products/bespoke4.jpg";
+import img3 from "../../assets/images/products/bespoke2.jpg";
+import img4 from "../../assets/images/products/bespoke3.jpg";
+import img5 from "../../assets/images/products/bespoke5.jpg";
+import img6 from "../../assets/images/products/bespoke6.jpg";
+
+const lang = "pt";
+
+const bespokeImages = [
+  { image: img1, alt: "Projeto de carpintaria por medida — detalhe de encaixe e marcenaria" },
+  { image: img2, alt: "Projeto por medida — detalhe de mobiliário e acabamento" },
+  { image: img3, alt: "Projeto por medida — detalhe de prateleiras e iluminação" },
+  { image: img4, alt: "Projeto por medida — instalação feita à medida no local" },
+  { image: img5, alt: "Projeto por medida — consola meia-lua em carvalho maciço com padrão radial e pernas finas" },
+  { image: img6, alt: "Projeto por medida — prateleiras flutuantes em carvalho com iluminação quente integrada" },
+];
+---
+
+<BaseLayout lang={lang} currentPage="bespoke">
+  <section class="bespoke-hero">
+    <h1>Carpintaria por Medida</h1>
+    <p>
+      Encomende uma peça única em madeira — desenhada para o seu espaço,
+      as suas necessidades e o carácter natural de cada madeira.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#encomendar" class="btn-primary">Encomendar uma Peça</a>
+      <a href="#processo" class="btn-secondary">Como Funciona</a>
+    </div>
+  </section>
+
+  <section id="encomendar" class="bespoke-section split">
+    <div class="text">
+      <h2>Encomendar uma Peça</h2>
+
+      <p>
+        Cada projecto por medida começa com uma conversa. Seja uma mesa de jantar marcante,
+        um sistema de prateleiras para um estúdio, uma tábua de servir pensada para durar
+        gerações, ou uma peça funcional com carácter — desenhamos a partir da sua casa,
+        das suas rotinas e do seu estilo.
+      </p>
+
+      <p>
+        Ajudamos na escolha de proporções, encaixes e materiais para que o resultado final
+        seja intencional — não apenas “feito à medida”, mas verdadeiramente bem pensado.
+      </p>
+
+      <p><strong>Comissões típicas incluem:</strong></p>
+      <ul>
+        <li>Armários embutidos e arrumação à medida</li>
+        <li>Sistemas de prateleiras arquitectónicas para casas e estúdios</li>
+        <li>Mesas de jantar, mesas de centro, bancos e assentos</li>
+        <li>Peças de jardim — mesas exteriores, floreiras e assentos</li>
+        <li>Pequenas séries para restauração/hotelaria (tábuas, bandejas, peças de serviço)</li>
+      </ul>
+
+      <p>
+        Para começar, envie alguns detalhes (dimensões aproximadas, onde ficará a peça
+        e qualquer inspiração). Respondemos com os próximos passos, sugestões e uma estimativa inicial.
+      </p>
+    </div>
+
+    <!-- Carousel -->
+    <div class="image">
+      <div class="carousel-wrapper bespoke-carousel">
+        <button class="hero-arrow hero-prev" type="button" aria-label="Imagem anterior">‹</button>
+
+        <div class="carousel-container">
+          {bespokeImages.map((item, index) => (
+            <img
+              src={item.image.src}
+              width={item.image.width}
+              height={item.image.height}
+              alt={item.alt}
+              class={`carousel-image${index === 0 ? " active" : ""}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          ))}
+        </div>
+
+        <button class="hero-arrow hero-next" type="button" aria-label="Próxima imagem">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="processo" class="bespoke-section process">
+    <h2>Como Funciona</h2>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <span>01</span>
+        <h3>Consulta</h3>
+        <p>
+          Partilha a sua ideia, o espaço e o uso pretendido. Validamos dimensões, estilo
+          e detalhes práticos como peso, cantos, acabamento e manutenção.
+        </p>
+      </div>
+
+      <div class="process-card">
+        <span>02</span>
+        <h3>Desenho & Seleção de Materiais</h3>
+        <p>
+          Propomos madeiras, composição e acabamento. Em peças maiores, podemos fornecer
+          um esquema simples e confirmação final antes de iniciar a execução.
+        </p>
+      </div>
+
+      <div class="process-card">
+        <span>03</span>
+        <h3>Construção</h3>
+        <p>
+          A peça é construída à mão na nossa oficina, com atenção ao veio,
+          aos encaixes e à durabilidade ao longo do tempo.
+        </p>
+      </div>
+
+      <div class="process-card">
+        <span>04</span>
+        <h3>Acabamento & Entrega</h3>
+        <p>
+          Lixamos e finalizamos para uma superfície suave e protegida, embalamos com segurança
+          e entregamos. Incluímos recomendações de cuidado para manter a peça impecável.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="materiais" class="bespoke-section materials split reverse">
+    <div class="image">
+      <img src={img2.src} alt="Detalhe de madeira maciça" loading="lazy" decoding="async" />
+    </div>
+
+    <div class="text">
+      <h2>Materiais</h2>
+      <p>
+        Trabalhamos com madeiras duras de origem responsável, escolhidas pela beleza,
+        resistência e personalidade. Cada madeira traz uma “atmosfera” diferente —
+        do contraste marcado ao calor subtil.
+      </p>
+
+      <ul>
+        <li>
+          <strong>Nogueira</strong> — tom escuro e elegante, com veio sofisticado.
+          <br />Gostamos para peças marcantes e contrastes; acrescenta profundidade e presença.
+        </li>
+        <li>
+          <strong>Carvalho</strong> — intemporal, resistente e muito prático.
+          <br />Excelente para casas com uso diário; é durável, “perdoa” bem e envelhece lindamente.
+        </li>
+        <li>
+          <strong>Cerejeira</strong> — cor quente que aprofunda com o tempo.
+          <br />Ideal para um toque “herança”; ganha uma patina incrível com o uso.
+        </li>
+        <li>
+          <strong>Bordo (Maple)</strong> — claro, limpo e muito resistente.
+          <br />Ótimo para um look moderno e luminoso; excelente para tábuas e uso diário.
+        </li>
+        <li>
+          <strong>Freixo</strong> — tom claro com veio vivo e expressivo.
+          <br />Gosto especial pela textura e movimento; fica fresco e contemporâneo.
+        </li>
+        <li>
+          <strong>Faia</strong> — veio discreto e madeira muito estável.
+          <br />Uma escolha clássica para peças práticas; ótima para cozinha e durabilidade “oficina”.
+        </li>
+      </ul>
+
+      <p>
+        <strong>Acabamentos:</strong> ajustamos ao uso — óleos e ceras alimentares para tábuas,
+        e acabamentos mais protetores e resistentes para mobiliário.
+      </p>
+    </div>
+  </section>
+
+  <section id="faq" class="bespoke-section faq">
+    <h2>Perguntas Frequentes</h2>
+
+    <div class="faq-item">
+      <h3>Quanto tempo demora uma encomenda?</h3>
+      <p>
+        A maioria dos projectos demora 4–8 semanas, dependendo da complexidade,
+        disponibilidade de madeira e tempo de acabamento. Peças pequenas podem ser mais rápidas.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Como começo uma encomenda?</h3>
+      <p>
+        Envie-nos uma breve descrição, dimensões aproximadas, onde ficará a peça
+        e algumas referências (se tiver). A partir daí guiamos o processo.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Trabalham a partir de esboços do cliente ou referências do Pinterest?</h3>
+      <p>
+        Sim — referências ajudam muito. Transformamos a ideia num desenho executável,
+        com melhorias para resistência e longevidade.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Posso escolher a madeira e o acabamento?</h3>
+      <p>
+        Claro. Recomendamos opções consoante a função, paleta de cores do espaço
+        e como a peça irá envelhecer ao longo do tempo.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Quais são as gamas de preço?</h3>
+      <p>
+        O valor depende do tamanho, madeira, encaixes e acabamento. Assim que o briefing
+        estiver definido, enviamos um orçamento claro antes de iniciar a execução.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>É necessário sinal/adiantamento?</h3>
+      <p>
+        Normalmente pedimos um sinal para reservar materiais e tempo de oficina,
+        com o restante pago na conclusão antes da entrega.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Como funciona a entrega?</h3>
+      <p>
+        As peças são protegidas para transporte. A entrega depende do tamanho —
+        itens pequenos seguem por envio normal; peças maiores podem exigir transportadora/entrega combinada.
+      </p>
+    </div>
+
+    <div class="faq-item">
+      <h3>Como cuido de uma tábua de cortar?</h3>
+      <p>
+        Lavar à mão, não deixar de molho e re-olear quando a superfície parecer seca.
+        Enviamos instruções de cuidado com cada tábua.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>(".bespoke-carousel");
+  if (root) {
+    const images = root.querySelectorAll<HTMLImageElement>(".carousel-image");
+    const prevBtn = root.querySelector<HTMLButtonElement>(".hero-prev");
+    const nextBtn = root.querySelector<HTMLButtonElement>(".hero-next");
+
+    let current: number = 0;
+    let timer: number;
+
+    function showSlide(index: number): void {
+      images.forEach((img) => img.classList.remove("active"));
+      images[index].classList.add("active");
+    }
+
+    function nextSlide(): void {
+      current = (current + 1) % images.length;
+      showSlide(current);
+    }
+
+    function prevSlide(): void {
+      current = (current - 1 + images.length) % images.length;
+      showSlide(current);
+    }
+
+    function startAuto(): void {
+      timer = window.setInterval(nextSlide, 4000);
+    }
+
+    function resetAuto(): void {
+      window.clearInterval(timer);
+      startAuto();
+    }
+
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        nextSlide();
+        resetAuto();
+      });
+    }
+
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        prevSlide();
+        resetAuto();
+      });
+    }
+
+    showSlide(current);
+    startAuto();
+  }
+</script>

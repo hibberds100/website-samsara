@@ -1,0 +1,706 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const lang = "en";
+---
+
+<BaseLayout lang={lang} currentPage="">
+  <section class="cart-page">
+    <div class="cart-header">
+      <h1 class="cart-title-h1">Your Cart</h1>
+
+      <button id="clear-cart-btn" class="clear-cart" type="button" hidden>
+        Clear cart
+      </button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-totals">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">€0.00</strong>
+        </div>
+
+        <!-- ✅ Shipping country selector (needed for country rules UI) -->
+        <div class="totals-row">
+          <label for="ship-country">Shipping country</label>
+          <select id="ship-country" class="ship-country">
+            <option value="PT">Portugal</option>
+            <option value="ES">Spain</option>
+            <option value="EU">EU (other)</option>
+            <option value="UK">United Kingdom</option>
+            <option value="US">United States</option>
+            <option value="ROW">Rest of world</option>
+          </select>
+        </div>
+
+        <div class="totals-row">
+          <span>Shipping</span>
+          <strong id="cart-shipping">€0.00</strong>
+        </div>
+
+        <p class="shipping-estimate">
+          Estimated delivery: <strong>7–14 working days</strong>
+        </p>
+
+        <div class="totals-row totals-grand">
+          <span>Total</span>
+          <strong id="cart-total">€0.00</strong>
+        </div>
+      </div>
+
+      <div class="cart-consent" id="cart-consent">
+  <label class="consent-check">
+    <input id="agree-terms" type="checkbox" />
+    <span class="consent-text">
+      <span data-en="I agree to the" data-pt="Concordo com os"></span>
+      <a id="terms-link" class="consent-link" href="#">Terms &amp; Conditions</a>
+      <span data-en="and" data-pt="e a"></span>
+      <a id="privacy-link" class="consent-link" href="#">Privacy Policy</a>.
+    </span>
+  </label>
+</div>
+
+<button id="checkout-btn" type="button" disabled>
+  Proceed to Checkout
+</button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .cart-page {
+    max-width: 980px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .shipping-estimate{
+    margin: 0.75rem 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .shipping-estimate strong{ color: var(--heading); }
+
+  .cart-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cart-title-h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--heading);
+  }
+
+  .clear-cart {
+    border: 1px solid var(--border-soft);
+    background: rgba(255,255,255,0.55);
+    border-radius: 12px;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .clear-cart:hover { border-color: rgba(139, 90, 60, 0.45); color: var(--hover-dark); }
+
+  .cart-page #cart-items {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .cart-page .cart-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 120px;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    align-items: center;
+  }
+
+  .cart-page .cart-info { min-width: 0; }
+
+  .cart-page .cart-item-title {
+    font-weight: 900;
+    color: var(--heading);
+    margin: 0 0 0.25rem;
+    line-height: 1.25;
+  }
+
+  .cart-page .cart-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0.15rem 0;
+  }
+
+  .cart-page .cart-controls {
+    display: grid;
+    justify-items: end;
+    gap: 0.65rem;
+  }
+
+  .cart-page .line-total {
+    font-weight: 900;
+    color: var(--heading);
+    font-size: 1.05rem;
+  }
+
+  .cart-page .cart-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cart-page .qty-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--heading);
+  }
+  .cart-page .qty-btn:hover { border-color: rgba(139, 90, 60, 0.45); }
+
+  .cart-page .qty-value {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .cart-page .remove-btn {
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .cart-page .remove-btn:hover { border-color: rgba(139, 90, 60, 0.45); color: var(--hover-dark); }
+
+  .cart-page .cart-thumb {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    justify-self: end;
+    position: relative;
+  }
+
+  .cart-page .cart-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  .cart-page .cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .cart-page .cart-totals {
+    min-width: 300px;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .cart-page .totals-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    color: var(--ink);
+    align-items: center;
+  }
+
+  .cart-page .totals-row label {
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .cart-page .ship-country {
+    min-width: 200px;
+    height: 40px;
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 10px;
+    background: rgba(255,255,255,0.85);
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .cart-page .totals-grand {
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-soft);
+    font-size: 1.05rem;
+  }
+
+  .cart-page #checkout-btn {
+    padding: 0.9rem 1.4rem;
+    border-radius: 12px;
+    background: var(--brand);
+    color: white;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    white-space: nowrap;
+  }
+  .cart-page #checkout-btn:hover { background: var(--hover-dark); }
+  .cart-page #checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  @media (max-width: 720px) {
+    .cart-page .cart-item {
+      grid-template-columns: minmax(0, 1fr) 92px;
+      grid-template-areas:
+        "info thumb"
+        "controls controls";
+      align-items: start;
+    }
+
+    .cart-page .cart-info { grid-area: info; }
+    .cart-page .cart-controls { grid-area: controls; justify-items: start; margin-top: 0.5rem; }
+    .cart-page .cart-thumb { grid-area: thumb; width: 92px; height: 92px; justify-self: end; }
+
+    .cart-page .cart-footer { flex-direction: column; align-items: stretch; }
+    .cart-page .cart-totals { min-width: 0; width: 100%; }
+    .cart-page #checkout-btn { width: 100%; }
+
+    .cart-page .ship-country { width: 170px; }
+
+    /* ✅ Consent (Terms + Privacy) */
+.cart-page .cart-consent{
+  margin-top: 0.9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.55);
+}
+
+.cart-page .consent-check{
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  cursor: pointer;
+}
+
+.cart-page .consent-check input{
+  margin-top: 0.2rem;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--brand);
+}
+
+.cart-page .consent-text{
+  color: var(--ink);
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.cart-page .consent-link{
+  color: var(--brand);
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(139, 90, 60, 0.35);
+}
+
+.cart-page .consent-link:hover{
+  color: var(--hover-dark);
+  border-bottom-color: rgba(139, 90, 60, 0.6);
+}
+
+.cart-page .cart-consent.error{
+  border-color: rgba(200, 60, 60, 0.55);
+  box-shadow: 0 10px 18px rgba(200,60,60,0.08);
+}
+  }
+</style>
+
+<!-- ✅ is:inline keeps this as browser JS and avoids Astro/TS weirdness -->
+<script is:inline>
+  /*************************************************
+   * 0) Keys + Config
+   *************************************************/
+  const CART_KEY = "samsara_cart_v1";
+  const SHIPPING_COUNTRY_KEY = "samsara_ship_country_v1";
+  const AGREEMENT_KEY = "samsara_terms_ok_v1"; // remembers checkbox
+
+  const SHIPPING_RULES = {
+    PT: { perItem: 5.95, min: 0 },
+    ES: { perItem: 10.95, min: 0 },
+    EU: { perItem: 16.95, min: 0 },
+    UK: { perItem: 25.95, min: 0 },
+    US: { perItem: 40, min: 0 },
+    ROW: { perItem: 65, min: 0 },
+  };
+
+  /*************************************************
+   * 1) Helpers (formatting, safe image url)
+   *************************************************/
+  const euro = (n) => `€${Number(n || 0).toFixed(2)}`;
+
+  const cleanImageUrl = (val) => {
+    if (typeof val !== "string") return "";
+    const s = val.trim();
+    if (!s) return "";
+    if (s.startsWith("<")) return ""; // stops broken HTML being used as a URL
+    return s;
+  };
+
+  /*************************************************
+   * 2) Cart Storage (load/save)
+   *************************************************/
+  const loadCart = () => {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveCart = (cart) => {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart:updated"));
+  };
+
+  /*************************************************
+   * 3) Language + Legal links + Consent copy
+   *    - Sets /en/terms + /en/privacy OR /pt/terms + /pt/privacy
+   *    - Sets link text + "I agree..." small words
+   *************************************************/
+  const getLangBase = () => {
+    const p = window.location.pathname || "";
+    return p.startsWith("/pt") ? "/pt" : "/en";
+  };
+
+  const setConsentCopyAndLinks = () => {
+    const base = getLangBase();
+    const isPT = base === "/pt";
+
+    const termsLink = document.getElementById("terms-link");
+    const privacyLink = document.getElementById("privacy-link");
+
+    if (termsLink) {
+      termsLink.href = `${base}/terms`;
+      termsLink.textContent = isPT ? "Termos e Condições" : "Terms & Conditions";
+    }
+
+    if (privacyLink) {
+      privacyLink.href = `${base}/privacy`;
+      privacyLink.textContent = isPT ? "Política de Privacidade" : "Privacy Policy";
+    }
+
+    // Fill the small connector words from data-en / data-pt
+    document.querySelectorAll("[data-en][data-pt]").forEach((el) => {
+      el.textContent = (isPT ? el.getAttribute("data-pt") : el.getAttribute("data-en")) || "";
+      el.insertAdjacentText("beforeend", " ");
+    });
+  };
+
+  const isAgreed = () => localStorage.getItem(AGREEMENT_KEY) === "1";
+
+  /*************************************************
+   * 4) Shipping Country (persist + retrieve)
+   *************************************************/
+  const getShipCountry = () => {
+    const select = document.getElementById("ship-country");
+    if (select instanceof HTMLSelectElement && SHIPPING_RULES[select.value]) return select.value;
+
+    const saved = localStorage.getItem(SHIPPING_COUNTRY_KEY);
+    if (saved && SHIPPING_RULES[saved]) return saved;
+
+    return "PT";
+  };
+
+  /*************************************************
+   * 5) Checkout gating (cart must have items + agreed)
+   *************************************************/
+  const syncCheckoutState = () => {
+    const checkoutBtn = document.getElementById("checkout-btn");
+    const agree = document.getElementById("agree-terms");
+    const consentBox = document.getElementById("cart-consent");
+
+    if (!(checkoutBtn instanceof HTMLButtonElement)) return;
+    if (!(agree instanceof HTMLInputElement)) return;
+
+    const cart = loadCart();
+    const hasItems = cart.length > 0;
+    const ok = hasItems && agree.checked;
+
+    checkoutBtn.disabled = !ok;
+
+    // Remove error highlight once checked
+    if (ok && consentBox) consentBox.classList.remove("error");
+  };
+
+  /*************************************************
+   * 6) Render cart UI + totals
+   *    - Renders items
+   *    - Computes subtotal, shipping, total
+   *    - Calls syncCheckoutState() at end
+   *************************************************/
+  const renderCart = () => {
+    const itemsEl = document.getElementById("cart-items");
+    const subtotalEl = document.getElementById("cart-subtotal");
+    const shippingEl = document.getElementById("cart-shipping");
+    const totalEl = document.getElementById("cart-total");
+    const clearBtn = document.getElementById("clear-cart-btn");
+    const checkoutBtn = document.getElementById("checkout-btn");
+
+    if (!itemsEl || !subtotalEl || !shippingEl || !totalEl) return;
+    if (!(checkoutBtn instanceof HTMLButtonElement)) return;
+
+    const cart = loadCart();
+
+    if (clearBtn instanceof HTMLButtonElement) clearBtn.hidden = cart.length === 0;
+
+    if (!cart.length) {
+      itemsEl.innerHTML = "<p>Your cart is empty.</p>";
+      subtotalEl.textContent = "€0.00";
+      shippingEl.textContent = "€0.00";
+      totalEl.textContent = "€0.00";
+      syncCheckoutState();
+      return;
+    }
+
+    let subtotal = 0;
+    itemsEl.innerHTML = "";
+
+    cart.forEach((item, index) => {
+      const qty = Math.max(1, Number(item.qty || 1));
+      const price = Number(item.price || 0);
+      const lineTotal = qty * price;
+      subtotal += lineTotal;
+
+      const row = document.createElement("div");
+      row.className = "cart-item";
+
+      // Left (info)
+      const info = document.createElement("div");
+      info.className = "cart-info";
+
+      const title = document.createElement("div");
+      title.className = "cart-item-title";
+      title.textContent = item.title || item.slug || "Item";
+
+      const meta1 = document.createElement("div");
+      meta1.className = "cart-meta";
+      meta1.textContent = `Size: ${item.size || "-"}`;
+
+      const meta2 = document.createElement("div");
+      meta2.className = "cart-meta";
+      meta2.textContent = `Unit: ${euro(price)}`;
+
+      info.appendChild(title);
+      info.appendChild(meta1);
+      info.appendChild(meta2);
+
+      // Middle (controls)
+      const controls = document.createElement("div");
+      controls.className = "cart-controls";
+
+      const line = document.createElement("div");
+      line.className = "line-total";
+      line.textContent = euro(lineTotal);
+
+      const qtyWrap = document.createElement("div");
+      qtyWrap.className = "cart-qty";
+
+      const dec = document.createElement("button");
+      dec.className = "qty-btn";
+      dec.type = "button";
+      dec.setAttribute("aria-label", "Decrease quantity");
+      dec.dataset.dec = String(index);
+      dec.textContent = "−";
+
+      const qtyVal = document.createElement("span");
+      qtyVal.className = "qty-value";
+      qtyVal.textContent = String(qty);
+
+      const inc = document.createElement("button");
+      inc.className = "qty-btn";
+      inc.type = "button";
+      inc.setAttribute("aria-label", "Increase quantity");
+      inc.dataset.inc = String(index);
+      inc.textContent = "+";
+
+      qtyWrap.appendChild(dec);
+      qtyWrap.appendChild(qtyVal);
+      qtyWrap.appendChild(inc);
+
+      const remove = document.createElement("button");
+      remove.className = "remove-btn";
+      remove.type = "button";
+      remove.dataset.remove = String(index);
+      remove.textContent = "Remove";
+
+      controls.appendChild(line);
+      controls.appendChild(qtyWrap);
+      controls.appendChild(remove);
+
+      // Right (thumb)
+      const thumb = document.createElement("div");
+      thumb.className = "cart-thumb";
+
+      const imgUrl = cleanImageUrl(item.image);
+      if (imgUrl) {
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = item.title || item.slug || "Item";
+        img.loading = "lazy";
+        img.decoding = "async";
+        thumb.appendChild(img);
+      }
+
+      row.appendChild(info);
+      row.appendChild(controls);
+      row.appendChild(thumb);
+
+      itemsEl.appendChild(row);
+    });
+
+    // Totals
+    const totalQty = cart.reduce((sum, item) => sum + Number(item.qty || 0), 0);
+    const shipCountry = getShipCountry();
+    const rule = SHIPPING_RULES[shipCountry] || SHIPPING_RULES.PT;
+    const shipping = Math.max(Number(rule.min || 0), totalQty * Number(rule.perItem || 0));
+
+    subtotalEl.textContent = euro(subtotal);
+    shippingEl.textContent = euro(shipping);
+    totalEl.textContent = euro(subtotal + shipping);
+
+    syncCheckoutState();
+  };
+
+  /*************************************************
+   * 7) Cart interactions (inc/dec/remove)
+   *************************************************/
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const cart = loadCart();
+
+    if (target.dataset.inc) {
+      const i = Number(target.dataset.inc);
+      if (cart[i]) cart[i].qty = Math.max(1, Number(cart[i].qty || 1) + 1);
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+
+    if (target.dataset.dec) {
+      const i = Number(target.dataset.dec);
+      if (cart[i]) {
+        const next = Math.max(0, Number(cart[i].qty || 1) - 1);
+        if (next <= 0) cart.splice(i, 1);
+        else cart[i].qty = next;
+      }
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+
+    if (target.dataset.remove) {
+      const i = Number(target.dataset.remove);
+      if (cart[i]) cart.splice(i, 1);
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+  });
+
+  /*************************************************
+   * 8) DOM Ready:
+   *    - Set consent copy + links
+   *    - Restore shipping country
+   *    - Restore consent checkbox
+   *    - Wire up buttons
+   *    - First render
+   *************************************************/
+  document.addEventListener("DOMContentLoaded", () => {
+    // Legal links + language-specific text
+    setConsentCopyAndLinks();
+
+    // Restore agreement
+    const agree = document.getElementById("agree-terms");
+    if (agree instanceof HTMLInputElement) {
+      agree.checked = isAgreed();
+      agree.addEventListener("change", () => {
+        localStorage.setItem(AGREEMENT_KEY, agree.checked ? "1" : "0");
+        syncCheckoutState();
+      });
+    }
+
+    // Restore shipping country + update totals on change
+    const select = document.getElementById("ship-country");
+    if (select instanceof HTMLSelectElement) {
+      const saved = localStorage.getItem(SHIPPING_COUNTRY_KEY);
+      if (saved && SHIPPING_RULES[saved]) select.value = saved;
+      if (!localStorage.getItem(SHIPPING_COUNTRY_KEY)) {
+        localStorage.setItem(SHIPPING_COUNTRY_KEY, select.value || "PT");
+      }
+      select.addEventListener("change", () => {
+        localStorage.setItem(SHIPPING_COUNTRY_KEY, select.value);
+        renderCart();
+      });
+    }
+
+    // Clear cart
+    const clearBtn = document.getElementById("clear-cart-btn");
+    if (clearBtn instanceof HTMLButtonElement) {
+      clearBtn.addEventListener("click", () => {
+        const ok = confirm("Clear all items from your cart?");
+        if (!ok) return;
+        localStorage.removeItem(CART_KEY);
+        window.dispatchEvent(new Event("cart:updated"));
+        renderCart();
+      });
+    }
+
+    // Checkout click (enforce agreement + give friendly error highlight)
+    const checkoutBtn = document.getElementById("checkout-btn");
+    if (checkoutBtn instanceof HTMLButtonElement) {
+      checkoutBtn.addEventListener("click", () => {
+        const agree = document.getElementById("agree-terms");
+        const consentBox = document.getElementById("cart-consent");
+
+        if (!(agree instanceof HTMLInputElement) || !agree.checked) {
+          if (consentBox) consentBox.classList.add("error");
+          consentBox?.scrollIntoView({ behavior: "smooth", block: "center" });
+          return;
+        }
+
+        alert("Next step: Stripe Checkout");
+      });
+    }
+
+    // Initial render
+    renderCart();
+  });
+</script>

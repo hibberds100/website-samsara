@@ -1,0 +1,22 @@
+[
+  {
+    "id": "chopping-board-oak",
+    "name_pt": "Tábua de Corte Carvalho",
+    "name_en": "Oak Chopping Board",
+    "description_pt": "Tábua de corte artesanal de carvalho.",
+    "description_en": "Handmade oak chopping board.",
+    "price": 49.90,
+    "image": "/assets/images/products/chopping-board-oak.webp",
+    "stripe_url": "https://buy.stripe.com/your-product-link"
+  },
+  {
+    "id": "cutting-board-maple",
+    "name_pt": "Tábua de Corte Bordo",
+    "name_en": "Maple Cutting Board",
+    "description_pt": "Tábua de corte artesanal de bordo.",
+    "description_en": "Handmade maple cutting board.",
+    "price": 59.90,
+    "image": "/assets/images/products/cutting-board-maple.webp",
+    "stripe_url": "https://buy.stripe.com/your-product-link"
+  }
+]

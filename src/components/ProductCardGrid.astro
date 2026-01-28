@@ -1,0 +1,232 @@
+---
+import type { ImageMetadata } from "astro";
+
+export type CatalogItem = {
+  slug: string;
+  title: string;
+  blurb: string;
+  images: ImageMetadata[];
+  alts?: string[];
+  sizes: { label: string; price: number }[];
+};
+
+type Props = {
+  title: string;
+  intro?: string;
+  items?: CatalogItem[];
+  lang?: "en" | "pt";
+};
+
+const { title, intro, items = [], lang = "en" } = Astro.props;
+
+const t = {
+  selectSize: lang === "pt" ? "Escolher tamanho" : "Select size",
+  addToBasket: lang === "pt" ? "Adicionar" : "Add to basket",
+  added: lang === "pt" ? "Adicionado ✓" : "Added ✓",
+  prev: lang === "pt" ? "Anterior" : "Previous",
+  next: lang === "pt" ? "Seguinte" : "Next",
+};
+---
+
+<section class="shop-content" aria-label={title}>
+  <header class="shop-grid-header">
+    <h1 class="shop-grid-title">{title}</h1>
+    {intro && <p class="shop-grid-intro">{intro}</p>}
+  </header>
+
+  <div class="catalog-grid">
+    {items.map((item) => (
+      <article
+        class="catalog-card"
+        data-card
+        data-slug={item.slug}
+        data-image={item.images?.[0]?.src ?? ""}
+      >
+        <div class="catalog-media">
+          <div class="catalog-track" data-track>
+            {item.images.map((img, idx) => (
+              <div class="catalog-slide">
+                <img
+                  src={img.src}
+                  width={img.width}
+                  height={img.height}
+                  alt={item.alts?.[idx] ?? item.title}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+            ))}
+          </div>
+
+          {item.images.length > 1 && (
+            <div class="catalog-nav">
+              <button type="button" class="catalog-btn" data-prev aria-label={t.prev}>‹</button>
+              <button type="button" class="catalog-btn" data-next aria-label={t.next}>›</button>
+            </div>
+          )}
+        </div>
+
+        <div class="catalog-body">
+          <h2 class="catalog-title">{item.title}</h2>
+          <p class="catalog-desc">{item.blurb}</p>
+
+          <p class="catalog-price" data-price></p>
+
+          <div class="catalog-actions">
+            <label class="sr-only" for={`size-${item.slug}`}>{t.selectSize}</label>
+
+            <select id={`size-${item.slug}`} class="catalog-select" data-size>
+              <option value="">{t.selectSize}</option>
+              {item.sizes.map((s) => (
+                <option value={s.label} data-price={String(s.price)}>
+                  {s.label}
+                </option>
+              ))}
+            </select>
+
+            <button
+              type="button"
+              class="catalog-add"
+              data-add
+              data-label={t.addToBasket}
+              data-added={t.added}
+              disabled
+            >
+              {t.addToBasket}
+            </button>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  const CART_KEY = "samsara_cart_v1";
+
+  const getCart = () => {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveCart = (cart) => {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart:updated"));
+  };
+
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("[data-card]").forEach((card) => {
+      if (!(card instanceof HTMLElement)) return;
+
+      // ----- Carousel -----
+      const track = card.querySelector("[data-track]");
+      if (track instanceof HTMLElement) {
+        const slides = track.children.length;
+        let index = 0;
+
+        const update = () => {
+          track.style.transform = `translateX(-${index * 100}%)`;
+        };
+
+        const prev = card.querySelector("[data-prev]");
+        const next = card.querySelector("[data-next]");
+
+        if (prev instanceof HTMLButtonElement && next instanceof HTMLButtonElement && slides > 1) {
+          prev.addEventListener("click", () => {
+            index = (index - 1 + slides) % slides;
+            update();
+          });
+          next.addEventListener("click", () => {
+            index = (index + 1) % slides;
+            update();
+          });
+        }
+      }
+
+      // ----- Select + Price + Add -----
+      const select = card.querySelector("[data-size]");
+      const addBtn = card.querySelector("[data-add]");
+      const priceEl = card.querySelector("[data-price]");
+
+      if (!(select instanceof HTMLSelectElement)) return;
+      if (!(addBtn instanceof HTMLButtonElement)) return;
+      if (!(priceEl instanceof HTMLElement)) return;
+
+      const label = addBtn.dataset.label || "Add to basket";
+      const added = addBtn.dataset.added || "Added ✓";
+
+     const updateUI = () => {
+  // all available prices on this card
+  const prices = Array.from(select.options)
+    .map((o) => Number(o.dataset?.price))
+    .filter((n) => Number.isFinite(n));
+
+  const min = prices.length ? Math.min(...prices) : NaN;
+
+  const opt = select.selectedOptions?.[0];
+  const p = opt?.dataset?.price ? Number(opt.dataset.price) : NaN;
+
+  if (select.value && Number.isFinite(p)) {
+    // when a size is selected, show exact price
+    priceEl.textContent = `€${p.toFixed(2)}`;
+    addBtn.disabled = false;
+  } else {
+    // when no size selected, show "From €min"
+    priceEl.textContent = Number.isFinite(min) ? `From €${min.toFixed(2)}` : "";
+    addBtn.disabled = true;
+  }
+};
+
+      updateUI();
+      select.addEventListener("change", updateUI);
+
+      addBtn.addEventListener("click", () => {
+        const slug = card.getAttribute("data-slug");
+        const image = card.getAttribute("data-image") || "";
+        const size = select.value;
+
+        const opt = select.selectedOptions?.[0];
+        const price = opt?.dataset?.price ? Number(opt.dataset.price) : NaN;
+
+        const title =
+          card.querySelector(".catalog-title")?.textContent?.trim() || slug || "Item";
+
+        if (!slug || !size || !Number.isFinite(price)) return;
+
+        const cart = getCart();
+        const existing = cart.find((i) => i && i.slug === slug && i.size === size);
+
+        if (existing) {
+          existing.qty = (Number(existing.qty) || 0) + 1;
+          if (existing.price == null) existing.price = price;
+          if (!existing.title) existing.title = title;
+          if (!existing.image) existing.image = image;
+        } else {
+          cart.push({ slug, title, size, price, qty: 1, image });
+        }
+
+        saveCart(cart);
+
+        addBtn.textContent = added;
+        setTimeout(() => (addBtn.textContent = label), 900);
+      });
+    });
+  });
+</script>

@@ -1,0 +1,85 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const lang = "en";
+---
+
+<BaseLayout lang={lang} currentPage="">
+  <section class="legal-page">
+    <div class="legal-container">
+      <h1>Terms & Conditions</h1>
+      <p class="legal-updated">Last updated: 27 January 2026</p>
+
+      <p class="legal-intro">
+        By using this website or placing an order, you agree to these terms. They exist to ensure clarity,
+        fairness, and a smooth experience.
+      </p>
+
+      <h2>Products & materials</h2>
+      <p>Our items are handcrafted from real wood. As a natural material:</p>
+      <ul>
+        <li>Grain, colour, and markings vary from piece to piece</li>
+        <li>Knots and natural features may be present</li>
+        <li>Small variations are not defects — they are part of the character</li>
+        <li>Wood can shift subtly with temperature and humidity</li>
+      </ul>
+
+      <h2>Care & use</h2>
+      <ul>
+        <li>Do not soak wooden items</li>
+        <li>Do not use a dishwasher</li>
+        <li>Re-oil when the surface looks dry</li>
+      </ul>
+
+      <h2>Orders</h2>
+      <ul>
+        <li>Orders are confirmed once payment is received</li>
+        <li>If we cannot fulfil an order, we will refund you</li>
+      </ul>
+
+      <h2>Shipping</h2>
+      <ul>
+        <li>Delivery times are estimates</li>
+        <li>Courier delays and customs delays are outside our control</li>
+      </ul>
+
+      <h2>Returns & refunds</h2>
+      <ul>
+        <li>Contact us within 14 days of delivery to request a return</li>
+        <li>Items must be unused and returned in original condition</li>
+        <li>Custom / bespoke items are non-refundable unless faulty</li>
+        <li>Natural wood variation is not grounds for return</li>
+      </ul>
+
+      <h2>Damage in transit</h2>
+      <p>
+        If your order arrives damaged, contact us within 48 hours with photos so we can help quickly.
+      </p>
+
+      <h2>Liability</h2>
+      <ul>
+        <li>We are not responsible for misuse or improper care</li>
+        <li>We are not liable for indirect or consequential losses</li>
+      </ul>
+
+      <h2>Governing law</h2>
+      <p>These terms are governed by the laws of Portugal.</p>
+
+      <h2>Contact</h2>
+      <p>
+        For questions: <a href="mailto:samsara@samsara.pt">samsara@samsara.pt</a>
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.legal-page { padding: 5rem 1.5rem; }
+.legal-container { max-width: 760px; margin: 0 auto; }
+.legal-page h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+.legal-updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+.legal-intro { font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem; }
+.legal-page h2 { margin-top: 2.5rem; margin-bottom: 0.75rem; font-size: 1.25rem; }
+.legal-page p, .legal-page li { line-height: 1.7; color: var(--ink); }
+.legal-page ul { padding-left: 1.25rem; }
+.legal-page a { color: var(--brand); font-weight: 700; }
+</style>

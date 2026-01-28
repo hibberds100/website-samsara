@@ -1,0 +1,48 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductCardGrid from "../../../components/ProductCardGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+// ✅ Use whatever images you want (placeholders for now)
+import img1 from "../../../assets/images/products/product2.jpg";
+import img1b from "../../../assets/images/products/product2-1.jpg";
+import img1c from "../../../assets/images/products/product2-2.jpg";
+
+import img2 from "../../../assets/images/products/product3.jpg";
+import img2b from "../../../assets/images/products/product3-1.jpg";
+
+
+
+const lang = "en";
+
+const items = [
+  {
+    slug: "walnut-end-grain-butcher-block",
+    title: "Walnut End-Grain Butcher Block",
+    blurb:
+      "Heavy-duty end-grain butcher block made from rich walnut for excellent knife care, durability, and a premium kitchen feel — finished with food-safe oil.",
+    images: [img1, img1b, img1c],
+    alts: [
+      "Walnut end-grain butcher block chopping board",
+      "Walnut end-grain board detail close-up",
+      "Walnut butcher block board in kitchen setting",
+    ],
+    sizes: [
+{ label: "30x20x4cm - Medium", price: 62 },
+      { label: "42x29x4cm - Large", price: 85 },
+    ],
+  },
+
+ 
+
+];
+---
+
+<ShopLayout lang={lang} currentPage="end-grain-boards">
+  <ProductCardGrid
+    title="End-Grain Boards"
+    intro="Heavy-duty end-grain butcher blocks designed for durability and knife care — finished by hand and built to last."
+    items={items}
+    lang={lang}
+  />
+</ShopLayout>

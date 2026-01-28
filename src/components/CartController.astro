@@ -1,0 +1,85 @@
+<script>
+  const CART_KEY = "samsara_cart_v1";
+
+  /**
+   * Cart item shape (runtime-safe, no TS needed)
+   * {
+   *   slug: string
+   *   title?: string
+   *   size: string
+   *   qty: number
+   *   price?: number
+   * }
+   */
+
+  function getCart() {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const cart = raw ? JSON.parse(raw) : [];
+      return Array.isArray(cart) ? cart : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart:updated"));
+  }
+
+  function addToCart(detail) {
+    if (!detail?.slug || !detail?.size) return;
+
+    const cart = getCart();
+
+    const existing = cart.find(
+      (i) => i.slug === detail.slug && i.size === detail.size
+    );
+
+    if (existing) {
+      existing.qty += detail.qty ?? 1;
+    } else {
+      cart.push({
+        slug: detail.slug,
+        title: detail.title ?? detail.slug,
+        size: detail.size,
+        qty: detail.qty ?? 1,
+        price: detail.price ?? 0,
+      });
+    }
+
+    saveCart(cart);
+  }
+
+  function removeFromCart({ slug, size }) {
+    const cart = getCart().filter(
+      (i) => !(i.slug === slug && i.size === size)
+    );
+    saveCart(cart);
+  }
+
+  function updateQty({ slug, size, qty }) {
+    const cart = getCart();
+    const item = cart.find(
+      (i) => i.slug === slug && i.size === size
+    );
+
+    if (!item) return;
+
+    item.qty = Math.max(1, qty);
+    saveCart(cart);
+  }
+
+  // ---- Event listeners ----
+  window.addEventListener("cart:add", (e) => {
+    addToCart(e.detail);
+  });
+
+  window.addEventListener("cart:remove", (e) => {
+    removeFromCart(e.detail);
+  });
+
+  window.addEventListener("cart:update", (e) => {
+    updateQty(e.detail);
+  });
+</script>

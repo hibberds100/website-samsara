@@ -1,0 +1,42 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductCardGrid from "../../../components/ProductCardGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+import img1 from "../../../assets/images/products/product2.jpg";
+import img1b from "../../../assets/images/products/product2-1.jpg";
+import img1c from "../../../assets/images/products/product2-2.jpg";
+
+import img2 from "../../../assets/images/products/product3.jpg";
+import img2b from "../../../assets/images/products/product3-1.jpg";
+
+const lang = "pt";
+
+const items = [
+  {
+    slug: "walnut-end-grain-butcher-block",
+    title: "Bloco End-Grain em Nogueira",
+    blurb:
+      "Bloco de corte end-grain robusto feito em nogueira maciça, oferecendo excelente proteção para as lâminas, grande durabilidade e um acabamento premium — finalizado com óleo alimentar seguro.",
+    images: [img1, img1b, img1c],
+    alts: [
+      "Bloco de corte end-grain em nogueira",
+      "Detalhe do padrão end-grain em madeira de nogueira",
+      "Bloco de talho em nogueira numa bancada de cozinha",
+    ],
+    sizes: [
+      { label: "30x20x4cm - Médio", price: 62 },
+      { label: "42x29x4cm - Grande", price: 85 },
+    ],
+  },
+];
+---
+
+<ShopLayout lang={lang} currentPage="end-grain-boards">
+  <ProductCardGrid
+    title="Tábuas End-Grain"
+    intro="Blocos de corte end-grain resistentes, concebidos para durabilidade e cuidado com as facas — acabados à mão e feitos para durar."
+    items={items}
+    lang={lang}
+  />
+</ShopLayout>

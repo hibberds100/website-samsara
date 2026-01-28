@@ -1,0 +1,110 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductGrid from "../../../components/ProductGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+// Category card images
+import chopImg from "../../../assets/images/products/product1.jpg";
+import endGrainImg from "../../../assets/images/products/product2.jpg";
+import serveImg from "../../../assets/images/products/product4.jpg";
+import bespokeImg from "../../../assets/images/products/product7.jpg";
+
+const items = [
+  {
+    slug: "chopping-boards",
+    title: "Chopping Boards",
+    blurb: "Premium hardwood boards made for kitchens that cook.",
+    image: chopImg,
+    alt: "Handcrafted hardwood chopping board on a linen surface",
+    href: "/en/shop/chopping-boards",
+  },
+  {
+    slug: "end-grain-boards",
+    title: "End-Grain Boards",
+    blurb: "Heavy-duty end-grain boards designed for durability and knife care.",
+    image: endGrainImg,
+    alt: "End-grain butcher block chopping board close-up",
+    href: "/en/shop/end-grain-boards",
+  },
+  {
+    slug: "serving-boards",
+    title: "Serving Boards",
+    blurb: "Elegant boards designed for entertaining and presentation.",
+    image: serveImg,
+    alt: "Wooden serving board styled for entertaining",
+    href: "/en/shop/serving-boards",
+  },
+  {
+    slug: "bespoke",
+    title: "Bespoke Carpentry",
+    blurb: "Made-to-measure pieces tailored to your space and daily use.",
+    image: bespokeImg,
+    alt: "Bespoke carpentry project in a workshop",
+    href: "/en/bespoke",
+  },
+];
+---
+
+<ShopLayout lang="en" currentPage="shop">
+  <!-- SEO: Title -->
+  <Fragment slot="title">
+    Shop Handcrafted Wooden Boards & Bespoke Carpentry | Samsara
+  </Fragment>
+
+  <!-- SEO: Meta + Structured Data -->
+  <Fragment slot="head">
+    <meta
+      name="description"
+      content="Explore handcrafted chopping boards, end-grain butcher blocks, serving boards, and bespoke carpentry made in Portugal using sustainably sourced hardwoods."
+    />
+
+    <!-- Canonical + hreflang -->
+    <link rel="canonical" href="https://example.com/en/shop" />
+    <link rel="alternate" href="https://example.com/en/shop" hreflang="en" />
+    <link rel="alternate" href="https://example.com/pt/loja" hreflang="pt" />
+    <link rel="alternate" href="https://example.com/en/shop" hreflang="x-default" />
+
+    <!-- Structured data: ItemList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Handcrafted wooden products",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Chopping Boards",
+            "url": "https://example.com/en/shop/chopping-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "End-Grain Boards",
+            "url": "https://example.com/en/shop/end-grain-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Serving Boards",
+            "url": "https://example.com/en/shop/serving-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Bespoke Carpentry",
+            "url": "https://example.com/en/bespoke"
+          }
+        ]
+      }
+    </script>
+  </Fragment>
+
+  <!-- Category grid -->
+  <ProductGrid
+    title="All Products"
+    intro="Discover functional wooden pieces for kitchens and interiors — made to last and finished by hand."
+    items={items}
+    lang="en"
+  />
+</ShopLayout>

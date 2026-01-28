@@ -1,0 +1,55 @@
+---
+import type { ImageMetadata } from "astro";
+
+export type ProductItem = {
+  slug: string;
+  title: string;
+  blurb: string;
+  image: ImageMetadata;
+  alt: string;
+  href: string;
+};
+
+type Props = {
+  title: string;
+  intro?: string;
+  items: ProductItem[];
+  lang?: "en" | "pt";
+};
+
+const { title, intro, items, lang = "en" } = Astro.props;
+
+const t = {
+  view: lang === "pt" ? "Ver" : "View",
+};
+---
+
+<section class="shop-content" aria-label={title}>
+  <header class="shop-grid-header">
+    <h1 class="shop-grid-title">{title}</h1>
+    {intro && <p class="shop-grid-intro">{intro}</p>}
+  </header>
+
+  <div class="product-grid">
+    {items.map((item) => (
+      <a class="product-card" href={item.href}>
+        <div class="product-media">
+          <img
+            src={item.image.src}
+            width={item.image.width}
+            height={item.image.height}
+            alt={item.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+
+        <div class="product-body">
+          <h2 class="product-title">{item.title}</h2>
+          <p class="product-blurb">{item.blurb}</p>
+          <span class="product-link">{t.view} →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

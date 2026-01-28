@@ -1,0 +1,54 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+
+const {
+  lang = "en",
+  currentPage = "",
+  title = "Shop",
+  description = "Browse handcrafted wooden products.",
+} = Astro.props;
+---
+
+<BaseLayout lang={lang} currentPage="shop" title={title} description={description}>
+  <section class="shop-shell">
+    <div class="shop-container">
+      <!-- LEFT SIDEBAR -->
+      <aside class="shop-sidebar">
+        <h2 class="shop-sidebar-title">Shop</h2>
+
+       <nav class="shop-nav">
+  <a href={`/${lang}/shop`} class={currentPage === "shop" ? "active" : ""}>
+    All Products
+  </a>
+
+  <a
+    href={`/${lang}/shop/chopping-boards`}
+    class={currentPage === "chopping-boards" ? "active" : ""}
+  >
+    Chopping Boards
+  </a>
+
+  <a
+    href={`/${lang}/shop/end-grain-boards`}
+    class={currentPage === "end-grain-boards" ? "active" : ""}
+  >
+    End-Grain Boards
+  </a>
+
+  <a
+    href={`/${lang}/shop/serving-boards`}
+    class={currentPage === "serving-boards" ? "active" : ""}
+  >
+    Serving Boards
+  </a>
+
+</nav>
+      </aside>
+
+      <!-- RIGHT CONTENT -->
+      <main class="shop-content">
+        <slot />
+      </main>
+    </div>
+  </section>
+</BaseLayout>

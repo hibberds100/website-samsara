@@ -1,0 +1,42 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductCardGrid from "../../../components/ProductCardGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+// ✅ Use whatever images you want (placeholders for now)
+import img1 from "../../../assets/images/products/product4.jpg";
+import img1b from "../../../assets/images/products/product4-1.jpg";
+
+
+const lang = "en";
+
+const items = [
+{
+  slug: "walnut-serving-board",
+  title: "Walnut Charcuterie & Serving Board",
+  blurb:
+    "Handcrafted solid walnut serving board featuring deep, natural grain and a sculpted handle. Perfect for charcuterie, cheeses, bread, and relaxed entertaining — finished with food-safe oil to enhance durability and highlight the wood’s rich character.",
+  images: [img1, img1b],
+  alts: [
+    "Solid walnut charcuterie serving board with handle on stone surface",
+    "Close-up of rich walnut wood grain on handcrafted serving board",
+    "Walnut serving board styled for cheese and entertaining",
+  ],
+  sizes: [
+    { label: "50x25cm - Medium", price: 55 },
+    { label: "75x40cm - Large", price: 75 },
+    { label: "110x45cm - X-Large", price: 95 },
+  ],
+}
+
+]
+---
+
+<ShopLayout lang={lang} currentPage="serving-boards">
+  <ProductCardGrid
+    title="Serving Boards"
+    intro="Elegant boards designed for entertaining and presentation — finished by hand and made to last."
+    items={items}
+    lang={lang}
+  />
+</ShopLayout>

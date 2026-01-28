@@ -1,0 +1,387 @@
+/* =====================================================
+   SHOP CSS
+   Contents
+   1) Shell + Layout
+   2) Sidebar Nav
+   3) /en/shop Category Grid (ProductGrid cards)
+   4) Category Product Catalog (ProductCardGrid cards)
+      4a) Catalog Card
+      4b) Carousel
+      4c) Body + Actions
+      4d) Dropdown visibility fix (single source of truth)
+   5) Responsive
+===================================================== */
+
+/* =====================================================
+   1) Shell + Layout
+===================================================== */
+.shop-shell {
+  padding: 4rem 1.5rem 5rem;
+  background: var(--linen);
+}
+
+.shop-container {
+  width: 100%;
+  max-width: 1600px;
+  margin-left: 0;
+  margin-right: auto;
+
+  display: grid;
+  grid-template-columns: 320px minmax(0, 1fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.shop-content { min-width: 0; }
+
+/* =====================================================
+   2) Sidebar Nav
+===================================================== */
+.shop-sidebar {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+  align-self: start;
+  height: fit-content;
+}
+
+.shop-sidebar-title {
+  margin: 0 0 1.25rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--heading);
+}
+
+.shop-nav {
+  position: sticky;
+  top: 140px;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.shop-nav a {
+  display: block;
+  padding: 0.5rem 0 0.5rem 0.9rem;
+
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+
+  color: var(--muted);
+  border-left: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.shop-nav a:hover,
+.shop-nav a:focus {
+  color: var(--hover-dark);
+}
+
+.shop-nav a.active {
+  color: var(--heading);
+  border-left-color: var(--brand);
+}
+
+/* =====================================================
+   3) /en/shop Category Grid (ProductGrid cards)
+===================================================== */
+.shop-grid-header { margin: 0 0 1.75rem; }
+
+.shop-grid-title {
+  margin: 0 0 0.5rem;
+  font-family: ui-serif, Georgia, serif;
+  font-size: 2.35rem;
+  line-height: 1.1;
+  color: var(--heading);
+}
+
+.shop-grid-intro {
+  margin: 0;
+  max-width: 72ch;
+  color: var(--muted);
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.product-card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  border-radius: 14px;
+  overflow: hidden;
+
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.product-card:hover,
+.product-card:focus {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.09);
+  border-color: rgba(139, 90, 60, 0.35);
+}
+
+.product-media {
+  aspect-ratio: 16 / 10;
+  background: var(--carousel-bg);
+  overflow: hidden;
+}
+
+.product-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* 👈 THIS fixes the zoom */
+  background: var(--carousel-bg);
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover .product-media img,
+.product-card:focus .product-media img {
+  transform: scale(1.03);
+}
+
+.product-body { padding: 1.25rem 1.25rem 1.15rem; }
+
+.product-title {
+  margin: 0 0 0.55rem;
+  font-size: 1.1rem;
+  color: var(--heading);
+}
+
+.product-blurb {
+  margin: 0 0 1rem;
+  color: var(--muted);
+}
+
+.product-link {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  color: var(--brand);
+}
+
+.product-card:hover .product-link,
+.product-card:focus .product-link {
+  color: var(--hover-dark);
+}
+
+/* =====================================================
+   4) Category Product Catalog (ProductCardGrid cards)
+===================================================== */
+
+/* 4a) Grid + Card */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.catalog-card {
+  border-radius: 14px;
+
+  /* IMPORTANT: keep dropdown menu from being clipped */
+  overflow: visible;
+
+  background: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.catalog-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.09);
+  border-color: rgba(139, 90, 60, 0.35);
+}
+
+/* 4b) Carousel */
+.catalog-media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--carousel-bg);
+
+  overflow: hidden;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+
+.catalog-track {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transform: translateX(0);
+  transition: transform 0.35s ease;
+}
+
+.catalog-slide { flex: 0 0 100%; height: 100%; }
+
+.catalog-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;           /* zooms OUT */
+  object-position: center;
+  background: var(--carousel-bg); /* avoids empty transparent look */
+  display: block;
+}
+
+.catalog-nav {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem;
+  pointer-events: none;
+}
+
+.catalog-btn {
+  pointer-events: auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgba(222, 214, 206, 0.9);
+  background: rgba(246, 241, 235, 0.85);
+  color: var(--brand);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.catalog-btn:hover,
+.catalog-btn:focus {
+  background: var(--brand);
+  color: var(--linen);
+  transform: translateY(-1px);
+}
+
+/* 4c) Body + Actions */
+.catalog-body {
+  padding: 1.25rem 1.25rem 1.15rem;
+}
+
+.catalog-title {
+  margin: 0 0 0.45rem;
+  font-size: 1.1rem;
+  color: var(--heading);
+}
+
+.catalog-desc {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+}
+
+.catalog-price {
+  margin: 0 0 0.85rem;
+  font-weight: 700;
+  color: var(--heading);
+  letter-spacing: 0.02em;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.catalog-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.catalog-select {
+  flex: 1 1 260px;
+  min-width: 220px;
+  height: 44px;
+  padding: 0.6rem 0.85rem;
+
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  font-weight: 600;
+  outline: none;
+}
+
+.catalog-add {
+  height: 44px;
+  border: 1px solid rgba(139, 90, 60, 0.55);
+  background: var(--brand);
+  color: var(--linen);
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 10px;
+  padding: 0 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  white-space: nowrap;
+}
+
+.catalog-add:hover,
+.catalog-add:focus {
+  background: var(--hover-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.1);
+}
+
+.catalog-add:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* 4d) Dropdown visibility fix (SINGLE source of truth)
+   If options are still blank, your global theme is setting
+   select/option text-fill to transparent. This overrides it. */
+.catalog-select,
+.catalog-select option {
+  background-color: #fff !important;
+  color: #111 !important;
+  -webkit-text-fill-color: #111 !important;
+}
+
+/* =====================================================
+   5) Responsive
+===================================================== */
+@media (max-width: 980px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .catalog-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .shop-container {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .shop-nav {
+    position: relative;
+    top: auto;
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shop-nav a {
+    white-space: nowrap;
+    padding: 0.4rem 0;
+    border-left: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  .shop-nav a.active { border-bottom-color: var(--brand); }
+  .shop-sidebar { height: fit-content; }
+}

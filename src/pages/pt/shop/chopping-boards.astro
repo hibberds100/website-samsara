@@ -1,0 +1,130 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductCardGrid from "../../../components/ProductCardGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+import img1 from "../../../assets/images/products/product1.jpg";
+import img1b from "../../../assets/images/products/product1-1.jpg";
+import img1c from "../../../assets/images/products/product1-2.jpg";
+
+import img2 from "../../../assets/images/products/product3.jpg";
+import img2b from "../../../assets/images/products/product3-1.jpg";
+import img2c from "../../../assets/images/products/product3-2.jpg";
+
+import img3 from "../../../assets/images/products/product5.jpg";
+import img3b from "../../../assets/images/products/product5-1.jpg";
+
+import img4 from "../../../assets/images/products/product6.jpg";
+import img4b from "../../../assets/images/products/product6-1.jpg";
+
+import img8 from "../../../assets/images/products/product8.jpg";
+import img8b from "../../../assets/images/products/product8-1.jpg";
+
+const lang = "pt";
+
+const items = [
+  {
+    slug: "walnut-cherry-board",
+    title: "Tábua de Cortar em Nogueira & Cerejeira",
+    blurb:
+      "Tábua de cortar premium feita à mão em nogueira rica e cerejeira quente, finalizada com óleo alimentar para durabilidade e uso diário na cozinha.",
+    images: [img1, img1b, img1c],
+    alts: [
+      "Tábua de cortar em nogueira e cerejeira",
+      "Detalhe da tábua de cortar em nogueira e cerejeira",
+      "Vista lateral da tábua de cortar em nogueira e cerejeira",
+    ],
+    sizes: [
+      { label: "20x15cm - Pequena", price: 50 },
+      { label: "30x20cm - Média", price: 65 },
+      { label: "42x27cm - Grande", price: 75 },
+      { label: "60x32cm - Extra Grande", price: 95 },
+    ],
+  },
+
+  {
+    slug: "oak-walnut-padauk-chopping-board",
+    title: "Tábua de Cortar em Carvalho, Nogueira & Padauk",
+    blurb:
+      "Tábua de cortar premium feita à mão em carvalho maciço, nogueira rica e padauk vibrante, finalizada com óleo alimentar para durabilidade e uso diário na cozinha.",
+    images: [img2, img2b, img2c],
+    alts: [
+      "Tábua de cortar em carvalho, nogueira e padauk",
+      "Close-up do veio da madeira em carvalho, nogueira e padauk",
+      "Tábua de cortar artesanal em madeira na oficina",
+    ],
+    sizes: [
+      { label: "20x15cm - Pequena", price: 50 },
+      { label: "30x20cm - Média", price: 65 },
+      { label: "42x27cm - Grande", price: 75 },
+      { label: "60x32cm - Extra Grande", price: 95 },
+    ],
+  },
+
+  {
+    slug: "padauk-oak-contrast-chopping-board",
+    title: "Tábua de Cortar em Padauk & Carvalho (Contraste)",
+    blurb:
+      "Tábua de cortar premium feita à mão em padauk vermelho vibrante e carvalho claro em contraste, finalizada com óleo alimentar para durabilidade e uso diário na cozinha.",
+    images: [img3, img3b],
+    alts: [
+      "Tábua de cortar em padauk e carvalho",
+      "Close-up do padauk vermelho com contraste em carvalho",
+      "Tábua de cortar artesanal em padauk e carvalho",
+    ],
+    sizes: [
+      { label: "20x15cm - Pequena", price: 50 },
+      { label: "30x20cm - Média", price: 65 },
+      { label: "42x27cm - Grande", price: 75 },
+      { label: "60x32cm - Extra Grande", price: 95 },
+    ],
+  },
+
+  {
+    slug: "cherry-oak-walnut-contrast-chopping-board",
+    title: "Tábua de Cortar em Cerejeira, Carvalho & Nogueira (Contraste)",
+    blurb:
+      "Tábua de cortar premium feita à mão em cerejeira rica, carvalho resistente e faixas de contraste em nogueira escura, com canal de sucos integrado e acabamento em óleo alimentar para desempenho duradouro e uso diário na cozinha.",
+    images: [img4, img4b],
+    alts: [
+      "Tábua de cortar em cerejeira, carvalho e nogueira com canal de sucos",
+      "Close-up do veio da cerejeira com detalhe das faixas em carvalho e nogueira",
+      "Tábua de cortar artesanal em cerejeira, carvalho e nogueira numa superfície rústica",
+    ],
+    sizes: [
+      { label: "20x15cm - Pequena", price: 50 },
+      { label: "30x20cm - Média", price: 65 },
+      { label: "42x27cm - Grande", price: 75 },
+      { label: "60x32cm - Extra Grande", price: 95 },
+    ],
+  },
+
+  {
+    slug: "oak-walnut-contrast-chopping-board",
+    title: "Tábua de Cortar em Carvalho & Nogueira (Contraste)",
+    blurb:
+      "Tábua de cortar premium feita à mão em carvalho resistente com faixas de contraste em nogueira escura, com canal de sucos integrado e acabamento em óleo alimentar para durabilidade e desempenho no uso diário.",
+    images: [img8, img8b],
+    alts: [
+      "Tábua de cortar em carvalho e nogueira com canal de sucos",
+      "Detalhe do veio do carvalho e das faixas de contraste em nogueira",
+      "Tábua de cortar artesanal em carvalho e nogueira numa superfície rústica",
+    ],
+    sizes: [
+      { label: "20x15cm - Pequena", price: 50 },
+      { label: "30x20cm - Média", price: 65 },
+      { label: "42x27cm - Grande", price: 75 },
+      { label: "60x32cm - Extra Grande", price: 95 },
+    ],
+  },
+];
+---
+
+<ShopLayout lang={lang} currentPage="chopping-boards">
+  <ProductCardGrid
+    title="Tábuas de Cortar"
+    intro="Tábuas de cortar premium em madeiras duras — acabadas à mão e construídas para durar."
+    items={items}
+    lang={lang}
+  />
+</ShopLayout>

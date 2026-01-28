@@ -1,0 +1,196 @@
+---
+type Lang = "en" | "pt";
+type LinkTuple = readonly [label: string, href: string];
+
+type Copy = {
+  brand: string;
+  tagline: string;
+
+  shop: string;
+  shopLinks: readonly LinkTuple[];
+
+  bespoke: string;
+  bespokeLinks: readonly LinkTuple[];
+
+  contact: string;
+  madeIn: string;
+  emailLabel: string;
+  emailHref: string;
+  phoneLabel: string;
+  phoneHref: string;
+  quote: string;
+  quoteHref: string;
+
+  instagramLabel: string;
+  instagramHref: string;
+
+  rights: string;
+  privacy: string;
+  terms: string;
+};
+
+const pathname = Astro.url.pathname;
+const isPT = pathname === "/pt" || pathname.startsWith("/pt/");
+const base = isPT ? "/pt" : "/en";
+
+const withLang = (href: string): string => {
+  if (!href) return href;
+
+  if (/^https?:\/\//i.test(href)) return href;
+  if (href.startsWith("mailto:")) return href;
+  if (href.startsWith("tel:")) return href;
+
+  // Already has language prefix
+  if (href === "/pt" || href.startsWith("/pt/")) return href;
+  if (href === "/en" || href.startsWith("/en/")) return href;
+
+  // Prefix internal routes
+  return `${base}${href.startsWith("/") ? "" : "/"}${href}`;
+};
+
+// ✅ Hard, correct legal URLs (language-aware)
+// Always /en/terms, /pt/terms, /en/privacy, /pt/privacy
+const legal = {
+  terms: `${base}/terms`,
+  privacy: `${base}/privacy`,
+};
+
+const t: Record<Lang, Copy> = {
+  en: {
+    brand: "Samsara",
+    tagline:
+      "Handcrafted chopping boards, serving boards, end-grain butcher blocks, and bespoke carpentry — made from sustainably sourced hardwoods.",
+
+    shop: "Shop",
+    shopLinks: [
+      ["Shop Home", "/shop"],
+      ["Chopping Boards", "/shop/chopping-boards"],
+      ["End-Grain Boards", "/shop/end-grain-boards"],
+      ["Serving Boards", "/shop/serving-boards"],
+      ["Your Cart", "/cart"],
+    ],
+
+    bespoke: "Bespoke",
+    bespokeLinks: [
+      ["Bespoke Page", "/bespoke"],
+      ["How It Works", "/bespoke#process"],
+      ["Materials", "/bespoke#materials"],
+      ["Bespoke FAQ", "/bespoke#faq"],
+    ],
+
+    contact: "Contact",
+    madeIn: "Made in Portugal",
+    emailLabel: "samsara@samsara.pt",
+    emailHref: "mailto:samsara@samsara.pt",
+    phoneLabel: "+351 915 639 435",
+    phoneHref: "tel:+351915639435",
+    quote: "Request a Quote",
+    quoteHref: "/contact",
+
+    instagramLabel: "Instagram",
+    instagramHref: "https://www.instagram.com/samsara_carpentrystudios/",
+
+    rights: "All rights reserved.",
+    privacy: "Privacy",
+    terms: "Terms",
+  },
+
+  pt: {
+    brand: "Samsara",
+    tagline:
+      "Tábuas de cortar artesanais, tábuas de servir, blocos end-grain e carpintaria por medida — feitos com madeiras de origem responsável.",
+
+    shop: "Loja",
+    shopLinks: [
+      ["Loja", "/shop"],
+      ["Tábuas de Cortar", "/shop/chopping-boards"],
+      ["Tábuas End-Grain", "/shop/end-grain-boards"],
+      ["Tábuas de Servir", "/shop/serving-boards"],
+      ["Carrinho", "/cart"],
+    ],
+
+    bespoke: "Por Medida",
+    bespokeLinks: [
+      ["Carpintaria por Medida", "/bespoke"],
+      ["Como Funciona", "/bespoke#process"],
+      ["Materiais", "/bespoke#materials"],
+      ["Perguntas Frequentes", "/bespoke#faq"],
+    ],
+
+    contact: "Contacto",
+    madeIn: "Feito em Portugal",
+    emailLabel: "samsara@samsara.pt",
+    emailHref: "mailto:samsara@samsara.pt",
+    phoneLabel: "+351 915 639 435",
+    phoneHref: "tel:+351915639435",
+    quote: "Pedir Orçamento",
+    quoteHref: "/contact",
+
+    instagramLabel: "Instagram",
+    instagramHref: "https://www.instagram.com/samsara_carpentrystudios/",
+
+    rights: "Todos os direitos reservados.",
+    privacy: "Privacidade",
+    terms: "Termos",
+  },
+};
+
+const copy = isPT ? t.pt : t.en;
+const homeHref = `${base}/`;
+---
+
+<footer class="site-footer" role="contentinfo">
+  <div class="page-container footer-grid">
+    <div class="footer-brand">
+      <a class="footer-logo" href={homeHref} aria-label="Samsara home">
+        {copy.brand}
+      </a>
+      <p class="footer-tagline">{copy.tagline}</p>
+    </div>
+
+    <nav class="footer-col" aria-label={`${copy.shop} navigation`}>
+      <h2 class="footer-title">{copy.shop}</h2>
+      <ul class="footer-links">
+        {copy.shopLinks.map(([label, href]) => (
+          <li><a href={withLang(href)}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav class="footer-col" aria-label={`${copy.bespoke} navigation`}>
+      <h2 class="footer-title">{copy.bespoke}</h2>
+      <ul class="footer-links">
+        {copy.bespokeLinks.map(([label, href]) => (
+          <li><a href={withLang(href)}>{label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="footer-col footer-contact">
+      <h2 class="footer-title">{copy.contact}</h2>
+
+      <address>
+        <span>{copy.madeIn}</span><br />
+        <a href={copy.emailHref}>{copy.emailLabel}</a><br />
+        <a href={copy.phoneHref}>{copy.phoneLabel}</a>
+      </address>
+
+      <a class="footer-btn" href={withLang(t.en.quoteHref)}>{copy.quote}</a>
+
+      <div class="footer-social">
+        <a href={copy.instagramHref} target="_blank" rel="noopener">
+          {copy.instagramLabel}
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <p>© {new Date().getFullYear()} Samsara. {copy.rights}</p>
+      <div class="footer-legal-links">
+        <a href={legal.privacy}>{copy.privacy}</a>
+        <span aria-hidden="true"> · </span>
+        <a href={legal.terms}>{copy.terms}</a>
+      </div>
+    </div>
+  </div>
+</footer>

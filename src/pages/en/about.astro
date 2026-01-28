@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
+import '../../assets/styles/pages/about.css';
+
+const SITE_URL = 'https://example.com'; // ✅ change later
+
+const lang = 'en';
+const canonicalPath = '/en/about';
+const canonicalUrl = `${SITE_URL}${canonicalPath}`;
+const ogImageUrl = `${SITE_URL}${aboutImg.src}`;
+
+const copy = {
+  title: 'About Samsara | Handmade Boards & Bespoke Carpentry in Portugal',
+  metaDesc:
+    'Learn about Samsara Carpentry — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover our story, process, and what makes us different.',
+  ogLocale: 'en_GB',
+
+  h1: 'About Samsara',
+  lede:
+    'Samsara is inspired by transformation — giving wood a new life through careful, intentional craft.',
+  quoteTitle: 'Samsara',
+  quote:
+    '“Samsara is the endless cycle where a soul is reborn after death into a new body. This process continues until liberation is achieved.”',
+
+  storyTitle: 'Our Story',
+  storyP1:
+    'At Samsara Carpentry, we believe in the beauty of transformation. Our name reflects renewal — and in the workshop we see that same journey in wood.',
+  storyP2:
+    'Every project is made with intention: balancing beauty and function, respecting the material, and creating pieces that belong naturally in your space.',
+
+  offerTitle: 'What We Offer',
+  offerIntro:
+    'We make functional, timeless pieces — from kitchen essentials to bespoke carpentry — tailored to your needs.',
+  offerItems: [
+    'Handcrafted chopping & serving boards and end-grain blocks',
+    'Made-to-measure carpentry for homes, studios, and interiors',
+    'Custom sizing, finishes, and personal guidance',
+  ],
+
+  differentTitle: 'What Makes Us Different',
+  differentIntro:
+    'We keep the process close, the standards high, and the materials honest.',
+  differentItems: [
+    'Handmade in Portugal with attention to detail',
+    'Responsibly sourced hardwoods and durable finishes',
+    'Direct collaboration — your vision, our craft',
+  ],
+
+  processEyebrow: 'Our Process',
+  processTitle: 'Every piece begins with intention, material, and time.',
+  steps: [
+    { n: '01', title: 'Design', text: 'We define the goal, dimensions, and details together.' },
+    { n: '02', title: 'Material Selection', text: 'We choose the right hardwoods for beauty and durability.' },
+    { n: '03', title: 'Handcrafting', text: 'Cut, shape, sand, and finish — all in our workshop.' },
+    { n: '04', title: 'Delivery', text: 'Packed with care and delivered ready to use.' },
+  ],
+
+  ctaTitle: 'Ready to start?',
+  ctaText: 'Share your idea — we’ll help turn it into something made to last.',
+  ctaPrimary: 'Contact',
+  ctaSecondary: 'Shop',
+
+  imgAlt:
+    'Close-up of a craftsperson shaping wood by hand in a warm workshop setting',
+};
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Samsara',
+  url: SITE_URL,
+};
+
+const aboutSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  name: copy.title,
+  url: canonicalUrl,
+  inLanguage: 'en-GB',
+  isPartOf: { '@type': 'WebSite', name: 'Samsara', url: SITE_URL },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
+    { '@type': 'ListItem', position: 2, name: 'About', item: canonicalUrl },
+  ],
+};
+---
+
+<BaseLayout lang="en" currentPage="about">
+  <Fragment slot="title">{copy.title}</Fragment>
+
+  <Fragment slot="head">
+    <meta name="description" content={copy.metaDesc} />
+    <meta name="robots" content="index,follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:title" content={copy.title} />
+    <meta property="og:description" content={copy.metaDesc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={copy.ogLocale} />
+    <meta property="og:site_name" content="Samsara" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content={String(aboutImg.width)} />
+    <meta property="og:image:height" content={String(aboutImg.height)} />
+    <meta property="og:image:alt" content={copy.imgAlt} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={copy.title} />
+    <meta name="twitter:description" content={copy.metaDesc} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content={copy.imgAlt} />
+
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}/en/about`} />
+    <link rel="alternate" hreflang="pt" href={`${SITE_URL}/pt/about`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/about`} />
+
+    <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+    <script type="application/ld+json">{JSON.stringify(aboutSchema)}</script>
+    <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+  </Fragment>
+
+  <section class="about-shell" aria-label="About">
+    <div class="about-container">
+      <header class="about-hero">
+        <h1 class="about-title">{copy.h1}</h1>
+        <p class="about-lede">{copy.lede}</p>
+
+        <div class="about-cta-row">
+          <a class="about-btn" href="/en/contact">{copy.ctaPrimary}</a>
+          <a class="about-btn secondary" href="/en/shop">{copy.ctaSecondary}</a>
+        </div>
+      </header>
+
+      <div class="about-card">
+        <section class="about-story">
+          <div>
+            <span class="about-eyebrow">{copy.storyTitle}</span>
+            <h2 class="about-h2">{copy.storyTitle}</h2>
+            <p class="about-text">{copy.storyP1}</p>
+            <p class="about-text">{copy.storyP2}</p>
+
+            <div class="about-quote">
+              <strong>{copy.quoteTitle}:</strong> {copy.quote}
+            </div>
+          </div>
+
+          <div class="about-media">
+            <img
+              src={aboutImg.src}
+              width={aboutImg.width}
+              height={aboutImg.height}
+              alt={copy.imgAlt}
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+        </section>
+
+        <div class="about-inner-divider"></div>
+
+        <section class="about-sections">
+          <div class="about-grid-2">
+            <div class="about-panel">
+              <h3>{copy.offerTitle}</h3>
+              <p>{copy.offerIntro}</p>
+              <ul class="about-list">
+                {copy.offerItems.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+
+            <div class="about-panel">
+              <h3>{copy.differentTitle}</h3>
+              <p>{copy.differentIntro}</p>
+              <ul class="about-list">
+                {copy.differentItems.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          </div>
+
+          <div class="about-process">
+            <span class="about-eyebrow">{copy.processEyebrow}</span>
+            <h2 class="about-h2">{copy.processTitle}</h2>
+
+            <div class="process-grid">
+              {copy.steps.map((s) => (
+                <article class="process-card">
+                  <div class="process-num">{s.n}</div>
+                  <h3 class="process-title">{s.title}</h3>
+                  <p class="process-text">{s.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <div class="about-cta-bar">
+          <p>
+            <strong>{copy.ctaTitle}</strong> {copy.ctaText}
+          </p>
+          <div class="about-cta-row">
+            <a class="about-btn" href="/en/contact">{copy.ctaPrimary}</a>
+            <a class="about-btn secondary" href="/en/shop">{copy.ctaSecondary}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

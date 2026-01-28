@@ -1,0 +1,41 @@
+---
+const { lang = "en" } = Astro.props;
+const isPT = lang.startsWith("pt");
+const cartHref = isPT ? "/pt/cart" : "/en/cart";
+---
+
+<a href={cartHref} class="cart-link" aria-label="View cart">
+  🛒
+  <span class="cart-count" data-cart-count hidden>0</span>
+</a>
+
+<!-- Force plain browser JS (no TS checking / no imports) -->
+<script is:inline>
+  function readCart() {
+    try {
+      return JSON.parse(localStorage.getItem("samsara_cart_v1") || "[]");
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function updateCount() {
+    var items = readCart();
+    var count = 0;
+
+    for (var i = 0; i < items.length; i++) {
+      var item = items[i] || {};
+      var qty = typeof item.qty === "number" ? item.qty : 1;
+      count += qty;
+    }
+
+    var badge = document.querySelector("[data-cart-count]");
+    if (!badge) return;
+
+    badge.textContent = String(count);
+    badge.hidden = count === 0;
+  }
+
+  updateCount();
+  window.addEventListener("cart:updated", updateCount);
+</script>

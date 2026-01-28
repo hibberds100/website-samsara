@@ -1,0 +1,110 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductGrid from "../../../components/ProductGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+// Category card images
+import chopImg from "../../../assets/images/products/product1.jpg";
+import endGrainImg from "../../../assets/images/products/product2.jpg";
+import serveImg from "../../../assets/images/products/product4.jpg";
+import bespokeImg from "../../../assets/images/products/product7.jpg";
+
+const items = [
+  {
+    slug: "chopping-boards",
+    title: "Tábuas de Cortar",
+    blurb: "Tábuas premium em madeira maciça, feitas para cozinhas que cozinham a sério.",
+    image: chopImg,
+    alt: "Tábua de cortar artesanal em madeira sobre uma superfície de linho",
+    href: "/pt/shop/chopping-boards",
+  },
+  {
+    slug: "end-grain-boards",
+    title: "Tábuas End-Grain",
+    blurb: "Tábuas end-grain robustas, pensadas para durabilidade e cuidado da lâmina.",
+    image: endGrainImg,
+    alt: "Close-up de uma tábua end-grain tipo bloco de talho",
+    href: "/pt/shop/end-grain-boards",
+  },
+  {
+    slug: "serving-boards",
+    title: "Tábuas de Servir",
+    blurb: "Peças elegantes para servir, partilhar e apresentar.",
+    image: serveImg,
+    alt: "Tábua de servir em madeira preparada para apresentação",
+    href: "/pt/shop/serving-boards",
+  },
+  {
+    slug: "bespoke",
+    title: "Carpintaria por Medida",
+    blurb: "Peças feitas à medida, pensadas para o seu espaço e uso diário.",
+    image: bespokeImg,
+    alt: "Projeto de carpintaria por medida em oficina",
+    href: "/pt/bespoke",
+  },
+];
+---
+
+<ShopLayout lang="pt" currentPage="shop">
+  <!-- SEO: Title -->
+  <Fragment slot="title">
+    Loja | Tábuas de Madeira Artesanais & Carpintaria por Medida | Samsara
+  </Fragment>
+
+  <!-- SEO: Meta + Structured Data -->
+  <Fragment slot="head">
+    <meta
+      name="description"
+      content="Explore tábuas de cortar artesanais, tábuas end-grain, tábuas de servir e carpintaria por medida — feitas em Portugal com madeiras de origem responsável."
+    />
+
+    <!-- Canonical + hreflang -->
+    <link rel="canonical" href="https://example.com/pt/shop" />
+    <link rel="alternate" href="https://example.com/en/shop" hreflang="en" />
+    <link rel="alternate" href="https://example.com/pt/shop" hreflang="pt" />
+    <link rel="alternate" href="https://example.com/en/shop" hreflang="x-default" />
+
+    <!-- Structured data: ItemList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Produtos artesanais em madeira",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Tábuas de Cortar",
+            "url": "https://example.com/pt/shop/chopping-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tábuas End-Grain",
+            "url": "https://example.com/pt/shop/end-grain-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Tábuas de Servir",
+            "url": "https://example.com/pt/shop/serving-boards"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Carpintaria por Medida",
+            "url": "https://example.com/pt/bespoke"
+          }
+        ]
+      }
+    </script>
+  </Fragment>
+
+  <!-- Category grid -->
+  <ProductGrid
+    title="Todos os Produtos"
+    intro="Descubra peças funcionais em madeira para cozinhas e interiores — feitas para durar e acabadas à mão."
+    items={items}
+    lang="pt"
+  />
+</ShopLayout>

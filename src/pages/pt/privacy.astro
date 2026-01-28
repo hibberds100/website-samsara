@@ -1,0 +1,84 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const lang = "pt";
+---
+
+<BaseLayout lang={lang} currentPage="">
+  <section class="legal-page">
+    <div class="legal-container">
+      <h1>Política de Privacidade</h1>
+      <p class="legal-updated">Última atualização: 27 Janeiro 2026</p>
+
+      <p class="legal-intro">
+        Respeitamos a sua privacidade. Esta política explica que informação recolhemos, porquê, e como a protegemos.
+      </p>
+
+      <h2>Que dados recolhemos</h2>
+      <ul>
+        <li>Nome e contactos</li>
+        <li>Morada de envio e faturação</li>
+        <li>Detalhes da encomenda (itens, tamanhos, totais)</li>
+        <li>Mensagens enviadas via formulário ou email</li>
+        <li>Dados técnicos básicos (browser/dispositivo, utilização do site)</li>
+      </ul>
+
+      <h2>Para que usamos os dados</h2>
+      <ul>
+        <li>Processar e entregar encomendas</li>
+        <li>Apoio ao cliente</li>
+        <li>Prevenção de fraude e abuso</li>
+        <li>Melhorar desempenho e conteúdo do site</li>
+      </ul>
+
+      <h2>Pagamentos</h2>
+      <p>
+        Os pagamentos são processados por fornecedores terceiros de forma segura. Não guardamos dados completos de cartão.
+      </p>
+
+      <h2>Cookies</h2>
+      <ul>
+        <li>Cookies essenciais: para o site funcionar</li>
+        <li>Cookies funcionais: para lembrar preferências</li>
+        <li>Cookies analíticos (se ativados): para entender utilização</li>
+      </ul>
+
+      <h2>Partilha de dados</h2>
+      <p>Partilhamos dados apenas quando necessário para operar o serviço, incluindo:</p>
+      <ul>
+        <li>Processadores de pagamento</li>
+        <li>Transportadoras / logística</li>
+        <li>Serviços de alojamento e infraestrutura do site</li>
+      </ul>
+
+      <h2>Retenção</h2>
+      <p>
+        Conservamos dados pessoais apenas durante o tempo necessário para encomendas, suporte e obrigações legais/fiscais.
+      </p>
+
+      <h2>Os seus direitos</h2>
+      <ul>
+        <li>Aceder aos seus dados</li>
+        <li>Corrigir dados incorretos</li>
+        <li>Pedir eliminação (quando legalmente possível)</li>
+        <li>Opor-se a certos tratamentos</li>
+      </ul>
+
+      <h2>Contacto</h2>
+      <p>
+        Dúvidas? Contacte-nos em <a href="mailto:samsara@samsara.pt">samsara@samsara.pt</a>.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+.legal-page { padding: 5rem 1.5rem; }
+.legal-container { max-width: 760px; margin: 0 auto; }
+.legal-page h1 { font-size: 2.4rem; margin-bottom: 0.5rem; }
+.legal-updated { color: var(--muted); font-size: 0.9rem; margin-bottom: 2rem; }
+.legal-intro { font-size: 1.1rem; line-height: 1.7; margin-bottom: 2.5rem; }
+.legal-page h2 { margin-top: 2.5rem; margin-bottom: 0.75rem; font-size: 1.25rem; }
+.legal-page p, .legal-page li { line-height: 1.7; color: var(--ink); }
+.legal-page ul { padding-left: 1.25rem; }
+.legal-page a { color: var(--brand); font-weight: 700; }
+</style>

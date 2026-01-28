@@ -1,0 +1,343 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../assets/styles/pages/home.css';
+
+// Import your product images (hero carousel)
+import img1 from '../../assets/images/products/product1.jpg';
+import img2 from '../../assets/images/products/product2.jpg';
+import img3 from '../../assets/images/products/product3.jpg';
+import img4 from '../../assets/images/products/product4.jpg';
+import img5 from '../../assets/images/products/product5.jpg';
+import img6 from '../../assets/images/products/product6.jpg';
+
+// Our Work section images
+import work1 from '../../assets/images/products/product3.jpg';
+import work2 from '../../assets/images/products/product2.jpg';
+import work3 from '../../assets/images/products/product4.jpg';
+import work4 from '../../assets/images/products/product7.jpg';
+
+// Crafted with Purpose section image
+import craftedImage from '../../assets/images/products/workshop-craft.jpg';
+
+// SEO-friendly image data (hero carousel)
+const galleryImages = [
+  {
+    image: img1,
+    alt: 'Tábua de servir e cortar em nogueira e cerejeira, madeira maciça artesanal com acabamento alimentar'
+  },
+  {
+    image: img2,
+    alt: 'Tábua de cortar end-grain em nogueira, estilo bloco de talho artesanal premium'
+  },
+  {
+    image: img3,
+    alt: 'Tábua de cortar em carvalho, padauk e nogueira, madeira artesanal com faixas contrastantes'
+  },
+  {
+    image: img4,
+    alt: 'Tábua de charcutaria em nogueira, tábua de servir artesanal com veio escuro'
+  },
+  {
+    image: img5,
+    alt: 'Tábua de servir em carvalho e padauk, tábua artesanal em madeira maciça com contraste quente'
+  },
+  {
+    image: img6,
+    alt: 'Tábua de cortar em cerejeira, carvalho e nogueira, tábua artesanal com padrão de veios mistos'
+  }
+];
+---
+
+<BaseLayout lang="pt">
+  <Fragment slot="title">
+    Tábuas Artesanais & Carpintaria por Medida | Samsara
+  </Fragment>
+
+  <Fragment slot="head">
+    <meta
+      name="description"
+      content="Tábuas de cortar artesanais, tábuas de servir, tábuas end-grain (blocos de talho) e peças em madeira por medida — feitas à mão com madeiras duradouras e de origem responsável."
+    />
+
+    <!-- Optional (recommended): canonical + hreflang (update URLs when live) -->
+    <link rel="canonical" href="https://example.com/pt" />
+    <link rel="alternate" href="https://example.com/" hreflang="en" />
+    <link rel="alternate" href="https://example.com/pt" hreflang="pt" />
+    <link rel="alternate" href="https://example.com/" hreflang="x-default" />
+
+    <!-- Structured data: ItemList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Galeria de tábuas e peças em madeira artesanais",
+        "inLanguage": "pt-PT",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Tábua de servir e cortar em nogueira e cerejeira", "image": "/images/products/product1.jpg" },
+          { "@type": "ListItem", "position": 2, "name": "Tábua de cortar end-grain em nogueira (bloco de talho)", "image": "/images/products/product2.jpg" },
+          { "@type": "ListItem", "position": 3, "name": "Tábua de cortar em carvalho, padauk e nogueira", "image": "/images/products/product3.jpg" },
+          { "@type": "ListItem", "position": 4, "name": "Tábua de charcutaria em nogueira", "image": "/images/products/product4.jpg" },
+          { "@type": "ListItem", "position": 5, "name": "Tábua de servir em carvalho e padauk", "image": "/images/products/product5.jpg" },
+          { "@type": "ListItem", "position": 6, "name": "Tábua de cortar em cerejeira, carvalho e nogueira", "image": "/images/products/product6.jpg" }
+        ]
+      }
+    </script>
+
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Samsara",
+        "url": "https://example.com",
+        "inLanguage": "pt-PT"
+      }
+    </script>
+
+    <!-- Optional (nice for SEO): WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Tábuas Artesanais & Carpintaria por Medida | Samsara",
+        "url": "https://example.com/pt",
+        "inLanguage": "pt-PT",
+        "description": "Tábuas de cortar artesanais, tábuas de servir, tábuas end-grain e carpintaria por medida — feitas à mão com madeiras de origem responsável."
+      }
+    </script>
+  </Fragment>
+
+<!-- HERO CAROUSEL -->
+<section class="hero-carousel" aria-label="Produtos em destaque">
+  <div class="carousel-wrapper">
+    <button class="hero-arrow hero-prev" aria-label="Imagem anterior">‹</button>
+
+    <div class="carousel-container">
+      {galleryImages.map((item, index) => (
+        <img
+          src={item.image.src}
+          width={item.image.width}
+          height={item.image.height}
+          alt={item.alt}
+          class={`carousel-image${index === 0 ? ' active' : ''}`}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchpriority={index === 0 ? 'high' : 'auto'}
+        />
+      ))}
+    </div>
+
+    <button class="hero-arrow hero-next" aria-label="Imagem seguinte">›</button>
+  </div>
+</section>
+
+  <!-- Intro text -->
+  <section class="intro-text page-container">
+    <h1>Tábuas Artesanais & Carpintaria por Medida, Feitas para Durar</h1>
+
+    <p>
+      Criamos tábuas de cortar premium, tábuas de servir, tábuas end-grain (blocos de talho)
+      e peças em madeira por medida — feitas à mão com madeiras cuidadosamente selecionadas
+      e de origem responsável.
+    </p>
+
+    <!-- Buttons -->
+    <div class="hero-cta">
+      <a href="/pt/loja" class="btn">Comprar Produtos em Madeira</a>
+      <a href="/pt/por-medida" class="btn">Carpintaria por Medida</a>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- OUR WORK -->
+  <section class="our-work page-container" aria-labelledby="our-work-title">
+    <header class="section-header">
+      <h2 id="our-work-title">O Nosso Trabalho</h2>
+      <p>
+        Descubra peças funcionais em madeira para cozinha e interiores — desde blocos end-grain resistentes
+        a projetos de carpintaria feitos à medida.
+      </p>
+    </header>
+
+    <div class="work-grid">
+      <a class="work-card" href="/pt/loja/tabuas-de-cortar">
+        <div class="work-media">
+          <img
+            src={work1.src}
+            width={work1.width}
+            height={work1.height}
+            alt="Tábuas de cortar artesanais em madeira maciça para uso diário na cozinha"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="work-body">
+          <h3>Tábuas de Cortar Artesanais</h3>
+          <p>Tábuas premium em madeira maciça, feitas para cozinhas que cozinham a sério.</p>
+          <span class="work-link">Ver tábuas de cortar →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/pt/loja/tabuas-end-grain">
+        <div class="work-media">
+          <img
+            src={work2.src}
+            width={work2.width}
+            height={work2.height}
+            alt="Blocos de talho end-grain com superfície amiga das facas"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="work-body">
+          <h3>Blocos de Talho End-Grain</h3>
+          <p>Tábuas end-grain robustas, pensadas para durabilidade e cuidado das facas.</p>
+          <span class="work-link">Descobrir end-grain →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/pt/loja/tabuas-de-servir">
+        <div class="work-media">
+          <img
+            src={work3.src}
+            width={work3.width}
+            height={work3.height}
+            alt="Tábuas de servir e charcutaria artesanais em madeiras nobres"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="work-body">
+          <h3>Tábuas de Servir &amp; Charcutaria</h3>
+          <p>Peças elegantes para receber, apresentar e servir com estilo.</p>
+          <span class="work-link">Explorar tábuas de servir →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/pt/por-medida">
+        <div class="work-media">
+          <img
+            src={work4.src}
+            width={work4.width}
+            height={work4.height}
+            alt="Carpintaria por medida e peças em madeira feitas para o seu espaço"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+        <div class="work-body">
+          <h3>Carpintaria por Medida</h3>
+          <p>Peças personalizadas em madeira, desenhadas para o seu espaço e uso diário.</p>
+          <span class="work-link">Pedir orçamento →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- Crafted with Purpose -->
+  <section class="crafted-purpose page-container" aria-labelledby="crafted-purpose-title">
+    <div class="crafted-grid">
+      <!-- Text -->
+      <div class="crafted-text">
+        <h2 id="crafted-purpose-title">Feito com Propósito</h2>
+
+        <p>
+          Procura algo pensado especificamente para o seu espaço?
+          Trabalhamos consigo para desenhar e produzir peças únicas,
+          alinhadas com as suas necessidades e a sua visão.
+        </p>
+
+        <ul class="purpose-list">
+          <li>
+            <strong>Feito à Mão, Sem Produção em Massa</strong>
+            <span>
+              Cada peça é produzida na nossa oficina, com atenção ao detalhe em cada etapa.
+            </span>
+          </li>
+
+          <li>
+            <strong>Madeiras de Origem Responsável</strong>
+            <span>
+              Selecionamos madeiras pela durabilidade, beleza natural e proveniência cuidada.
+            </span>
+          </li>
+        </ul>
+
+        <!-- CTA -->
+        <a href="/pt/por-medida" class="text-link">
+          Falar sobre um projeto por medida →
+        </a>
+      </div>
+
+      <!-- Image -->
+      <div class="crafted-image">
+        <img
+          src={craftedImage.src}
+          width={craftedImage.width}
+          height={craftedImage.height}
+          alt="Artesão a trabalhar uma peça em madeira por medida numa oficina de carpintaria"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<!-- =====================================================
+     HERO CAROUSEL SCRIPT
+===================================================== -->
+<script>
+  const images = document.querySelectorAll<HTMLImageElement>('.carousel-image');
+  const prevBtn = document.querySelector<HTMLButtonElement>('.hero-prev');
+  const nextBtn = document.querySelector<HTMLButtonElement>('.hero-next');
+
+  let current: number = 0;
+  let timer: number;
+
+  function showSlide(index: number): void {
+    images.forEach((img) => img.classList.remove('active'));
+    images[index].classList.add('active');
+  }
+
+  function nextSlide(): void {
+    current = (current + 1) % images.length;
+    showSlide(current);
+  }
+
+  function prevSlide(): void {
+    current = (current - 1 + images.length) % images.length;
+    showSlide(current);
+  }
+
+  function startAuto(): void {
+    timer = window.setInterval(nextSlide, 4000);
+  }
+
+  function resetAuto(): void {
+    window.clearInterval(timer);
+    startAuto();
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAuto();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetAuto();
+    });
+  }
+
+  showSlide(current);
+  startAuto();
+</script>

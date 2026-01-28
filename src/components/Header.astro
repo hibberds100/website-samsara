@@ -1,0 +1,97 @@
+---
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import CartIcon from './CartIcon.astro';
+import logoImg from '../assets/images/banners/Logo.png';
+
+const { lang = 'en', currentPage = '' } = Astro.props;
+const isPT = lang.startsWith('pt');
+
+const homeHref = isPT ? '/pt/' : '/en/';
+const aboutHref = isPT ? '/pt/about' : '/en/about';
+const shopHref = isPT ? '/pt/shop' : '/en/shop';
+const bespokeHref = isPT ? '/pt/bespoke' : '/en/bespoke';
+const contactHref = isPT ? '/pt/contact' : '/en/contact';
+---
+<header class="site-header">
+  <div class="header-inner">
+    <!-- Logo (left) -->
+    <div class="logo-container">
+      <a href={homeHref} class="logo" aria-label="Home">
+        <img
+          src={logoImg.src}
+          width={logoImg.width}
+          height={logoImg.height}
+          alt="Premium Carpentry - Handcrafted Wooden Products in Portugal"
+          title="Premium Carpentry - Handmade Wooden Products"
+          class="logo-img"
+          loading="eager"
+          decoding="async"
+        />
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-links" aria-label="Primary navigation" id="primary-nav">
+      <a href={aboutHref} class={currentPage === 'about' ? 'active' : ''}>
+        {isPT ? 'Sobre' : 'About'}
+      </a>
+
+      <a href={shopHref} class={currentPage === 'shop' ? 'active' : ''} data-primary="true">
+        {isPT ? 'Produtos' : 'Shop'}
+      </a>
+
+      <a href={bespokeHref} class={currentPage === 'bespoke' ? 'active' : ''}>
+        {isPT ? 'Por Medida' : 'Bespoke'}
+      </a>
+
+      <a href={contactHref} class={currentPage === 'contact' ? 'active' : ''}>
+        {isPT ? 'Contacto' : 'Contact'}
+      </a>
+    </nav>
+
+    <!-- Right controls -->
+    <div class="header-right">
+      <!-- 🛒 Cart icon -->
+     <CartIcon lang={lang} />
+
+      <!-- Language switcher -->
+      <LanguageSwitcher currentLang={isPT ? 'pt' : 'en'} />
+
+      <!-- Mobile menu toggle -->
+      <button
+        class="mobile-menu-toggle"
+        type="button"
+        aria-label="Toggle Menu"
+        aria-expanded="false"
+        aria-controls="primary-nav"
+      >
+        ☰
+      </button>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.mobile-menu-toggle');
+      const nav = document.querySelector('.nav-links');
+      const header = document.querySelector('.site-header');
+
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const isOpen = nav.classList.toggle('active');
+          toggle.classList.toggle('open', isOpen);
+          toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+      }
+
+      if (header) {
+        const onScroll = () => {
+          if (window.scrollY > 10) header.classList.add('scrolled');
+          else header.classList.remove('scrolled');
+        };
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+      }
+    });
+  </script>
+</header>

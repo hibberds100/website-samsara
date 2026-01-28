@@ -1,0 +1,21 @@
+---
+const { product, lang } = Astro.props;
+---
+<div class="product-card">
+  <img 
+    src={product.image} 
+    alt={lang === 'pt' ? product.name_pt : product.name_en} 
+    loading="lazy" 
+  />
+  <h2>{lang === 'pt' ? product.name_pt : product.name_en}</h2>
+  <p>{lang === 'pt' ? product.description_pt : product.description_en}</p>
+  <p class="price">€{product.price.toFixed(2)}</p>
+  <a 
+    href={product.stripe_url} 
+    target="_blank" 
+    rel="noopener noreferrer" 
+    class="btn"
+  >
+    {lang === 'pt' ? 'Comprar' : 'Buy'}
+  </a>
+</div>

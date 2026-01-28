@@ -1,0 +1,463 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+const lang = "pt";
+---
+
+<BaseLayout lang={lang} currentPage="">
+  <section class="cart-page">
+    <div class="cart-header">
+      <h1 class="cart-title-h1">Carrinho</h1>
+
+      <button id="clear-cart-btn" class="clear-cart" type="button" hidden>
+        Limpar carrinho
+      </button>
+    </div>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-footer">
+      <div class="cart-totals">
+        <div class="totals-row">
+          <span>Subtotal</span>
+          <strong id="cart-subtotal">€0.00</strong>
+        </div>
+
+        <div class="totals-row">
+          <span>Envio</span>
+          <strong id="cart-shipping">€0.00</strong>
+        </div>
+
+        <p class="shipping-estimate">
+          Entrega estimada: <strong>7–14 dias úteis</strong>
+        </p>
+
+        <div class="totals-row totals-grand">
+          <span>Total</span>
+          <strong id="cart-total">€0.00</strong>
+        </div>
+      </div>
+
+      <button id="checkout-btn" type="button" disabled>
+        Finalizar compra
+      </button>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .cart-page {
+    max-width: 980px;
+    margin: 4rem auto;
+    padding: 0 1.5rem;
+  }
+
+  .shipping-estimate{
+    margin: 0.75rem 0 0;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .shipping-estimate strong{ color: var(--heading); }
+
+  .cart-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .cart-title-h1 {
+    font-size: 2rem;
+    margin: 0;
+    color: var(--heading);
+  }
+
+  .clear-cart {
+    border: 1px solid var(--border-soft);
+    background: rgba(255,255,255,0.55);
+    border-radius: 12px;
+    padding: 0.55rem 0.8rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .clear-cart:hover { border-color: rgba(139, 90, 60, 0.45); color: var(--hover-dark); }
+
+  .cart-page #cart-items {
+    display: grid;
+    gap: 1rem;
+    margin: 1.5rem 0 2rem;
+  }
+
+  .cart-page .cart-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 120px;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.6);
+    align-items: center;
+  }
+
+  .cart-page .cart-info { min-width: 0; }
+
+  .cart-page .cart-item-title {
+    font-weight: 900;
+    color: var(--heading);
+    margin: 0 0 0.25rem;
+    line-height: 1.25;
+  }
+
+  .cart-page .cart-meta {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin: 0.15rem 0;
+  }
+
+  .cart-page .cart-controls {
+    display: grid;
+    justify-items: end;
+    gap: 0.65rem;
+  }
+
+  .cart-page .line-total {
+    font-weight: 900;
+    color: var(--heading);
+    font-size: 1.05rem;
+  }
+
+  .cart-page .cart-qty {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cart-page .qty-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255, 255, 255, 0.85);
+    cursor: pointer;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--heading);
+  }
+  .cart-page .qty-btn:hover { border-color: rgba(139, 90, 60, 0.45); }
+
+  .cart-page .qty-value {
+    min-width: 28px;
+    text-align: center;
+    font-weight: 800;
+    color: var(--ink);
+  }
+
+  .cart-page .remove-btn {
+    border: 1px solid var(--border-soft);
+    background: transparent;
+    border-radius: 10px;
+    padding: 0.45rem 0.7rem;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .cart-page .remove-btn:hover { border-color: rgba(139, 90, 60, 0.45); color: var(--hover-dark); }
+
+  .cart-page .cart-thumb {
+    width: 120px;
+    height: 120px;
+    border-radius: 12px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255, 255, 255, 0.9);
+    overflow: hidden;
+    justify-self: end;
+    position: relative;
+  }
+
+  .cart-page .cart-thumb img {
+    position: absolute;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
+  }
+
+  .cart-page .cart-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+    gap: 1rem;
+  }
+
+  .cart-page .cart-totals {
+    min-width: 300px;
+    padding: 1rem 1.1rem;
+    border: 1px solid var(--border-soft);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .cart-page .totals-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    color: var(--ink);
+  }
+
+  .cart-page .totals-grand {
+    margin-top: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border-soft);
+    font-size: 1.05rem;
+  }
+
+  .cart-page #checkout-btn {
+    padding: 0.9rem 1.4rem;
+    border-radius: 12px;
+    background: var(--brand);
+    color: white;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    height: 44px;
+    white-space: nowrap;
+  }
+  .cart-page #checkout-btn:hover { background: var(--hover-dark); }
+  .cart-page #checkout-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  @media (max-width: 720px) {
+    .cart-page .cart-item {
+      grid-template-columns: minmax(0, 1fr) 92px;
+      grid-template-areas:
+        "info thumb"
+        "controls controls";
+      align-items: start;
+    }
+
+    .cart-page .cart-info { grid-area: info; }
+    .cart-page .cart-controls { grid-area: controls; justify-items: start; margin-top: 0.5rem; }
+    .cart-page .cart-thumb { grid-area: thumb; width: 92px; height: 92px; justify-self: end; }
+
+    .cart-page .cart-footer { flex-direction: column; align-items: stretch; }
+    .cart-page .cart-totals { min-width: 0; width: 100%; }
+    .cart-page #checkout-btn { width: 100%; }
+  }
+</style>
+
+<script>
+  // @ts-nocheck
+  const CART_KEY = "samsara_cart_v1";
+
+  const itemsEl = document.getElementById("cart-items");
+  const subtotalEl = document.getElementById("cart-subtotal");
+  const shippingEl = document.getElementById("cart-shipping");
+  const totalEl = document.getElementById("cart-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
+  const clearBtn = document.getElementById("clear-cart-btn");
+
+  const loadCart = () => {
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const parsed = raw ? JSON.parse(raw) : [];
+      return Array.isArray(parsed) ? parsed : [];
+    } catch {
+      return [];
+    }
+  };
+
+  const saveCart = (cart) => {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+    window.dispatchEvent(new Event("cart:updated"));
+  };
+
+  const euro = (n) => `€${Number(n || 0).toFixed(2)}`;
+
+  const cleanImageUrl = (val) => {
+    if (typeof val !== "string") return "";
+    const s = val.trim();
+    if (!s) return "";
+    if (s.startsWith("<")) return "";
+    return s;
+  };
+
+  const renderCart = () => {
+    if (!itemsEl || !subtotalEl || !shippingEl || !totalEl || !(checkoutBtn instanceof HTMLButtonElement)) return;
+
+    const cart = loadCart();
+
+    if (clearBtn instanceof HTMLButtonElement) {
+      clearBtn.hidden = cart.length === 0;
+    }
+
+    if (!cart.length) {
+      itemsEl.innerHTML = "<p>O seu carrinho está vazio.</p>";
+      subtotalEl.textContent = "€0.00";
+      shippingEl.textContent = "€0.00";
+      totalEl.textContent = "€0.00";
+      checkoutBtn.disabled = true;
+      return;
+    }
+
+    let subtotal = 0;
+    itemsEl.innerHTML = "";
+
+    cart.forEach((item, index) => {
+      const qty = Math.max(1, Number(item.qty || 1));
+      const price = Number(item.price || 0);
+      const lineTotal = qty * price;
+      subtotal += lineTotal;
+
+      const row = document.createElement("div");
+      row.className = "cart-item";
+
+      const info = document.createElement("div");
+      info.className = "cart-info";
+
+      const title = document.createElement("div");
+      title.className = "cart-item-title";
+      title.textContent = item.title || item.slug || "Item";
+
+      const meta1 = document.createElement("div");
+      meta1.className = "cart-meta";
+      meta1.textContent = `Tamanho: ${item.size || "-"}`;
+
+      const meta2 = document.createElement("div");
+      meta2.className = "cart-meta";
+      meta2.textContent = `Unidade: ${euro(price)}`;
+
+      info.appendChild(title);
+      info.appendChild(meta1);
+      info.appendChild(meta2);
+
+      const controls = document.createElement("div");
+      controls.className = "cart-controls";
+
+      const total = document.createElement("div");
+      total.className = "line-total";
+      total.textContent = euro(lineTotal);
+
+      const qtyWrap = document.createElement("div");
+      qtyWrap.className = "cart-qty";
+
+      const dec = document.createElement("button");
+      dec.className = "qty-btn";
+      dec.type = "button";
+      dec.setAttribute("aria-label", "Diminuir quantidade");
+      dec.dataset.dec = String(index);
+      dec.textContent = "−";
+
+      const qtyVal = document.createElement("span");
+      qtyVal.className = "qty-value";
+      qtyVal.textContent = String(qty);
+
+      const inc = document.createElement("button");
+      inc.className = "qty-btn";
+      inc.type = "button";
+      inc.setAttribute("aria-label", "Aumentar quantidade");
+      inc.dataset.inc = String(index);
+      inc.textContent = "+";
+
+      qtyWrap.appendChild(dec);
+      qtyWrap.appendChild(qtyVal);
+      qtyWrap.appendChild(inc);
+
+      const remove = document.createElement("button");
+      remove.className = "remove-btn";
+      remove.type = "button";
+      remove.dataset.remove = String(index);
+      remove.textContent = "Remover";
+
+      controls.appendChild(total);
+      controls.appendChild(qtyWrap);
+      controls.appendChild(remove);
+
+      const thumb = document.createElement("div");
+      thumb.className = "cart-thumb";
+
+      const imgUrl = cleanImageUrl(item.image);
+      if (imgUrl) {
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = item.title || item.slug || "Item";
+        img.loading = "lazy";
+        img.decoding = "async";
+        thumb.appendChild(img);
+      }
+
+      row.appendChild(info);
+      row.appendChild(controls);
+      row.appendChild(thumb);
+
+      itemsEl.appendChild(row);
+    });
+
+    const totalQty = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+    const shipping = totalQty * 4.95; // €4.95 por item
+    const total = subtotal + shipping;
+
+    subtotalEl.textContent = euro(subtotal);
+    shippingEl.textContent = euro(shipping);
+    totalEl.textContent = euro(total);
+    checkoutBtn.disabled = false;
+  };
+
+  document.addEventListener("click", (e) => {
+    const target = e.target;
+    if (!(target instanceof HTMLElement)) return;
+
+    const cart = loadCart();
+
+    if (target.dataset.inc) {
+      const i = Number(target.dataset.inc);
+      if (cart[i]) cart[i].qty = Math.max(1, Number(cart[i].qty || 1) + 1);
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+
+    if (target.dataset.dec) {
+      const i = Number(target.dataset.dec);
+      if (cart[i]) {
+        const next = Math.max(0, Number(cart[i].qty || 1) - 1);
+        if (next <= 0) cart.splice(i, 1);
+        else cart[i].qty = next;
+      }
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+
+    if (target.dataset.remove) {
+      const i = Number(target.dataset.remove);
+      if (cart[i]) cart.splice(i, 1);
+      saveCart(cart);
+      renderCart();
+      return;
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    renderCart();
+
+    if (clearBtn instanceof HTMLButtonElement) {
+      clearBtn.addEventListener("click", () => {
+        const ok = confirm("Limpar todos os itens do carrinho?");
+        if (!ok) return;
+        localStorage.removeItem(CART_KEY);
+        window.dispatchEvent(new Event("cart:updated"));
+        renderCart();
+      });
+    }
+
+    if (checkoutBtn instanceof HTMLButtonElement) {
+      checkoutBtn.addEventListener("click", () => {
+        alert("Próximo passo: Stripe Checkout");
+      });
+    }
+  });
+</script>

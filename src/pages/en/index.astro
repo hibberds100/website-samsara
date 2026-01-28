@@ -1,0 +1,311 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import '../../assets/styles/pages/home.css';
+
+// Import your product images (hero carousel)
+import img1 from '../../assets/images/products/product1.jpg';
+import img2 from '../../assets/images/products/product2.jpg';
+import img3 from '../../assets/images/products/product3.jpg';
+import img4 from '../../assets/images/products/product4.jpg';
+import img5 from '../../assets/images/products/product5.jpg';
+import img6 from '../../assets/images/products/product6.jpg';
+import img7 from '../../assets/images/products/bespoke4.jpg';
+import img8 from '../../assets/images/products/bespoke1.jpg';
+
+// Our Work section images
+import work1 from '../../assets/images/products/product3.jpg';
+import work2 from '../../assets/images/products/product2.jpg';
+import work3 from '../../assets/images/products/product4.jpg';
+import work4 from '../../assets/images/products/product7.jpg';
+
+// Crafted with Purpose section image
+import craftedImage from '../../assets/images/products/workshop-craft.jpg';
+
+// SEO-friendly image data (hero carousel)
+const galleryImages = [
+  {
+    image: img1,
+    alt: 'Walnut and cherry serving and chopping board, handcrafted hardwood with food-safe finish'
+  },
+  {
+    image: img2,
+    alt: 'Premium walnut end-grain chopping board, handcrafted butcher block style'
+  },
+  {
+    image: img7,
+    alt: 'Walnut-framed glass coffee table on a patterned rug in a living room'
+  },
+   {
+    image: img3,
+    alt: 'Oak, padauk and walnut chopping board with contrasting hardwood strips'
+  },
+  {
+    image: img4,
+    alt: 'Walnut charcuterie board, handcrafted serving board with rich dark grain'
+  },
+  {
+    image: img8,
+    alt: 'Walnut-framed glass coffee table on a patterned rug in a living room'
+  },
+  {
+    image: img5,
+    alt: 'Oak and padauk serving board, handcrafted hardwood with warm contrast'
+  },
+  {
+    image: img6,
+    alt: 'Cherry, oak and walnut chopping board with mixed-grain pattern'
+  },
+  
+];
+---
+
+<BaseLayout lang="en" currentPage="home">
+  <Fragment slot="title">
+    Handcrafted Boards & Bespoke Carpentry | Samsara
+  </Fragment>
+
+  <Fragment slot="head">
+    <meta
+      name="description"
+      content="Handcrafted chopping boards, serving boards, end-grain butcher blocks and bespoke carpentry — made by hand from responsibly sourced hardwoods."
+    />
+
+    <!-- Canonical + hreflang -->
+    <link rel="canonical" href="https://example.com/en" />
+    <link rel="alternate" href="https://example.com/en" hreflang="en" />
+    <link rel="alternate" href="https://example.com/pt" hreflang="pt" />
+    <link rel="alternate" href="https://example.com/en" hreflang="x-default" />
+
+    <!-- Structured data: ItemList -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "Handcrafted wooden boards and bespoke carpentry gallery",
+        "inLanguage": "en-GB",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Walnut and cherry serving & chopping board", "image": "/images/products/product1.jpg" },
+          { "@type": "ListItem", "position": 2, "name": "Walnut end-grain chopping board", "image": "/images/products/product2.jpg" },
+          { "@type": "ListItem", "position": 3, "name": "Oak, padauk and walnut chopping board", "image": "/images/products/product3.jpg" },
+          { "@type": "ListItem", "position": 4, "name": "Walnut charcuterie board", "image": "/images/products/product4.jpg" },
+          { "@type": "ListItem", "position": 5, "name": "Oak and padauk serving board", "image": "/images/products/product5.jpg" },
+          { "@type": "ListItem", "position": 6, "name": "Cherry, oak and walnut chopping board", "image": "/images/products/product6.jpg" }
+        ]
+      }
+    </script>
+
+    <!-- Structured data: WebSite -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Samsara",
+        "url": "https://example.com",
+        "inLanguage": "en-GB"
+      }
+    </script>
+
+    <!-- Structured data: WebPage -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Handcrafted Boards & Bespoke Carpentry | Samsara",
+        "url": "https://example.com/en",
+        "inLanguage": "en-GB",
+        "description": "Handcrafted chopping boards, serving boards, end-grain butcher blocks and bespoke carpentry made from responsibly sourced hardwoods."
+      }
+    </script>
+  </Fragment>
+
+  <!-- HERO CAROUSEL -->
+  <section class="hero-carousel" aria-label="Featured products">
+  <div class="carousel-wrapper">
+    <button class="hero-arrow hero-prev" aria-label="Previous image">‹</button>
+
+    <div class="carousel-container">
+      {galleryImages.map((item, index) => (
+        <img
+          src={item.image.src}
+          width={item.image.width}
+          height={item.image.height}
+          alt={item.alt}
+          class={`carousel-image${index === 0 ? ' active' : ''}`}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      ))}
+    </div>
+
+    <button class="hero-arrow hero-next" aria-label="Next image">›</button>
+  </div>
+</section>
+
+  <!-- Intro -->
+  <section class="intro-text page-container">
+    <h1>Handcrafted Boards & Bespoke Carpentry, Made to Last</h1>
+
+    <p>
+      We create premium chopping boards, serving boards, end-grain butcher blocks
+      and bespoke wooden pieces — handcrafted using carefully selected,
+      responsibly sourced hardwoods.
+    </p>
+
+    <div class="hero-cta">
+      <a href="/en/shop" class="btn">Shop Wooden Goods</a>
+      <a href="/en/bespoke" class="btn">Bespoke Carpentry</a>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- OUR WORK -->
+  <section class="our-work page-container">
+    <header class="section-header">
+      <h2>Our Work</h2>
+      <p>
+        Discover functional wooden pieces for kitchens and interiors — from
+        durable end-grain butcher blocks to made-to-measure carpentry projects.
+      </p>
+    </header>
+
+    <div class="work-grid">
+      <a class="work-card" href="/en/shop/chopping-boards">
+        <div class="work-media">
+          <img src={work1.src} alt="Handcrafted hardwood chopping board" loading="lazy" />
+        </div>
+        <div class="work-body">
+          <h3>Handcrafted Chopping Boards</h3>
+          <p>Premium hardwood boards made for kitchens that cook.</p>
+          <span class="work-link">View chopping boards →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/en/shop/end-grain">
+        <div class="work-media">
+          <img src={work2.src} alt="End-grain butcher block chopping board" loading="lazy" />
+        </div>
+        <div class="work-body">
+          <h3>End-Grain Butcher Blocks</h3>
+          <p>Heavy-duty boards engineered for durability and knife care.</p>
+          <span class="work-link">Discover end-grain →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/en/shop/serving-boards">
+        <div class="work-media">
+          <img src={work3.src} alt="Serving and charcuterie boards" loading="lazy" />
+        </div>
+        <div class="work-body">
+          <h3>Serving & Charcuterie Boards</h3>
+          <p>Elegant boards designed for entertaining and presentation.</p>
+          <span class="work-link">Explore serving boards →</span>
+        </div>
+      </a>
+
+      <a class="work-card" href="/en/bespoke">
+        <div class="work-media">
+          <img src={work4.src} alt="Bespoke carpentry project" loading="lazy" />
+        </div>
+        <div class="work-body">
+          <h3>Bespoke Carpentry</h3>
+          <p>Made-to-measure wooden pieces designed for your space.</p>
+          <span class="work-link">Request bespoke work →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <!-- CRAFTED WITH PURPOSE -->
+  <section class="crafted-purpose page-container">
+    <div class="crafted-grid">
+      <div class="crafted-text">
+        <h2>Crafted with Purpose</h2>
+
+        <p>
+          Looking for something designed specifically for your space?
+          We work closely with each client to create one-of-a-kind
+          wooden pieces tailored to their needs.
+        </p>
+
+        <ul class="purpose-list">
+          <li>
+            <strong>Handmade, Not Mass Produced</strong>
+            <span>Every piece is shaped and finished by hand in our workshop.</span>
+          </li>
+          <li>
+            <strong>Responsibly Sourced Hardwoods</strong>
+            <span>Selected for longevity, character, and sustainability.</span>
+          </li>
+        </ul>
+
+        <a href="/en/bespoke" class="text-link">
+          Discuss a bespoke project →
+        </a>
+      </div>
+
+      <div class="crafted-image">
+        <img
+          src={craftedImage.src}
+          width={craftedImage.width}
+          height={craftedImage.height}
+          alt="Craftsperson shaping a bespoke wooden piece in a woodworking workshop"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const images = document.querySelectorAll<HTMLImageElement>('.carousel-image');
+  const prevBtn = document.querySelector<HTMLButtonElement>('.hero-prev');
+  const nextBtn = document.querySelector<HTMLButtonElement>('.hero-next');
+
+  let current: number = 0;
+  let timer: number;
+
+  function showSlide(index: number): void {
+    images.forEach((img) => img.classList.remove('active'));
+    images[index].classList.add('active');
+  }
+
+  function nextSlide(): void {
+    current = (current + 1) % images.length;
+    showSlide(current);
+  }
+
+  function prevSlide(): void {
+    current = (current - 1 + images.length) % images.length;
+    showSlide(current);
+  }
+
+  function startAuto(): void {
+    timer = window.setInterval(nextSlide, 4000);
+  }
+
+  function resetAuto(): void {
+    window.clearInterval(timer);
+    startAuto();
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      nextSlide();
+      resetAuto();
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      prevSlide();
+      resetAuto();
+    });
+  }
+
+  showSlide(current);
+  startAuto();
+</script>

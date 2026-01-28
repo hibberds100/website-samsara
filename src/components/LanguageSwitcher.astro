@@ -1,0 +1,83 @@
+---
+const { currentLang } = Astro.props;
+
+// Get current path (e.g. /en/contact or /pt/contact)
+const pathname = Astro.url.pathname;
+
+// Detect language from URL
+const isPT = pathname.startsWith('/pt');
+const isEN = pathname.startsWith('/en');
+
+// Strip language prefix to get base path
+let basePath = pathname;
+if (isPT) basePath = pathname.replace(/^\/pt/, '');
+if (isEN) basePath = pathname.replace(/^\/en/, '');
+
+// Ensure basePath is never empty
+if (basePath === '') basePath = '/';
+
+// Build correct language links for the SAME page
+const languages = [
+  {
+    code: 'pt',
+    label: 'PT',
+    href: basePath === '/' ? '/pt/' : `/pt${basePath}`,
+  },
+  {
+    code: 'en',
+    label: 'EN',
+    href: basePath === '/' ? '/en/' : `/en${basePath}`,
+  },
+];
+---
+
+<div class="language-switcher">
+  {languages.map((lang, index) => (
+    <>
+      <a
+        href={lang.href}
+        class={currentLang === lang.code ? 'active' : ''}
+      >
+        {lang.label}
+      </a>
+      {index < languages.length - 1 && (
+        <span class="divider" aria-hidden="true">|</span>
+      )}
+    </>
+  ))}
+</div>
+
+<style>
+.language-switcher {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+}
+
+.language-switcher a {
+  text-decoration: none;
+  color: var(--brand);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.language-switcher a:hover,
+.language-switcher a:focus {
+  color: var(--hover-dark);
+}
+
+.language-switcher a.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.language-switcher .divider {
+  color: var(--muted);
+  margin: 0 0.25rem;
+  user-select: none;
+}
+</style>

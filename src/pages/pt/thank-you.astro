@@ -1,0 +1,71 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import '../../assets/styles/pages/thank-you.css';
+
+const SITE_URL = "https://example.com";
+const title = "Obrigado | Samsara";
+const metaDesc =
+  "Obrigado por contactar a Samsara. Já recebemos a sua mensagem e responderemos em breve.";
+
+const canonical = `${SITE_URL}/pt/thank-you`;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: title,
+  url: canonical,
+  description: metaDesc,
+  inLanguage: "pt-PT",
+};
+---
+
+<BaseLayout lang="pt" currentPage="contact">
+  <Fragment slot="title">{title}</Fragment>
+
+  <Fragment slot="head">
+    <meta name="description" content={metaDesc} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="noindex, follow" />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={metaDesc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content="Samsara" />
+
+    <script type="application/ld+json">{JSON.stringify(schema)}</script>
+  </Fragment>
+
+  <main class="thank-shell">
+    <section class="thank-card" aria-label="Mensagem de agradecimento">
+      <div class="thank-badge" aria-hidden="true">
+        <svg viewBox="0 0 24 24" class="thank-icon">
+          <path
+            fill="currentColor"
+            d="M9 16.2 4.8 12l1.4-1.4L9 13.4l8.8-8.8L19.2 6 9 16.2Z"
+          />
+        </svg>
+      </div>
+
+      <h1 class="thank-title">Mensagem recebida</h1>
+      <p class="thank-subtitle">
+        Obrigado — respondemos normalmente em <strong>1–2 dias úteis</strong>.
+      </p>
+
+      <div class="thank-actions">
+        <a class="thank-btn primary" href="/pt/loja">Ver a loja</a>
+        <a class="thank-btn" href="/pt/contact">Voltar ao contacto</a>
+      </div>
+
+      <div class="thank-divider" role="presentation"></div>
+
+      <div class="thank-help">
+        <p class="thank-help-title">Precisa de resposta mais rápida?</p>
+        <ul class="thank-help-list">
+          <li><a href="mailto:samsara@samsara.pt">samsara@samsara.pt</a></li>
+          <li><a href="https://wa.me/351915639435" target="_blank" rel="noopener">WhatsApp: +351 915 639 435</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
