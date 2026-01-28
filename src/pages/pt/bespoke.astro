@@ -11,6 +11,10 @@ import img6 from "../../assets/images/products/bespoke6.jpg";
 
 const lang = "pt";
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 const bespokeImages = [
   { image: img1, alt: "Projeto de carpintaria por medida — detalhe de encaixe e marcenaria" },
   { image: img2, alt: "Projeto por medida — detalhe de mobiliário e acabamento" },
@@ -69,7 +73,7 @@ const bespokeImages = [
     <!-- Carousel -->
     <div class="image">
       <div class="carousel-wrapper bespoke-carousel">
-        <button class="hero-arrow hero-prev" type="button" aria-label="Imagem anterior">‹</button>
+        <button class="hero-arrow hero-prev" aria-label="Imagem anterior">‹</button>
 
         <div class="carousel-container">
           {bespokeImages.map((item, index) => (
@@ -85,7 +89,7 @@ const bespokeImages = [
           ))}
         </div>
 
-        <button class="hero-arrow hero-next" type="button" aria-label="Próxima imagem">›</button>
+        <button class="hero-arrow hero-next" aria-label="Próxima imagem">›</button>
       </div>
     </div>
   </section>
