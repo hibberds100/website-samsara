@@ -1,16 +1,25 @@
 ---
 const to = `${import.meta.env.BASE_URL}en/`;
 ---
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content={`0;url=${to}`} />
+    <title>Redirecting…</title>
+
+    <!-- Immediate redirect (works without JS) -->
+    <meta http-equiv="refresh" content={`0; url=${to}`} />
+
+    <!-- SEO-safe -->
     <link rel="canonical" href={to} />
   </head>
+
   <body>
     <script>
-      window.location.replace({JSON.stringify(to)});
+      // JS fallback redirect
+      window.location.replace("{to}");
     </script>
+
     <p>
       Redirecting… <a href={to}>Continue</a>
     </p>
