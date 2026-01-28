@@ -9,6 +9,17 @@ import endGrainImg from "../../../assets/images/products/product2.jpg";
 import serveImg from "../../../assets/images/products/product4.jpg";
 import bespokeImg from "../../../assets/images/products/product7.jpg";
 
+// ✅ GitHub Pages base path (e.g. /website-samsara)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
+// ✅ Internal links (EN) — same pattern as your working home page
+const shopHref = href("/en/shop");
+const choppingBoardsHref = href("/en/shop/chopping-boards");
+const endGrainBoardsHref = href("/en/shop/end-grain-boards");
+const servingBoardsHref = href("/en/shop/serving-boards");
+const bespokeHref = href("/en/bespoke");
+
 const items = [
   {
     slug: "chopping-boards",
@@ -16,8 +27,7 @@ const items = [
     blurb: "Premium hardwood boards made for kitchens that cook.",
     image: chopImg,
     alt: "Handcrafted hardwood chopping board on a linen surface",
-    // ✅ relative to /en/shop/
-    href: "chopping-boards",
+    href: choppingBoardsHref,
   },
   {
     slug: "end-grain-boards",
@@ -25,8 +35,7 @@ const items = [
     blurb: "Heavy-duty end-grain boards designed for durability and knife care.",
     image: endGrainImg,
     alt: "End-grain butcher block chopping board close-up",
-    // ✅ relative to /en/shop/
-    href: "end-grain-boards",
+    href: endGrainBoardsHref,
   },
   {
     slug: "serving-boards",
@@ -34,8 +43,7 @@ const items = [
     blurb: "Elegant boards designed for entertaining and presentation.",
     image: serveImg,
     alt: "Wooden serving board styled for entertaining",
-    // ✅ relative to /en/shop/
-    href: "serving-boards",
+    href: servingBoardsHref,
   },
   {
     slug: "bespoke",
@@ -43,8 +51,7 @@ const items = [
     blurb: "Made-to-measure pieces tailored to your space and daily use.",
     image: bespokeImg,
     alt: "Bespoke carpentry project in a workshop",
-    // ✅ go up from /en/shop/ -> /en/ then bespoke
-    href: "../bespoke",
+    href: bespokeHref,
   },
 ];
 ---
