@@ -1,0 +1,40 @@
+---
+import ShopLayout from "../../../layouts/ShopLayout.astro";
+import ProductCardGrid from "../../../components/ProductCardGrid.astro";
+import "../../../assets/styles/pages/shop.css";
+
+// Imagens
+import img1 from "../../../assets/images/products/product4.jpg";
+import img1b from "../../../assets/images/products/product4-1.jpg";
+
+const lang = "pt";
+
+const items = [
+  {
+    slug: "walnut-serving-board",
+    title: "Tábua de Servir & Charcutaria em Nogueira",
+    blurb:
+      "Tábua de servir artesanal em nogueira maciça, com veio profundo e natural e pega esculpida. Ideal para charcutaria, queijos, pão e momentos de convívio — finalizada com óleo alimentar para maior durabilidade e para realçar o carácter rico da madeira.",
+    images: [img1, img1b],
+    alts: [
+      "Tábua de servir em nogueira maciça com pega sobre superfície de pedra",
+      "Close-up do veio rico da madeira de nogueira numa tábua artesanal",
+      "Tábua de nogueira preparada para queijos e momentos de convívio",
+    ],
+    sizes: [
+      { label: "50x25cm - Média", price: 55 },
+      { label: "75x40cm - Grande", price: 75 },
+      { label: "110x45cm - Extra Grande", price: 95 },
+    ],
+  },
+];
+---
+
+<ShopLayout lang={lang} currentPage="serving-boards">
+  <ProductCardGrid
+    title="Tábuas de Servir"
+    intro="Peças elegantes pensadas para servir, partilhar e apresentar — acabadas à mão e feitas para durar."
+    items={items}
+    lang={lang}
+  />
+</ShopLayout>
