@@ -21,6 +21,17 @@ import work4 from '../../assets/images/products/product7.jpg';
 // Crafted with Purpose section image
 import craftedImage from '../../assets/images/products/workshop-craft.jpg';
 
+// ✅ GitHub Pages base path (e.g. /website-samsara)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
+// ✅ Internal links (EN)
+const shopHref = href("/en/shop");
+const bespokeHref = href("/en/bespoke");
+const choppingBoardsHref = href("/en/shop/chopping-boards");
+const endGrainBoardsHref = href("/en/shop/end-grain-boards");
+const servingBoardsHref = href("/en/shop/serving-boards");
+
 // SEO-friendly image data (hero carousel)
 const galleryImages = [
   {
@@ -35,7 +46,7 @@ const galleryImages = [
     image: img7,
     alt: 'Walnut-framed glass coffee table on a patterned rug in a living room'
   },
-   {
+  {
     image: img3,
     alt: 'Oak, padauk and walnut chopping board with contrasting hardwood strips'
   },
@@ -55,7 +66,6 @@ const galleryImages = [
     image: img6,
     alt: 'Cherry, oak and walnut chopping board with mixed-grain pattern'
   },
-  
 ];
 ---
 
@@ -120,26 +130,26 @@ const galleryImages = [
 
   <!-- HERO CAROUSEL -->
   <section class="hero-carousel" aria-label="Featured products">
-  <div class="carousel-wrapper">
-    <button class="hero-arrow hero-prev" aria-label="Previous image">‹</button>
+    <div class="carousel-wrapper">
+      <button class="hero-arrow hero-prev" aria-label="Previous image">‹</button>
 
-    <div class="carousel-container">
-      {galleryImages.map((item, index) => (
-        <img
-          src={item.image.src}
-          width={item.image.width}
-          height={item.image.height}
-          alt={item.alt}
-          class={`carousel-image${index === 0 ? ' active' : ''}`}
-          loading={index === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-        />
-      ))}
+      <div class="carousel-container">
+        {galleryImages.map((item, index) => (
+          <img
+            src={item.image.src}
+            width={item.image.width}
+            height={item.image.height}
+            alt={item.alt}
+            class={`carousel-image${index === 0 ? ' active' : ''}`}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        ))}
+      </div>
+
+      <button class="hero-arrow hero-next" aria-label="Next image">›</button>
     </div>
-
-    <button class="hero-arrow hero-next" aria-label="Next image">›</button>
-  </div>
-</section>
+  </section>
 
   <!-- Intro -->
   <section class="intro-text page-container">
@@ -152,8 +162,8 @@ const galleryImages = [
     </p>
 
     <div class="hero-cta">
-      <a href="/en/shop" class="btn">Shop Wooden Goods</a>
-      <a href="/en/bespoke" class="btn">Bespoke Carpentry</a>
+      <a href={shopHref} class="btn">Shop Wooden Goods</a>
+      <a href={bespokeHref} class="btn">Bespoke Carpentry</a>
     </div>
   </section>
 
@@ -170,7 +180,7 @@ const galleryImages = [
     </header>
 
     <div class="work-grid">
-      <a class="work-card" href="/en/shop/chopping-boards">
+      <a class="work-card" href={choppingBoardsHref}>
         <div class="work-media">
           <img src={work1.src} alt="Handcrafted hardwood chopping board" loading="lazy" />
         </div>
@@ -181,7 +191,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/en/shop/end-grain">
+      <a class="work-card" href={endGrainBoardsHref}>
         <div class="work-media">
           <img src={work2.src} alt="End-grain butcher block chopping board" loading="lazy" />
         </div>
@@ -192,7 +202,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/en/shop/serving-boards">
+      <a class="work-card" href={servingBoardsHref}>
         <div class="work-media">
           <img src={work3.src} alt="Serving and charcuterie boards" loading="lazy" />
         </div>
@@ -203,7 +213,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href="/en/bespoke">
+      <a class="work-card" href={bespokeHref}>
         <div class="work-media">
           <img src={work4.src} alt="Bespoke carpentry project" loading="lazy" />
         </div>
@@ -241,7 +251,7 @@ const galleryImages = [
           </li>
         </ul>
 
-        <a href="/en/bespoke" class="text-link">
+        <a href={bespokeHref} class="text-link">
           Discuss a bespoke project →
         </a>
       </div>
