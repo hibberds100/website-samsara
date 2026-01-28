@@ -1,6 +1,9 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig } from "astro/config";
+import github from "@astrojs/github";
 
 export default defineConfig({
-  output: 'static',
-  base: '/',
+  output: "static",
+  adapter: github(),
+  site: "https://hibberds100.github.io",
+  base: "/website-samsara",
 });
