@@ -1,14 +1,21 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import '../../assets/styles/pages/thank-you.css';
+import "../../assets/styles/pages/thank-you.css";
 
-const SITE_URL = "https://example.com"; // change when live
+// ✅ GitHub Pages base path fix
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
+// ✅ BASE_URL-safe site URL (same principle as your working About fix)
+const siteOrigin = "https://hibberds100.github.io";
+const SITE_URL = `${siteOrigin}${basePath}`;
 
 const title = "Thank You | Samsara";
 const metaDesc =
   "Thanks for reaching out to Samsara. We’ve received your message and will respond shortly.";
 
-const canonical = `${SITE_URL}/thank-you`;
+// ✅ correct canonical for EN route
+const canonical = `${SITE_URL}/en/thank-you`;
 
 const schema = {
   "@context": "https://schema.org",
@@ -54,8 +61,8 @@ const schema = {
       </p>
 
       <div class="thank-actions">
-        <a class="thank-btn primary" href="/en/shop">Browse the shop</a>
-        <a class="thank-btn" href="/en/contact">Back to contact</a>
+        <a class="thank-btn primary" href={href("/en/shop")}>Browse the shop</a>
+        <a class="thank-btn" href={href("/en/contact")}>Back to contact</a>
       </div>
 
       <div class="thank-divider" role="presentation"></div>
@@ -64,7 +71,11 @@ const schema = {
         <p class="thank-help-title">Need something sooner?</p>
         <ul class="thank-help-list">
           <li><a href="mailto:samsara@samsara.pt">samsara@samsara.pt</a></li>
-          <li><a href="https://wa.me/351915639435" target="_blank" rel="noopener">WhatsApp: +351 915 639 435</a></li>
+          <li>
+            <a href="https://wa.me/351915639435" target="_blank" rel="noopener">
+              WhatsApp: +351 915 639 435
+            </a>
+          </li>
         </ul>
       </div>
     </section>

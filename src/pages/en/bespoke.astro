@@ -1,252 +1,259 @@
 ---
-    import BaseLayout from "../../layouts/BaseLayout.astro";
-    import "../../assets/styles/pages/bespoke.css";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import "../../assets/styles/pages/bespoke.css";
 
-    import img1 from "../../assets/images/products/bespoke1.jpg";
-    import img2 from "../../assets/images/products/bespoke4.jpg";
+import img1 from "../../assets/images/products/bespoke1.jpg";
+import img2 from "../../assets/images/products/bespoke4.jpg";
+import img3 from "../../assets/images/products/bespoke2.jpg";
+import img4 from "../../assets/images/products/bespoke3.jpg";
+import img5 from "../../assets/images/products/bespoke5.jpg";
+import img6 from "../../assets/images/products/bespoke6.jpg";
 
-    // Add more bespoke images for the carousel (use whatever you have)
-    import img3 from "../../assets/images/products/bespoke2.jpg";
-    import img4 from "../../assets/images/products/bespoke3.jpg";
-    import img5 from "../../assets/images/products/bespoke5.jpg";
-    import img6 from "../../assets/images/products/bespoke6.jpg";
+const lang = "en";
 
-    const lang = "en";
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
 
-    const bespokeImages = [
-    { image: img1, alt: "Bespoke carpentry project – handcrafted joinery detail" },
-    { image: img2, alt: "Bespoke carpentry project – bespoke furniture and finish detail" },
-    { image: img3, alt: "Bespoke carpentry project – shelving and lighting detail" },
-    { image: img4, alt: "Bespoke carpentry project – made-to-measure installation" },
-    { image: img5, alt: "Bespoke carpentry project – Half-moon solid oak console table with radial grain pattern and slim legs, handcrafted bespoke hallway furniture" },
-    { image: img6, alt: "Bespoke carpentry project – Custom wall-to-wall floating oak shelving with integrated warm lighting in a modern interior space" },
-    ];
-    ---
+const bespokeImages = [
+  { image: img1, alt: "Bespoke carpentry project – handcrafted joinery detail" },
+  { image: img2, alt: "Bespoke carpentry project – bespoke furniture and finish detail" },
+  { image: img3, alt: "Bespoke carpentry project – shelving and lighting detail" },
+  { image: img4, alt: "Bespoke carpentry project – made-to-measure installation" },
+  {
+    image: img5,
+    alt: "Bespoke carpentry project – Half-moon solid oak console table with radial grain pattern and slim legs, handcrafted bespoke hallway furniture",
+  },
+  {
+    image: img6,
+    alt: "Bespoke carpentry project – Custom wall-to-wall floating oak shelving with integrated warm lighting in a modern interior space",
+  },
+];
+---
 
-    <BaseLayout lang={lang} currentPage="bespoke">
-    <section class="bespoke-hero">
-        <h1>Bespoke Carpentry</h1>
+<BaseLayout lang={lang} currentPage="bespoke">
+  <section class="bespoke-hero">
+    <h1>Bespoke Carpentry</h1>
+    <p>
+      Commission a one-of-a-kind wooden piece — designed around your space,
+      your needs, and the character of the wood itself.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#commission" class="btn-primary">Commission a Piece</a>
+      <a href="#process" class="btn-secondary">How It Works</a>
+    </div>
+  </section>
+
+  <section id="commission" class="bespoke-section split">
+    <div class="text">
+      <h2>Commission a Piece</h2>
+
+      <p>
+        Every bespoke project begins with a conversation. Whether it’s a statement dining table,
+        a shelf system for a studio, a serving board made to last generations, or a piece of
+        functional art — we design around your home, your routines, and your taste.
+      </p>
+
+      <p>
+        We’ll guide you through proportions, joinery, and material choices so the final piece
+        feels intentional — not just “custom sized”, but genuinely considered.
+      </p>
+
+      <p><strong>Typical commissions include:</strong></p>
+      <ul>
+        <li>Bespoke built-in cabinetry and fitted storage</li>
+        <li>Architectural shelving systems for homes and studios</li>
+        <li>Dining tables, coffee tables, benches and seating</li>
+        <li>Garden pieces — outdoor tables, planters and seating</li>
+        <li>Small production runs for restaurants and hospitality (boards, trays, service pieces)</li>
+      </ul>
+
+      <p>
+        To start, send a few details (rough dimensions, where it will live, and any inspiration).
+        We’ll reply with next steps, guidance, and a ballpark estimate.
+      </p>
+    </div>
+
+    <div class="image">
+      <div class="carousel-wrapper bespoke-carousel">
+        <button class="hero-arrow hero-prev" aria-label="Previous image">‹</button>
+
+        <div class="carousel-container">
+          {bespokeImages.map((item, index) => (
+            <img
+              src={item.image.src}
+              width={item.image.width}
+              height={item.image.height}
+              alt={item.alt}
+              class={`carousel-image${index === 0 ? " active" : ""}`}
+              loading={index === 0 ? "eager" : "lazy"}
+              decoding="async"
+            />
+          ))}
+        </div>
+
+        <button class="hero-arrow hero-next" aria-label="Next image">›</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="bespoke-section process">
+    <h2>How It Works</h2>
+
+    <div class="process-grid">
+      <div class="process-card">
+        <span>01</span>
+        <h3>Consultation</h3>
         <p>
-        Commission a one-of-a-kind wooden piece — designed around your space,
-        your needs, and the character of the wood itself.
+          You share your idea, space, and intended use. We’ll clarify dimensions, style,
+          and practical details like weight, edges, finish and maintenance.
         </p>
+      </div>
 
-        <div class="hero-buttons">
-        <a href="#commission" class="btn-primary">Commission a Piece</a>
-        <a href="#process" class="btn-secondary">How It Works</a>
-        </div>
-    </section>
-
-    <section id="commission" class="bespoke-section split">
-        <div class="text">
-        <h2>Commission a Piece</h2>
-
+      <div class="process-card">
+        <span>02</span>
+        <h3>Design & Material Selection</h3>
         <p>
-            Every bespoke project begins with a conversation. Whether it’s a statement dining table,
-            a shelf system for a studio, a serving board made to last generations, or a piece of
-            functional art — we design around your home, your routines, and your taste.
+          We propose timber options, layout, and finish. For larger pieces we can supply a simple
+          design outline and confirmation before build.
         </p>
+      </div>
 
+      <div class="process-card">
+        <span>03</span>
+        <h3>Crafting</h3>
         <p>
-            We’ll guide you through proportions, joinery, and material choices so the final piece
-            feels intentional — not just “custom sized”, but genuinely considered.
+          The piece is handmade in our workshop with careful attention to grain, joinery,
+          and long-term durability.
         </p>
+      </div>
 
-        <p><strong>Typical commissions include:</strong></p>
-        <ul>
-            <li>Bespoke built-in cabinetry and fitted storage</li>
-            <li>Architectural shelving systems for homes and studios</li>
-            <li>Dining tables, coffee tables, benches and seating</li>
-            <li>Garden pieces — outdoor tables, planters and seating</li>
-            <li>Small production runs for restaurants and hospitality (boards, trays, service pieces)</li>
-        </ul>
-
+      <div class="process-card">
+        <span>04</span>
+        <h3>Finishing & Delivery</h3>
         <p>
-            To start, send a few details (rough dimensions, where it will live, and any inspiration).
-            We’ll reply with next steps, guidance, and a ballpark estimate.
+          We sand and finish to a smooth, protective surface, then pack securely for delivery.
+          You’ll receive care guidance so it stays beautiful.
         </p>
-        </div>
+      </div>
+    </div>
+  </section>
 
-        <!-- REPLACED: single image -> carousel (same placeholder area) -->
-        <div class="image">
-        <div class="carousel-wrapper bespoke-carousel">
-            <button class="hero-arrow hero-prev" aria-label="Previous image">‹</button>
+  <section class="bespoke-section materials split reverse">
+    <div class="image">
+      <img src={img2.src} alt="Hardwood detail placeholder" loading="lazy" decoding="async" />
+    </div>
 
-            <div class="carousel-container">
-            {bespokeImages.map((item, index) => (
-                <img
-                src={item.image.src}
-                width={item.image.width}
-                height={item.image.height}
-                alt={item.alt}
-                class={`carousel-image${index === 0 ? " active" : ""}`}
-                loading={index === 0 ? "eager" : "lazy"}
-                decoding="async"
-                />
-            ))}
-            </div>
+    <div class="text">
+      <h2>Materials</h2>
+      <p>
+        We work with responsibly sourced hardwoods chosen for beauty, strength, and character.
+        Each timber brings a different mood to a piece — from dramatic grain to quiet warmth.
+      </p>
 
-            <button class="hero-arrow hero-next" aria-label="Next image">›</button>
-        </div>
-        </div>
-    </section>
+      <ul>
+        <li>
+          <strong>Walnut</strong> — rich, dark tone with elegant grain.
+          <br />We love it for statement pieces and contrast; it brings depth and sophistication.
+        </li>
+        <li>
+          <strong>Oak</strong> — timeless, resilient, and highly practical.
+          <br />We love it for family homes: it’s durable, forgiving, and ages beautifully.
+        </li>
+        <li>
+          <strong>Cherry</strong> — warm colour that deepens with time.
+          <br />We love it for heirloom feel; it develops a gorgeous patina as it’s used.
+        </li>
+        <li>
+          <strong>Maple</strong> — pale, clean, and hard-wearing.
+          <br />We love it for a bright modern look; it’s excellent for boards and everyday use.
+        </li>
+        <li>
+          <strong>Ash</strong> — light tone with lively, open grain.
+          <br />We love it for texture and movement; it feels fresh and contemporary.
+        </li>
+        <li>
+          <strong>Beech</strong> — subtle grain and very stable.
+          <br />We love it for practical pieces; it’s a classic for kitchen use and workshop-quality durability.
+        </li>
+      </ul>
 
-    <section id="process" class="bespoke-section process">
-        <h2>How It Works</h2>
+      <p>
+        <strong>Finishes:</strong> we match the finish to the use case —
+        food-safe oils and waxes for boards, and hard-wearing protective finishes for furniture.
+      </p>
+    </div>
+  </section>
 
-        <div class="process-grid">
-        <div class="process-card">
-            <span>01</span>
-            <h3>Consultation</h3>
-            <p>
-            You share your idea, space, and intended use. We’ll clarify dimensions, style,
-            and practical details like weight, edges, finish and maintenance.
-            </p>
-        </div>
+  <section class="bespoke-section faq">
+    <h2>Bespoke FAQ</h2>
 
-        <div class="process-card">
-            <span>02</span>
-            <h3>Design & Material Selection</h3>
-            <p>
-            We propose timber options, layout, and finish. For larger pieces we can supply a simple
-            design outline and confirmation before build.
-            </p>
-        </div>
+    <div class="faq-item">
+      <h3>How long does a commission take?</h3>
+      <p>
+        Most bespoke projects take 4–8 weeks depending on complexity, timber availability,
+        and finishing time. Smaller pieces may be quicker.
+      </p>
+    </div>
 
-        <div class="process-card">
-            <span>03</span>
-            <h3>Crafting</h3>
-            <p>
-            The piece is handmade in our workshop with careful attention to grain, joinery,
-            and long-term durability.
-            </p>
-        </div>
+    <div class="faq-item">
+      <h3>How do I start a commission?</h3>
+      <p>
+        Message us with a short description, approximate dimensions, where it will live,
+        and a couple of reference images (if you have them). We’ll guide you from there.
+      </p>
+    </div>
 
-        <div class="process-card">
-            <span>04</span>
-            <h3>Finishing & Delivery</h3>
-            <p>
-            We sand and finish to a smooth, protective surface, then pack securely for delivery.
-            You’ll receive care guidance so it stays beautiful.
-            </p>
-        </div>
-        </div>
-    </section>
+    <div class="faq-item">
+      <h3>Do you work from client sketches or Pinterest references?</h3>
+      <p>
+        Yes — references are helpful. We’ll translate ideas into a buildable, well-proportioned design
+        and suggest improvements for strength and longevity.
+      </p>
+    </div>
 
-    <section class="bespoke-section materials split reverse">
-        <div class="image">
-        <img src={img2.src} alt="Hardwood detail placeholder" loading="lazy" decoding="async" />
-        </div>
+    <div class="faq-item">
+      <h3>Can I choose the wood and finish?</h3>
+      <p>
+        Absolutely. We’ll recommend options based on the function, colour palette of your space,
+        and how the piece will age over time.
+      </p>
+    </div>
 
-        <div class="text">
-        <h2>Materials</h2>
-        <p>
-            We work with responsibly sourced hardwoods chosen for beauty, strength, and character.
-            Each timber brings a different mood to a piece — from dramatic grain to quiet warmth.
-        </p>
+    <div class="faq-item">
+      <h3>What are your price ranges?</h3>
+      <p>
+        Pricing depends on size, timber, joinery, and finishing. Once we confirm the brief,
+        we’ll provide a clear quote before any build begins.
+      </p>
+    </div>
 
-        <ul>
-            <li>
-            <strong>Walnut</strong> — rich, dark tone with elegant grain.
-            <br />We love it for statement pieces and contrast; it brings depth and sophistication.
-            </li>
-            <li>
-            <strong>Oak</strong> — timeless, resilient, and highly practical.
-            <br />We love it for family homes: it’s durable, forgiving, and ages beautifully.
-            </li>
-            <li>
-            <strong>Cherry</strong> — warm colour that deepens with time.
-            <br />We love it for heirloom feel; it develops a gorgeous patina as it’s used.
-            </li>
-            <li>
-            <strong>Maple</strong> — pale, clean, and hard-wearing.
-            <br />We love it for a bright modern look; it’s excellent for boards and everyday use.
-            </li>
-            <li>
-            <strong>Ash</strong> — light tone with lively, open grain.
-            <br />We love it for texture and movement; it feels fresh and contemporary.
-            </li>
-            <li>
-            <strong>Beech</strong> — subtle grain and very stable.
-            <br />We love it for practical pieces; it’s a classic for kitchen use and workshop-quality durability.
-            </li>
-        </ul>
+    <div class="faq-item">
+      <h3>Do you require a deposit?</h3>
+      <p>
+        For bespoke commissions we typically take a deposit to secure materials and workshop time,
+        with the balance due on completion before delivery.
+      </p>
+    </div>
 
-        <p>
-            <strong>Finishes:</strong> we match the finish to the use case —
-            food-safe oils and waxes for boards, and hard-wearing protective finishes for furniture.
-        </p>
-        </div>
-    </section>
+    <div class="faq-item">
+      <h3>How do you handle delivery?</h3>
+      <p>
+        Pieces are carefully protected for transit. Delivery method depends on size — smaller items
+        ship normally; larger items may require courier or arranged delivery.
+      </p>
+    </div>
 
-    <section class="bespoke-section faq">
-        <h2>Bespoke FAQ</h2>
-
-        <div class="faq-item">
-        <h3>How long does a commission take?</h3>
-        <p>
-            Most bespoke projects take 4–8 weeks depending on complexity, timber availability,
-            and finishing time. Smaller pieces may be quicker.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>How do I start a commission?</h3>
-        <p>
-            Message us with a short description, approximate dimensions, where it will live,
-            and a couple of reference images (if you have them). We’ll guide you from there.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>Do you work from client sketches or Pinterest references?</h3>
-        <p>
-            Yes — references are helpful. We’ll translate ideas into a buildable, well-proportioned design
-            and suggest improvements for strength and longevity.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>Can I choose the wood and finish?</h3>
-        <p>
-            Absolutely. We’ll recommend options based on the function, colour palette of your space,
-            and how the piece will age over time.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>What are your price ranges?</h3>
-        <p>
-            Pricing depends on size, timber, joinery, and finishing. Once we confirm the brief,
-            we’ll provide a clear quote before any build begins.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>Do you require a deposit?</h3>
-        <p>
-            For bespoke commissions we typically take a deposit to secure materials and workshop time,
-            with the balance due on completion before delivery.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>How do you handle delivery?</h3>
-        <p>
-            Pieces are carefully protected for transit. Delivery method depends on size — smaller items
-            ship normally; larger items may require courier or arranged delivery.
-        </p>
-        </div>
-
-        <div class="faq-item">
-        <h3>How do I care for a chopping board?</h3>
-        <p>
-            Hand wash only, never soak, and re-oil when the surface looks dry. We provide care guidance
-            with every board so it stays smooth and protected.
-        </p>
-        </div>
-    </section>
-    </BaseLayout>
+    <div class="faq-item">
+      <h3>How do I care for a chopping board?</h3>
+      <p>
+        Hand wash only, never soak, and re-oil when the surface looks dry. We provide care guidance
+        with every board so it stays smooth and protected.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
 
     <script>
     const root = document.querySelector<HTMLElement>(".bespoke-carousel");
