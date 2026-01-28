@@ -1,27 +1,21 @@
 ---
-const to = `${import.meta.env.BASE_URL}en/`;
 ---
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Redirecting…</title>
 
-    <!-- Immediate redirect (works without JS) -->
-    <meta http-equiv="refresh" content={`0; url=${to}`} />
-
-    <!-- SEO-safe -->
-    <link rel="canonical" href={to} />
+    <!-- Works on GitHub Pages regardless of base path -->
+    <meta http-equiv="refresh" content="0; url=./en/" />
   </head>
 
   <body>
     <script>
-      // JS fallback redirect
-      window.location.replace("{to}");
+      // JS fallback (also base-path safe)
+      window.location.replace(new URL("./en/", window.location.href).toString());
     </script>
 
-    <p>
-      Redirecting… <a href={to}>Continue</a>
-    </p>
+    <p>Redirecting… <a href="./en/">Continue</a></p>
   </body>
 </html>
