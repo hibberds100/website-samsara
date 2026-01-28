@@ -1,85 +1,212 @@
-<script>
-  const CART_KEY = "samsara_cart_v1";
+<script is:inline>
+/* =========================================================
+   1. CONFIG
+========================================================= */
+const CART_KEY = "samsara_cart_v1";
+const SHIPPING_COUNTRY_KEY = "samsara_ship_country_v1";
 
-  /**
-   * Cart item shape (runtime-safe, no TS needed)
-   * {
-   *   slug: string
-   *   title?: string
-   *   size: string
-   *   qty: number
-   *   price?: number
-   * }
-   */
+/* Shipping rules by country */
+const SHIPPING_RULES = {
+  PT: { perItem: 5.95, min: 0 },
+  ES: { perItem: 10.95, min: 0 },
+  EU: { perItem: 16.95, min: 0 },
+  UK: { perItem: 25.95, min: 0 },
+  US: { perItem: 40, min: 0 },
+  ROW:{ perItem: 65, min: 0 },
+};
 
-  function getCart() {
-    try {
-      const raw = localStorage.getItem(CART_KEY);
-      const cart = raw ? JSON.parse(raw) : [];
-      return Array.isArray(cart) ? cart : [];
-    } catch {
-      return [];
-    }
+const euro = (n) => `€${Number(n || 0).toFixed(2)}`;
+
+/* Prevent broken HTML being stored as image */
+const cleanImageUrl = (val) => {
+  if (typeof val !== "string") return "";
+  const s = val.trim();
+  if (!s || s.startsWith("<")) return "";
+  return s;
+};
+
+/* =========================================================
+   2. STORAGE
+========================================================= */
+const loadCart = () => {
+  try {
+    const raw = localStorage.getItem(CART_KEY);
+    const parsed = raw ? JSON.parse(raw) : [];
+    return Array.isArray(parsed) ? parsed : [];
+  } catch { return []; }
+};
+
+const saveCart = (cart) => {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  window.dispatchEvent(new Event("cart:updated"));
+};
+
+/* =========================================================
+   3. SHIPPING COUNTRY
+========================================================= */
+const getShipCountry = () => {
+  const select = document.getElementById("ship-country");
+  if (select && SHIPPING_RULES[select.value]) return select.value;
+
+  const saved = localStorage.getItem(SHIPPING_COUNTRY_KEY);
+  if (saved && SHIPPING_RULES[saved]) return saved;
+
+  return "PT";
+};
+
+/* =========================================================
+   4. CONSENT (TERMS + PRIVACY)
+========================================================= */
+const updateConsentState = () => {
+  const checkbox = document.getElementById("agree-terms");
+  const checkoutBtn = document.getElementById("checkout-btn");
+  const consentBox = document.getElementById("cart-consent");
+
+  if (!checkbox || !checkoutBtn) return;
+
+  const cartHasItems = loadCart().length > 0;
+  checkoutBtn.disabled = !checkbox.checked || !cartHasItems;
+
+  if (consentBox) consentBox.classList.toggle("error", !checkbox.checked);
+};
+
+/* =========================================================
+   5. RENDER CART
+========================================================= */
+const renderCart = () => {
+  const itemsEl = document.getElementById("cart-items");
+  const subtotalEl = document.getElementById("cart-subtotal");
+  const shippingEl = document.getElementById("cart-shipping");
+  const totalEl = document.getElementById("cart-total");
+  const checkoutBtn = document.getElementById("checkout-btn");
+  const clearBtn = document.getElementById("clear-cart-btn");
+
+  if (!itemsEl || !subtotalEl || !shippingEl || !totalEl) return;
+
+  const cart = loadCart();
+  if (clearBtn) clearBtn.hidden = cart.length === 0;
+
+  if (!cart.length) {
+    itemsEl.innerHTML = "<p>Your cart is empty.</p>";
+    subtotalEl.textContent = "€0.00";
+    shippingEl.textContent = "€0.00";
+    totalEl.textContent = "€0.00";
+    updateConsentState();
+    return;
   }
 
-  function saveCart(cart) {
-    localStorage.setItem(CART_KEY, JSON.stringify(cart));
-    window.dispatchEvent(new Event("cart:updated"));
-  }
+  let subtotal = 0;
+  itemsEl.innerHTML = "";
 
-  function addToCart(detail) {
-    if (!detail?.slug || !detail?.size) return;
+  cart.forEach((item, index) => {
+    const qty = Math.max(1, Number(item.qty || 1));
+    const price = Number(item.price || 0);
+    const lineTotal = qty * price;
+    subtotal += lineTotal;
 
-    const cart = getCart();
+    const row = document.createElement("div");
+    row.className = "cart-item";
 
-    const existing = cart.find(
-      (i) => i.slug === detail.slug && i.size === detail.size
-    );
+    row.innerHTML = `
+      <div class="cart-info">
+        <div class="cart-item-title">${item.title || item.slug || "Item"}</div>
+        <div class="cart-meta">Size: ${item.size || "-"}</div>
+        <div class="cart-meta">Unit: ${euro(price)}</div>
+      </div>
 
-    if (existing) {
-      existing.qty += detail.qty ?? 1;
-    } else {
-      cart.push({
-        slug: detail.slug,
-        title: detail.title ?? detail.slug,
-        size: detail.size,
-        qty: detail.qty ?? 1,
-        price: detail.price ?? 0,
-      });
-    }
+      <div class="cart-controls">
+        <div class="line-total">${euro(lineTotal)}</div>
+        <div class="cart-qty">
+          <button class="qty-btn" data-dec="${index}">−</button>
+          <span class="qty-value">${qty}</span>
+          <button class="qty-btn" data-inc="${index}">+</button>
+        </div>
+        <button class="remove-btn" data-remove="${index}">Remove</button>
+      </div>
 
-    saveCart(cart);
-  }
+      <div class="cart-thumb">
+        ${cleanImageUrl(item.image) ? `<img src="${item.image}" alt="item">` : ""}
+      </div>
+    `;
 
-  function removeFromCart({ slug, size }) {
-    const cart = getCart().filter(
-      (i) => !(i.slug === slug && i.size === size)
-    );
-    saveCart(cart);
-  }
-
-  function updateQty({ slug, size, qty }) {
-    const cart = getCart();
-    const item = cart.find(
-      (i) => i.slug === slug && i.size === size
-    );
-
-    if (!item) return;
-
-    item.qty = Math.max(1, qty);
-    saveCart(cart);
-  }
-
-  // ---- Event listeners ----
-  window.addEventListener("cart:add", (e) => {
-    addToCart(e.detail);
+    itemsEl.appendChild(row);
   });
 
-  window.addEventListener("cart:remove", (e) => {
-    removeFromCart(e.detail);
-  });
+  const totalQty = cart.reduce((sum, i) => sum + Number(i.qty || 0), 0);
+  const rule = SHIPPING_RULES[getShipCountry()] || SHIPPING_RULES.PT;
+  const shipping = Math.max(rule.min, totalQty * rule.perItem);
 
-  window.addEventListener("cart:update", (e) => {
-    updateQty(e.detail);
-  });
+  subtotalEl.textContent = euro(subtotal);
+  shippingEl.textContent = euro(shipping);
+  totalEl.textContent = euro(subtotal + shipping);
+
+  updateConsentState();
+};
+
+/* =========================================================
+   6. BUTTON ACTIONS
+========================================================= */
+document.addEventListener("click", (e) => {
+  const target = e.target;
+  if (!(target instanceof HTMLElement)) return;
+
+  const cart = loadCart();
+
+  if (target.dataset.inc) {
+    cart[target.dataset.inc].qty++;
+    saveCart(cart);
+    renderCart();
+  }
+
+  if (target.dataset.dec) {
+    const i = target.dataset.dec;
+    cart[i].qty--;
+    if (cart[i].qty <= 0) cart.splice(i,1);
+    saveCart(cart);
+    renderCart();
+  }
+
+  if (target.dataset.remove) {
+    cart.splice(target.dataset.remove,1);
+    saveCart(cart);
+    renderCart();
+  }
+});
+
+/* =========================================================
+   7. INIT
+========================================================= */
+document.addEventListener("DOMContentLoaded", () => {
+  const select = document.getElementById("ship-country");
+  const checkbox = document.getElementById("agree-terms");
+  const clearBtn = document.getElementById("clear-cart-btn");
+  const checkoutBtn = document.getElementById("checkout-btn");
+
+  if (select) {
+    select.value = localStorage.getItem(SHIPPING_COUNTRY_KEY) || "PT";
+    select.addEventListener("change", () => {
+      localStorage.setItem(SHIPPING_COUNTRY_KEY, select.value);
+      renderCart();
+    });
+  }
+
+  if (checkbox) checkbox.addEventListener("change", updateConsentState);
+
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      if (confirm("Clear all items?")) {
+        localStorage.removeItem(CART_KEY);
+        renderCart();
+      }
+    });
+  }
+
+  if (checkoutBtn) {
+    checkoutBtn.addEventListener("click", () => {
+      alert("Next step: Stripe Checkout");
+    });
+  }
+
+  renderCart();
+});
 </script>
