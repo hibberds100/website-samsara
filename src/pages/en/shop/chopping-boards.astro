@@ -20,13 +20,18 @@ import img4b from "../../../assets/images/products/product6-1.jpg";
 import img8 from "../../../assets/images/products/product8.jpg";
 import img8b from "../../../assets/images/products/product8-1.jpg";
 
+// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const href = (path: string) => `${basePath}${path}`;
+
 const lang = "en";
 
 const items = [
   {
     slug: "walnut-cherry-board",
     title: "Walnut & Cherry Chopping Board",
-    blurb: "Premium handcrafted chopping board made from rich walnut and warm cherry hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
+    blurb:
+      "Premium handcrafted chopping board made from rich walnut and warm cherry hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
     images: [img1, img1b, img1c],
     alts: [
       "Walnut and cherry chopping board",
@@ -41,76 +46,81 @@ const items = [
     ],
   },
 
-{
-  slug: "oak-walnut-padauk-chopping-board",
-  title: "Oak, Walnut & Padauk Chopping Board",
-  blurb: "Premium handcrafted chopping board made from solid oak, rich walnut, and vibrant padauk hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
-  images: [img2, img2b, img2c],
-  alts: [
-    "Oak walnut and padauk hardwood chopping board",
-    "Close-up of oak walnut padauk wood grain",
-    "Handcrafted hardwood chopping board in workshop setting",
-  ],
-  sizes: [
-    { label: "20x15cm - Small", price: 50 },
+  {
+    slug: "oak-walnut-padauk-chopping-board",
+    title: "Oak, Walnut & Padauk Chopping Board",
+    blurb:
+      "Premium handcrafted chopping board made from solid oak, rich walnut, and vibrant padauk hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
+    images: [img2, img2b, img2c],
+    alts: [
+      "Oak walnut and padauk hardwood chopping board",
+      "Close-up of oak walnut padauk wood grain",
+      "Handcrafted hardwood chopping board in workshop setting",
+    ],
+    sizes: [
+      { label: "20x15cm - Small", price: 50 },
       { label: "30x20cm - Medium", price: 65 },
       { label: "42x27cm - Large", price: 75 },
       { label: "60x32cm - X-Large", price: 95 },
-  ],
-},
-{
-  slug: "padauk-oak-contrast-chopping-board",
-  title: "Padauk & Oak Contrast Chopping Board",
-  blurb: "Premium handcrafted chopping board made from vibrant red padauk and contrasting light oak hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
-  images: [img3, img3b],
-  alts: [
-    "Padauk and oak hardwood chopping board",
-    "Close-up of red padauk wood grain with oak contrast",
-    "Handcrafted padauk and oak chopping board",
-  ],
-  sizes: [
-    { label: "20x15cm - Small", price: 50 },
-    { label: "30x20cm - Medium", price: 65 },
-    { label: "42x27cm - Large", price: 75 },
-    { label: "60x32cm - X-Large", price: 95 },
-  ],
-},
+    ],
+  },
 
-{
-  slug: "cherry-oak-walnut-contrast-chopping-board",
-  title: "Cherry, Oak & Walnut Contrast Chopping Board",
-  blurb: "Premium handcrafted chopping board made from rich cherry, durable oak, and dark walnut accent stripes, featuring an integrated juice groove and finished with food-safe oil for long-lasting performance and everyday kitchen use.",
-  images: [img4, img4b],
-  alts: [
-    "Cherry oak and walnut hardwood chopping board with juice groove",
-    "Close-up of cherry wood grain with oak and walnut stripe detail",
-    "Handcrafted cherry oak walnut chopping board on rustic kitchen surface",
-  ],
-  sizes: [
-    { label: "20x15cm - Small", price: 50 },
-    { label: "30x20cm - Medium", price: 65 },
-    { label: "42x27cm - Large", price: 75 },
-    { label: "60x32cm - X-Large", price: 95 },
-  ],
-},
+  {
+    slug: "padauk-oak-contrast-chopping-board",
+    title: "Padauk & Oak Contrast Chopping Board",
+    blurb:
+      "Premium handcrafted chopping board made from vibrant red padauk and contrasting light oak hardwoods, finished with food-safe oil for durability and everyday kitchen use.",
+    images: [img3, img3b],
+    alts: [
+      "Padauk and oak hardwood chopping board",
+      "Close-up of red padauk wood grain with oak contrast",
+      "Handcrafted padauk and oak chopping board",
+    ],
+    sizes: [
+      { label: "20x15cm - Small", price: 50 },
+      { label: "30x20cm - Medium", price: 65 },
+      { label: "42x27cm - Large", price: 75 },
+      { label: "60x32cm - X-Large", price: 95 },
+    ],
+  },
 
-{
-  slug: "oak-walnut-contrast-chopping-board",
-  title: "Oak & Walnut Contrast Chopping Board",
-  blurb: "Premium handcrafted chopping board made from rich cherry hardwood, durable oak, and dark walnut accent stripes. Designed with an integrated juice groove and finished in food-safe oil for long-lasting durability and everyday kitchen performance.",
-  images: [img8, img8b],
-  alts: [
-    "oak and walnut hardwood chopping board with juice groove",
-    "Detail of oak wood grain and walnut contrast stripes",
-    "Handcrafted cherry oak walnut chopping board on a rustic kitchen surface",
-  ],
-  sizes: [
-    { label: "20x15cm - Small", price: 50 },
-    { label: "30x20cm - Medium", price: 65 },
-    { label: "42x27cm - Large", price: 75 },
-    { label: "60x32cm - X-Large", price: 95 },
-  ],
-}
+  {
+    slug: "cherry-oak-walnut-contrast-chopping-board",
+    title: "Cherry, Oak & Walnut Contrast Chopping Board",
+    blurb:
+      "Premium handcrafted chopping board made from rich cherry, durable oak, and dark walnut accent stripes, featuring an integrated juice groove and finished with food-safe oil for long-lasting performance and everyday kitchen use.",
+    images: [img4, img4b],
+    alts: [
+      "Cherry oak and walnut hardwood chopping board with juice groove",
+      "Close-up of cherry wood grain with oak and walnut stripe detail",
+      "Handcrafted cherry oak walnut chopping board on rustic kitchen surface",
+    ],
+    sizes: [
+      { label: "20x15cm - Small", price: 50 },
+      { label: "30x20cm - Medium", price: 65 },
+      { label: "42x27cm - Large", price: 75 },
+      { label: "60x32cm - X-Large", price: 95 },
+    ],
+  },
+
+  {
+    slug: "oak-walnut-contrast-chopping-board",
+    title: "Oak & Walnut Contrast Chopping Board",
+    blurb:
+      "Premium handcrafted chopping board made from rich cherry hardwood, durable oak, and dark walnut accent stripes. Designed with an integrated juice groove and finished in food-safe oil for long-lasting durability and everyday kitchen performance.",
+    images: [img8, img8b],
+    alts: [
+      "oak and walnut hardwood chopping board with juice groove",
+      "Detail of oak wood grain and walnut contrast stripes",
+      "Handcrafted cherry oak walnut chopping board on a rustic kitchen surface",
+    ],
+    sizes: [
+      { label: "20x15cm - Small", price: 50 },
+      { label: "30x20cm - Medium", price: 65 },
+      { label: "42x27cm - Large", price: 75 },
+      { label: "60x32cm - X-Large", price: 95 },
+    ],
+  },
 ];
 ---
 
