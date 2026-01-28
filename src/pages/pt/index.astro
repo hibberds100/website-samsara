@@ -149,13 +149,14 @@ const galleryImages = [
       e de origem responsável.
     </p>
 
-    <!-- Buttons (✅ all BASE_URL-safe) -->
+    <!-- Buttons (✅ BASE_URL-safe, ✅ PT structure same as EN) -->
     <div class="hero-cta">
-      <a href={href("/pt/loja")} class="btn">Comprar Produtos em Madeira</a>
-      <a href={href("/pt/por-medida")} class="btn">Carpintaria por Medida</a>
+      <a href={href("/pt/shop")} class="btn">Comprar Produtos em Madeira</a>
+      <a href={href("/pt/bespoke")} class="btn">Carpintaria por Medida</a>
     </div>
   </section>
 
+  <!-- Divider -->
   <div class="section-divider" aria-hidden="true"></div>
 
   <!-- OUR WORK -->
@@ -169,7 +170,7 @@ const galleryImages = [
     </header>
 
     <div class="work-grid">
-      <a class="work-card" href={href("/pt/loja/tabuas-de-cortar")}>
+      <a class="work-card" href={href("/pt/shop/chopping-boards")}>
         <div class="work-media">
           <img
             src={work1.src}
@@ -187,7 +188,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href={href("/pt/loja/tabuas-end-grain-boards")}>
+      <a class="work-card" href={href("/pt/shop/end-grain-boards")}>
         <div class="work-media">
           <img
             src={work2.src}
@@ -205,7 +206,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href={href("/pt/loja/tabuas-de-servir")}>
+      <a class="work-card" href={href("/pt/shop/serving-boards")}>
         <div class="work-media">
           <img
             src={work3.src}
@@ -223,7 +224,7 @@ const galleryImages = [
         </div>
       </a>
 
-      <a class="work-card" href={href("/pt/por-medida")}>
+      <a class="work-card" href={href("/pt/bespoke")}>
         <div class="work-media">
           <img
             src={work4.src}
@@ -243,11 +244,13 @@ const galleryImages = [
     </div>
   </section>
 
+  <!-- Divider -->
   <div class="section-divider" aria-hidden="true"></div>
 
   <!-- Crafted with Purpose -->
   <section class="crafted-purpose page-container" aria-labelledby="crafted-purpose-title">
     <div class="crafted-grid">
+      <!-- Text -->
       <div class="crafted-text">
         <h2 id="crafted-purpose-title">Feito com Propósito</h2>
 
@@ -273,11 +276,13 @@ const galleryImages = [
           </li>
         </ul>
 
-        <a href={href("/pt/por-medida")} class="text-link">
+        <!-- CTA (✅ BASE_URL-safe, ✅ PT structure same as EN) -->
+        <a href={href("/pt/bespoke")} class="text-link">
           Falar sobre um projeto por medida →
         </a>
       </div>
 
+      <!-- Image -->
       <div class="crafted-image">
         <img
           src={craftedImage.src}
