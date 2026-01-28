@@ -6,21 +6,22 @@ import '../../assets/styles/pages/contact.css';
 const { lang = 'en' } = Astro.props;
 const isPT = lang?.startsWith('pt');
 
-const SITE_URL = 'https://example.com'; // change later
+const SITE_URL = 'https://example.com'; // ✅ change later
 
 // ✅ GitHub Pages base path (e.g. /website-samsara)
-const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
 const href = (path: string) => `${basePath}${path}`;
 
-// ✅ language-aware thank-you page (on your site)
-const thankYouPath = isPT ? '/pt/thank-you' : '/en/thank-you';
-const thankYouHref = href(thankYouPath);
-
-// ✅ Formspree endpoint (paste yours here)
-const FORM_ENDPOINT = "https://formspree.io/f/mbdyjrya";
+// ✅ Formspree endpoint (PASTE YOURS HERE)
+const FORM_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
 
 const t = {
   en: {
+    title: 'Contact Samsara | Handcrafted Boards & Bespoke Carpentry',
+    metaDesc:
+      'Contact Samsara for handcrafted chopping boards, end-grain butcher blocks, serving boards, and bespoke carpentry made in Portugal. Request a quote or discuss a custom project.',
+    canonical: `${SITE_URL}/en/contact`,
+    ogLocale: 'en_GB',
     h1: 'Get In Touch',
     intro: "We’re here to help with any questions or requests.",
     name: 'Name',
@@ -28,11 +29,26 @@ const t = {
     phone: 'Phone (Optional)',
     message: 'Message',
     send: 'Send Message',
+    infoTitle: 'Contact Information',
+    follow: 'Follow Us',
+    madeIn: 'Made in Portugal',
+    addressLine: 'Practea Francisco Romer 24, Cascais, Lisbon, 2645-196',
+    emailLabel: 'samsara@samsara.pt',
+    phoneLabel: '+351 915 639 435',
+    instagram: 'Instagram',
+    whatsapp: 'WhatsApp',
+
+    // ✅ form status messages
     sending: 'Sending…',
     success: 'Thanks — your message has been sent.',
     error: 'Sorry — something went wrong. Please try again.',
   },
   pt: {
+    title: 'Contacto | Tábuas Artesanais & Carpintaria Por Medida | Samsara',
+    metaDesc:
+      'Contacte a Samsara para tábuas de cortar e servir artesanais, blocos end-grain e carpintaria por medida feita em Portugal. Peça um orçamento ou fale sobre um projeto.',
+    canonical: `${SITE_URL}/pt/contact`,
+    ogLocale: 'pt_PT',
     h1: 'Fale Connosco',
     intro: 'Estamos aqui para ajudar com qualquer questão ou pedido.',
     name: 'Nome',
@@ -40,6 +56,16 @@ const t = {
     phone: 'Telefone (Opcional)',
     message: 'Mensagem',
     send: 'Enviar Mensagem',
+    infoTitle: 'Informações de Contacto',
+    follow: 'Siga-nos',
+    madeIn: 'Feito em Portugal',
+    addressLine: 'Portugal',
+    emailLabel: 'samsara@samsara.pt',
+    phoneLabel: '+351 915 639 435',
+    instagram: 'Instagram',
+    whatsapp: 'WhatsApp',
+
+    // ✅ form status messages
     sending: 'A enviar…',
     success: 'Obrigado — a sua mensagem foi enviada.',
     error: 'Ocorreu um erro. Por favor tente novamente.',
@@ -47,80 +73,279 @@ const t = {
 };
 
 const copy = isPT ? t.pt : t.en;
+
+const email = 'samsara@samsara.pt';
+const phoneDisplay = '+351 915 639 435';
+const phoneE164 = '+351915639435';
+
+const mailHref = `mailto:${email}`;
+const telHref = `tel:${phoneE164}`;
+
+const instagramHref = 'https://www.instagram.com/samsara_carpentrystudios/';
+const whatsappHref = `https://wa.me/${phoneE164.replace('+', '')}`;
+
+// ✅ language-aware thank-you redirect (BASE_URL-safe)
+const thankYouPath = isPT ? '/pt/thank-you' : '/en/thank-you';
+const thankYouHref = href(thankYouPath);
+
+const orgSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'Samsara',
+  url: SITE_URL,
+  email,
+  telephone: phoneDisplay,
+  address: { '@type': 'PostalAddress', addressCountry: 'PT' },
+  sameAs: [instagramHref, whatsappHref],
+};
+
+const contactPageSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: copy.title,
+  url: copy.canonical,
+  inLanguage: isPT ? 'pt-PT' : 'en',
+  about: { '@type': 'Thing', name: 'Handcrafted wooden boards and bespoke carpentry' },
+};
 ---
 
 <BaseLayout lang={isPT ? 'pt' : 'en'} currentPage="contact">
+  <Fragment slot="title">{copy.title}</Fragment>
+
+  <Fragment slot="head">
+    <meta name="description" content={copy.metaDesc} />
+    <link rel="canonical" href={copy.canonical} />
+
+    <meta property="og:title" content={copy.title} />
+    <meta property="og:description" content={copy.metaDesc} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={copy.canonical} />
+    <meta property="og:locale" content={copy.ogLocale} />
+    <meta property="og:site_name" content="Samsara" />
+    <meta property="og:image" content={contactImg.src} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={copy.title} />
+    <meta name="twitter:description" content={copy.metaDesc} />
+    <meta name="twitter:image" content={contactImg.src} />
+
+    <link rel="alternate" hreflang="en" href={`${SITE_URL}/en/contact`} />
+    <link rel="alternate" hreflang="pt" href={`${SITE_URL}/pt/contact`} />
+    <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/contact`} />
+
+    <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+    <script type="application/ld+json">{JSON.stringify(contactPageSchema)}</script>
+  </Fragment>
+
   <section class="contact-shell" aria-label={isPT ? 'Contacto' : 'Contact'}>
     <div class="contact-card">
+      <!-- LEFT -->
       <div class="contact-left">
         <h1 class="contact-title">{copy.h1}</h1>
         <p class="contact-subtitle">{copy.intro}</p>
 
-        {/* ✅ Formspree form (same fields, same CSS) */}
+        <!-- ✅ Formspree form (keeps your HTML/CSS, removes Netlify-specific attrs) -->
         <form
           class="contact-form"
           method="POST"
           action={FORM_ENDPOINT}
-          data-formspree
+          data-formspree="true"
         >
-          {/* Honeypot (spam trap) — Formspree supports this pattern */}
+          <!-- Honeypot (spam trap) -->
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
 
           <div class="field">
             <label class="label" for="name">{copy.name}:</label>
             <div class="input-wrap">
-              <input id="name" name="name" type="text" placeholder={copy.name} autocomplete="name" required />
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 12a5 5 0 1 0-5-5a5 5 0 0 0 5 5Zm0 2c-4.42 0-8 2-8 4.5V21h16v-2.5C20 16 16.42 14 12 14Z"
+                />
+              </svg>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder={copy.name}
+                autocomplete="name"
+                required
+              />
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="email">{copy.email}:</label>
             <div class="input-wrap">
-              <input id="email" name="email" type="email" placeholder={copy.email} autocomplete="email" required />
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5Z"
+                />
+              </svg>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder={copy.email}
+                autocomplete="email"
+                required
+              />
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="phone">{copy.phone}:</label>
             <div class="input-wrap">
-              <input id="phone" name="phone" type="tel" placeholder={copy.phone} autocomplete="tel" inputmode="tel" />
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24a11.36 11.36 0 0 0 3.56.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1a11.36 11.36 0 0 0 .57 3.56a1 1 0 0 1-.24 1.01Z"
+                />
+              </svg>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder={copy.phone}
+                autocomplete="tel"
+                inputmode="tel"
+              />
             </div>
           </div>
 
           <div class="field">
             <label class="label" for="message">{copy.message}:</label>
             <div class="input-wrap textarea-wrap">
-              <textarea id="message" name="message" placeholder={copy.message} required></textarea>
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Z"
+                />
+              </svg>
+              <textarea
+                id="message"
+                name="message"
+                placeholder={copy.message}
+                required
+              ></textarea>
             </div>
           </div>
 
           <button class="submit-btn" type="submit">{copy.send}</button>
 
-          {/* optional status line (won’t break layout if you style it or leave it plain) */}
-          <p class="form-status" data-status aria-live="polite"></p>
+          <!-- optional status line (won’t break anything if unstyled) -->
+          <p data-status aria-live="polite" style="margin-top: 10px;"></p>
         </form>
       </div>
 
-      {/* right side unchanged */}
-      <aside class="contact-right">
-        <img
-          src={contactImg.src}
-          width={contactImg.width}
-          height={contactImg.height}
-          alt={isPT ? 'Oficina de carpintaria...' : 'Woodworking workshop...'}
-          loading="lazy"
-          decoding="async"
-        />
+      <!-- RIGHT -->
+      <aside class="contact-right" aria-label={copy.infoTitle}>
+        <div class="info-panel">
+          <h2 class="panel-title">{copy.infoTitle}</h2>
+
+          <div class="info-list">
+            <!-- Location -->
+            <div class="info-row address-row">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 14.5 9A2.5 2.5 0 0 1 12 11.5Z"
+                />
+              </svg>
+              <div>
+                <div class="info-strong">{copy.madeIn}</div>
+                <div class="info-muted">{copy.addressLine}</div>
+              </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Email -->
+            <div class="info-row">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5Z"
+                />
+              </svg>
+              <a href={mailHref}>{email}</a>
+            </div>
+
+            <div class="divider"></div>
+
+            <!-- Phone -->
+            <div class="info-row">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24a11.36 11.36 0 0 0 3.56.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1a11.36 11.36 0 0 0 .57 3.56a1 1 0 0 1-.24 1.01Z"
+                />
+              </svg>
+              <a href={telHref}>{phoneDisplay}</a>
+            </div>
+          </div>
+
+          <h3 class="panel-subtitle">{copy.follow}</h3>
+
+          <div class="social-row">
+            <a
+              class="social-btn"
+              href={instagramHref}
+              target="_blank"
+              rel="noopener"
+              aria-label={copy.instagram}
+              title={copy.instagram}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm9 2h-9A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4Zm-4.5 4a4.5 4.5 0 1 1 0 9a4.5 4.5 0 0 1 0-9Zm0 2a2.5 2.5 0 1 0 0 5a2.5 2.5 0 0 0 0-5ZM17.75 6.5a.75.75 0 1 1 0 1.5a.75.75 0 0 1 0-1.5Z"
+                />
+              </svg>
+            </a>
+
+            <a
+              class="social-btn"
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener"
+              aria-label={copy.whatsapp}
+              title={copy.whatsapp}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="currentColor"
+                  d="M12 2a9.5 9.5 0 0 0-8.24 14.22L3 22l5.93-1.56A9.5 9.5 0 1 0 12 2Zm0 2a7.5 7.5 0 0 1 0 15a7.44 7.44 0 0 1-3.83-1.06l-.45-.26l-2.47.65l.66-2.41l-.29-.47A7.5 7.5 0 0 1 12 4Z"
+                />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <div class="image-panel">
+          <img
+            src={contactImg.src}
+            width={contactImg.width}
+            height={contactImg.height}
+            alt={
+              isPT
+                ? 'Oficina de carpintaria com ferramentas e bancada de madeira'
+                : 'Woodworking workshop with tools and a wooden bench'
+            }
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
       </aside>
     </div>
   </section>
 </BaseLayout>
 
 <script define:vars={{ thankYouHref, sendingText: copy.sending, successText: copy.success, errorText: copy.error }}>
-  // Formspree AJAX submit + redirect (works on GitHub Pages)
-  // Based on Formspree’s recommended AJAX approach.  [oai_citation:4‡Formspree Help](https://help.formspree.io/hc/en-us/articles/360013470814-Submit-forms-with-JavaScript-AJAX)
+  // Formspree AJAX submit + redirect to your local thank-you page (BASE_URL safe)
   document.addEventListener("DOMContentLoaded", () => {
-    const form = document.querySelector("form[data-formspree]");
+    const form = document.querySelector('form[data-formspree="true"]');
     if (!(form instanceof HTMLFormElement)) return;
 
     const statusEl = form.querySelector("[data-status]");
@@ -129,7 +354,7 @@ const copy = isPT ? t.pt : t.en;
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      if (statusEl) statusEl.textContent = sendingText || "";
+      if (statusEl instanceof HTMLElement) statusEl.textContent = sendingText || "";
       if (submitBtn instanceof HTMLButtonElement) submitBtn.disabled = true;
 
       try {
@@ -140,14 +365,15 @@ const copy = isPT ? t.pt : t.en;
         });
 
         if (res.ok) {
-          if (statusEl) statusEl.textContent = successText || "";
-          window.location.href = thankYouHref; // ✅ your existing /en/thank-you or /pt/thank-you (BASE_URL safe)
+          if (statusEl instanceof HTMLElement) statusEl.textContent = successText || "";
+          // optional: form.reset();
+          window.location.assign(thankYouHref);
           return;
         }
 
-        if (statusEl) statusEl.textContent = errorText || "";
+        if (statusEl instanceof HTMLElement) statusEl.textContent = errorText || "";
       } catch {
-        if (statusEl) statusEl.textContent = errorText || "";
+        if (statusEl instanceof HTMLElement) statusEl.textContent = errorText || "";
       } finally {
         if (submitBtn instanceof HTMLButtonElement) submitBtn.disabled = false;
       }
