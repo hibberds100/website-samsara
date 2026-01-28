@@ -23,6 +23,10 @@ import craftedImage from '../../assets/images/products/workshop-craft.jpg';
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const href = (path: string) => `${basePath}${path}`;
 
+// (Optional) If you want real site URLs later, replace this with your real domain:
+const siteOrigin = "https://hibberds100.github.io";
+const sitePath = `${siteOrigin}${basePath}`;
+
 // SEO-friendly image data (hero carousel)
 const galleryImages = [
   {
@@ -63,11 +67,11 @@ const galleryImages = [
       content="Tábuas de cortar artesanais, tábuas de servir, tábuas end-grain (blocos de talho) e peças em madeira por medida — feitas à mão com madeiras duradouras e de origem responsável."
     />
 
-    <!-- Optional (recommended): canonical + hreflang (update URLs when live) -->
-    <link rel="canonical" href="https://example.com/pt" />
-    <link rel="alternate" href="https://example.com/" hreflang="en" />
-    <link rel="alternate" href="https://example.com/pt" hreflang="pt" />
-    <link rel="alternate" href="https://example.com/" hreflang="x-default" />
+    <!-- Canonical + hreflang (BASE_URL-safe) -->
+    <link rel="canonical" href={`${sitePath}/pt/`} />
+    <link rel="alternate" href={`${sitePath}/en/`} hreflang="en" />
+    <link rel="alternate" href={`${sitePath}/pt/`} hreflang="pt" />
+    <link rel="alternate" href={`${sitePath}/en/`} hreflang="x-default" />
 
     <!-- Structured data: ItemList -->
     <script type="application/ld+json">
@@ -145,14 +149,13 @@ const galleryImages = [
       e de origem responsável.
     </p>
 
-    <!-- Buttons (✅ fixed) -->
+    <!-- Buttons (✅ all BASE_URL-safe) -->
     <div class="hero-cta">
       <a href={href("/pt/loja")} class="btn">Comprar Produtos em Madeira</a>
       <a href={href("/pt/por-medida")} class="btn">Carpintaria por Medida</a>
     </div>
   </section>
 
-  <!-- Divider -->
   <div class="section-divider" aria-hidden="true"></div>
 
   <!-- OUR WORK -->
@@ -240,13 +243,11 @@ const galleryImages = [
     </div>
   </section>
 
-  <!-- Divider -->
   <div class="section-divider" aria-hidden="true"></div>
 
   <!-- Crafted with Purpose -->
   <section class="crafted-purpose page-container" aria-labelledby="crafted-purpose-title">
     <div class="crafted-grid">
-      <!-- Text -->
       <div class="crafted-text">
         <h2 id="crafted-purpose-title">Feito com Propósito</h2>
 
@@ -272,13 +273,11 @@ const galleryImages = [
           </li>
         </ul>
 
-        <!-- CTA (✅ fixed) -->
         <a href={href("/pt/por-medida")} class="text-link">
           Falar sobre um projeto por medida →
         </a>
       </div>
 
-      <!-- Image -->
       <div class="crafted-image">
         <img
           src={craftedImage.src}
