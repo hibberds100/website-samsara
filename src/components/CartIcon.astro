@@ -2,14 +2,8 @@
 const { lang = "en" } = Astro.props;
 const isPT = lang.startsWith("pt");
 
-/**
- * Derive GitHub Pages repo base from the current URL.
- * - Local: /en/... or /pt/... => base ""
- * - GH Pages: /website-samsara/en/... => base "/website-samsara"
- */
-const parts = Astro.url.pathname.split("/").filter(Boolean);
-const first = parts[0] || "";
-const basePath = first === "en" || first === "pt" ? "" : `/${first}`;
+// SAME PRINCIPLE AS YOUR REDIRECT
+const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 
 const cartHref = `${basePath}${isPT ? "/pt/cart" : "/en/cart"}`;
 ---
