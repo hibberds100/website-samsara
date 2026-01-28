@@ -13,13 +13,7 @@ import bespokeImg from "../../../assets/images/products/product7.jpg";
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const href = (path: string) => `${basePath}${path}`;
 
-// ✅ Internal links (EN) — same pattern as your working home page
-const shopHref = href("/en/shop");
-const choppingBoardsHref = href("/en/shop/chopping-boards");
-const endGrainBoardsHref = href("/en/shop/end-grain-boards");
-const servingBoardsHref = href("/en/shop/serving-boards");
-const bespokeHref = href("/en/bespoke");
-
+// ✅ Internal links (EN)
 const items = [
   {
     slug: "chopping-boards",
@@ -27,7 +21,7 @@ const items = [
     blurb: "Premium hardwood boards made for kitchens that cook.",
     image: chopImg,
     alt: "Handcrafted hardwood chopping board on a linen surface",
-    href: choppingBoardsHref,
+    href: href("/en/shop/chopping-boards"),
   },
   {
     slug: "end-grain-boards",
@@ -35,7 +29,7 @@ const items = [
     blurb: "Heavy-duty end-grain boards designed for durability and knife care.",
     image: endGrainImg,
     alt: "End-grain butcher block chopping board close-up",
-    href: endGrainBoardsHref,
+    href: href("/en/shop/end-grain-boards"),
   },
   {
     slug: "serving-boards",
@@ -43,7 +37,7 @@ const items = [
     blurb: "Elegant boards designed for entertaining and presentation.",
     image: serveImg,
     alt: "Wooden serving board styled for entertaining",
-    href: servingBoardsHref,
+    href: href("/en/shop/serving-boards"),
   },
   {
     slug: "bespoke",
@@ -51,7 +45,7 @@ const items = [
     blurb: "Made-to-measure pieces tailored to your space and daily use.",
     image: bespokeImg,
     alt: "Bespoke carpentry project in a workshop",
-    href: bespokeHref,
+    href: href("/en/bespoke"),
   },
 ];
 ---
@@ -80,30 +74,10 @@ const items = [
         "@type": "ItemList",
         "name": "Handcrafted wooden products",
         "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Chopping Boards",
-            "url": "https://example.com/en/shop/chopping-boards"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "End-Grain Boards",
-            "url": "https://example.com/en/shop/end-grain-boards"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Serving Boards",
-            "url": "https://example.com/en/shop/serving-boards"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "Bespoke Carpentry",
-            "url": "https://example.com/en/bespoke"
-          }
+          { "@type": "ListItem", "position": 1, "name": "Chopping Boards", "url": "https://example.com/en/shop/chopping-boards" },
+          { "@type": "ListItem", "position": 2, "name": "End-Grain Boards", "url": "https://example.com/en/shop/end-grain-boards" },
+          { "@type": "ListItem", "position": 3, "name": "Serving Boards", "url": "https://example.com/en/shop/serving-boards" },
+          { "@type": "ListItem", "position": 4, "name": "Bespoke Carpentry", "url": "https://example.com/en/bespoke" }
         ]
       }
     </script>
