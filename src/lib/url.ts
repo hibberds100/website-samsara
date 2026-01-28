@@ -5,16 +5,17 @@ export function getLangFromPath(pathname: string): Lang {
 }
 
 /**
- * Prefix with the site base (GitHub Pages) + keep absolute/mailto/tel untouched.
- * Uses your astro.config.mjs `base`.
+ * GitHub Pages uses BASE_URL (e.g. /website-samsara/).
+ * This helper prefixes internal links with BASE_URL,
+ * and leaves absolute/mailto/tel links untouched.
  */
-export function withBase(href: string, base: string): string {
+export function withBase(href: string): string {
   if (!href) return href;
   if (/^https?:\/\//i.test(href)) return href;
   if (href.startsWith("mailto:")) return href;
   if (href.startsWith("tel:")) return href;
 
-  // Ensure leading slash so base joining is consistent
+  const base = (import.meta.env.BASE_URL ?? "/").replace(/\/$/, "");
   const normalized = href.startsWith("/") ? href : `/${href}`;
   return `${base}${normalized}`;
 }
@@ -24,24 +25,24 @@ export function withBase(href: string, base: string): string {
  * - ensures /en or /pt prefix
  * - then applies GitHub Pages base
  */
-export function withLang(
-  href: string,
-  lang: Lang,
-  base: string
-): string {
+export function withLang(href: string, lang: Lang): string {
   if (!href) return href;
   if (/^https?:\/\//i.test(href)) return href;
   if (href.startsWith("mailto:")) return href;
   if (href.startsWith("tel:")) return href;
 
   // already language-prefixed
-  if (href === "/en" || href.startsWith("/en/") || href === "/pt" || href.startsWith("/pt/")) {
-    return withBase(href, base);
+  if (
+    href === "/en" ||
+    href.startsWith("/en/") ||
+    href === "/pt" ||
+    href.startsWith("/pt/")
+  ) {
+    return withBase(href);
   }
 
-  // add language prefix
   const normalized = href.startsWith("/") ? href : `/${href}`;
-  return withBase(`/${lang}${normalized}`, base);
+  return withBase(`/${lang}${normalized}`);
 }
 
 /**
@@ -50,11 +51,15 @@ export function withLang(
  */
 export function switchLangPath(pathname: string, to: Lang): string {
   const stripped =
-    pathname === "/en" ? "/" :
-    pathname === "/pt" ? "/" :
-    pathname.startsWith("/en/") ? pathname.slice(3) :
-    pathname.startsWith("/pt/") ? pathname.slice(3) :
-    pathname; // if not prefixed
+    pathname === "/en"
+      ? "/"
+      : pathname === "/pt"
+      ? "/"
+      : pathname.startsWith("/en/")
+      ? pathname.slice(3)
+      : pathname.startsWith("/pt/")
+      ? pathname.slice(3)
+      : pathname;
 
   return `/${to}${stripped.startsWith("/") ? "" : "/"}${stripped}`;
 }
