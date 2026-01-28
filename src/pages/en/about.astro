@@ -7,66 +7,69 @@ import '../../assets/styles/pages/about.css';
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const href = (path: string) => `${basePath}${path}`;
 
-const SITE_URL = 'https://example.com'; // ✅ change later
+// ✅ BASE_URL-safe site URL for canonical/OG/hreflang/schema
+// Change siteOrigin later if you move domain
+const siteOrigin = "https://hibberds100.github.io";
+const SITE_URL = `${siteOrigin}${basePath}`;
 
-const lang = 'en';
-const canonicalPath = '/en/about';
+const lang = 'pt';
+const canonicalPath = '/pt/about';
 const canonicalUrl = `${SITE_URL}${canonicalPath}`;
 const ogImageUrl = `${SITE_URL}${aboutImg.src}`;
 
 const copy = {
-  title: 'About Samsara | Handmade Boards & Bespoke Carpentry in Portugal',
+  title: 'Sobre a Samsara | Carpintaria Artesanal, Feita Para Durar',
   metaDesc:
-    'Learn about Samsara Carpentry — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover our story, process, and what makes us different.',
-  ogLocale: 'en_GB',
+    'Conheça a Samsara Carpentry — tábuas artesanais e carpintaria por medida feita em Portugal. Descubra a nossa história, processo e o que nos torna diferentes.',
+  ogLocale: 'pt_PT',
 
-  h1: 'About Samsara',
+  h1: 'Sobre a Samsara',
   lede:
-    'Samsara is inspired by transformation — giving wood a new life through careful, intentional craft.',
+    'A Samsara inspira-se na transformação — dar uma nova vida à madeira através de um trabalho cuidadoso e intencional.',
   quoteTitle: 'Samsara',
   quote:
-    '“Samsara is the endless cycle where a soul is reborn after death into a new body. This process continues until liberation is achieved.”',
+    '“Samsara é o ciclo interminável em que a alma renasce após a morte num novo corpo. Este processo continua até à libertação.”',
 
-  storyTitle: 'Our Story',
+  storyTitle: 'A Nossa História',
   storyP1:
-    'At Samsara Carpentry, we believe in the beauty of transformation. Our name reflects renewal — and in the workshop we see that same journey in wood.',
+    'Na Samsara Carpentry, acreditamos na beleza da transformação. O nosso nome reflete o ciclo de renovação — e na oficina vemos esse mesmo percurso na madeira.',
   storyP2:
-    'Every project is made with intention: balancing beauty and function, respecting the material, and creating pieces that belong naturally in your space.',
+    'Cada projeto é feito com intenção: equilibrando beleza e função, respeitando o material e criando peças que encaixam naturalmente no seu espaço.',
 
-  offerTitle: 'What We Offer',
+  offerTitle: 'O Que Fazemos',
   offerIntro:
-    'We make functional, timeless pieces — from kitchen essentials to bespoke carpentry — tailored to your needs.',
+    'Criamos peças funcionais e intemporais — desde essenciais de cozinha até carpintaria por medida — desenhadas à sua medida.',
   offerItems: [
-    'Handcrafted chopping & serving boards and end-grain blocks',
-    'Made-to-measure carpentry for homes, studios, and interiors',
-    'Custom sizing, finishes, and personal guidance',
+    'Tábuas de cortar e servir artesanais e blocos end-grain',
+    'Carpintaria por medida para casas, estúdios e interiores',
+    'Dimensões, acabamentos e aconselhamento personalizado',
   ],
 
-  differentTitle: 'What Makes Us Different',
+  differentTitle: 'O Que Nos Torna Diferentes',
   differentIntro:
-    'We keep the process close, the standards high, and the materials honest.',
+    'Mantemos o processo próximo, os padrões elevados e os materiais honestos.',
   differentItems: [
-    'Handmade in Portugal with attention to detail',
-    'Responsibly sourced hardwoods and durable finishes',
-    'Direct collaboration — your vision, our craft',
+    'Feito à mão em Portugal, com atenção ao detalhe',
+    'Madeiras de origem responsável e acabamentos duradouros',
+    'Acompanhamento direto — a sua visão, o nosso ofício',
   ],
 
-  processEyebrow: 'Our Process',
-  processTitle: 'Every piece begins with intention, material, and time.',
+  processEyebrow: 'O Nosso Processo',
+  processTitle: 'Cada peça começa com intenção, material e tempo.',
   steps: [
-    { n: '01', title: 'Design', text: 'We define the goal, dimensions, and details together.' },
-    { n: '02', title: 'Material Selection', text: 'We choose the right hardwoods for beauty and durability.' },
-    { n: '03', title: 'Handcrafting', text: 'Cut, shape, sand, and finish — all in our workshop.' },
-    { n: '04', title: 'Delivery', text: 'Packed with care and delivered ready to use.' },
+    { n: '01', title: 'Desenho', text: 'Definimos consigo o objetivo, dimensões e detalhes.' },
+    { n: '02', title: 'Seleção de Materiais', text: 'Escolhemos madeiras certas para beleza e durabilidade.' },
+    { n: '03', title: 'Produção Artesanal', text: 'Cortar, moldar, lixar e finalizar — tudo na nossa oficina.' },
+    { n: '04', title: 'Entrega', text: 'Embalado com cuidado e entregue pronto a usar.' },
   ],
 
-  ctaTitle: 'Ready to start?',
-  ctaText: 'Share your idea — we’ll help turn it into something made to last.',
-  ctaPrimary: 'Contact',
-  ctaSecondary: 'Shop',
+  ctaTitle: 'Pronto para começar?',
+  ctaText: 'Partilhe a sua ideia — nós ajudamos a transformá-la em algo duradouro.',
+  ctaPrimary: 'Contactar',
+  ctaSecondary: 'Ver Produtos',
 
   imgAlt:
-    'Close-up of a craftsperson shaping wood by hand in a warm workshop setting',
+    'Mãos de um artesão a trabalhar madeira num ambiente de carpintaria artesanal',
 };
 
 const orgSchema = {
@@ -81,7 +84,7 @@ const aboutSchema = {
   '@type': 'AboutPage',
   name: copy.title,
   url: canonicalUrl,
-  inLanguage: 'en-GB',
+  inLanguage: 'pt-PT',
   isPartOf: { '@type': 'WebSite', name: 'Samsara', url: SITE_URL },
 };
 
@@ -89,13 +92,13 @@ const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
-    { '@type': 'ListItem', position: 2, name: 'About', item: canonicalUrl },
+    { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE_URL}/pt/` },
+    { '@type': 'ListItem', position: 2, name: 'Sobre', item: canonicalUrl },
   ],
 };
 ---
 
-<BaseLayout lang="en" currentPage="about">
+<BaseLayout lang="pt" currentPage="about">
   <Fragment slot="title">{copy.title}</Fragment>
 
   <Fragment slot="head">
@@ -120,6 +123,7 @@ const breadcrumbSchema = {
     <meta name="twitter:image" content={ogImageUrl} />
     <meta name="twitter:image:alt" content={copy.imgAlt} />
 
+    <!-- ✅ hreflang BASE_URL-safe -->
     <link rel="alternate" hreflang="en" href={`${SITE_URL}/en/about`} />
     <link rel="alternate" hreflang="pt" href={`${SITE_URL}/pt/about`} />
     <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/about`} />
@@ -129,15 +133,15 @@ const breadcrumbSchema = {
     <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
   </Fragment>
 
-  <section class="about-shell" aria-label="About">
+  <section class="about-shell" aria-label="Sobre">
     <div class="about-container">
       <header class="about-hero">
         <h1 class="about-title">{copy.h1}</h1>
         <p class="about-lede">{copy.lede}</p>
 
         <div class="about-cta-row">
-          <a class="about-btn" href={href("/en/contact")}>{copy.ctaPrimary}</a>
-          <a class="about-btn secondary" href={href("/en/shop")}>{copy.ctaSecondary}</a>
+          <a class="about-btn" href={href("/pt/contact")}>{copy.ctaPrimary}</a>
+          <a class="about-btn secondary" href={href("/pt/shop")}>{copy.ctaSecondary}</a>
         </div>
       </header>
 
@@ -208,8 +212,8 @@ const breadcrumbSchema = {
             <strong>{copy.ctaTitle}</strong> {copy.ctaText}
           </p>
           <div class="about-cta-row">
-            <a class="about-btn" href={href("/en/contact")}>{copy.ctaPrimary}</a>
-            <a class="about-btn secondary" href={href("/en/shop")}>{copy.ctaSecondary}</a>
+            <a class="about-btn" href={href("/pt/contact")}>{copy.ctaPrimary}</a>
+            <a class="about-btn secondary" href={href("/pt/shop")}>{copy.ctaSecondary}</a>
           </div>
         </div>
       </div>
