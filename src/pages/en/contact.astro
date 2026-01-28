@@ -3,8 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import contactImg from '../../assets/images/products/workshop-craft.jpg';
 import '../../assets/styles/pages/contact.css';
 
-const { lang = 'en' } = Astro.props;
-const isPT = lang?.startsWith('pt');
+// ✅ EN page hard-set (this file is /en/contact)
+const isPT = false;
 
 const SITE_URL = 'https://example.com'; // ✅ change later
 
@@ -12,8 +12,8 @@ const SITE_URL = 'https://example.com'; // ✅ change later
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, '') || '';
 const href = (path: string) => `${basePath}${path}`;
 
-// ✅ Formspree endpoint (PASTE YOURS HERE)
-const FORM_ENDPOINT = 'https://formspree.io/f/XXXXXXXX';
+// ✅ Formspree endpoint (same one you used for PT)
+const FORM_ENDPOINT = 'https://formspree.io/f/mbdyjrya';
 
 const t = {
   en: {
@@ -38,7 +38,7 @@ const t = {
     instagram: 'Instagram',
     whatsapp: 'WhatsApp',
 
-    // ✅ form status messages
+    // status
     sending: 'Sending…',
     success: 'Thanks — your message has been sent.',
     error: 'Sorry — something went wrong. Please try again.',
@@ -65,7 +65,7 @@ const t = {
     instagram: 'Instagram',
     whatsapp: 'WhatsApp',
 
-    // ✅ form status messages
+    // status
     sending: 'A enviar…',
     success: 'Obrigado — a sua mensagem foi enviada.',
     error: 'Ocorreu um erro. Por favor tente novamente.',
@@ -84,8 +84,8 @@ const telHref = `tel:${phoneE164}`;
 const instagramHref = 'https://www.instagram.com/samsara_carpentrystudios/';
 const whatsappHref = `https://wa.me/${phoneE164.replace('+', '')}`;
 
-// ✅ language-aware thank-you redirect (BASE_URL-safe)
-const thankYouPath = isPT ? '/pt/thank-you' : '/en/thank-you';
+// ✅ EN thank-you redirect (BASE_URL-safe)
+const thankYouPath = '/en/thank-you';
 const thankYouHref = href(thankYouPath);
 
 const orgSchema = {
@@ -104,12 +104,12 @@ const contactPageSchema = {
   '@type': 'ContactPage',
   name: copy.title,
   url: copy.canonical,
-  inLanguage: isPT ? 'pt-PT' : 'en',
+  inLanguage: 'en',
   about: { '@type': 'Thing', name: 'Handcrafted wooden boards and bespoke carpentry' },
 };
 ---
 
-<BaseLayout lang={isPT ? 'pt' : 'en'} currentPage="contact">
+<BaseLayout lang="en" currentPage="contact">
   <Fragment slot="title">{copy.title}</Fragment>
 
   <Fragment slot="head">
@@ -137,14 +137,14 @@ const contactPageSchema = {
     <script type="application/ld+json">{JSON.stringify(contactPageSchema)}</script>
   </Fragment>
 
-  <section class="contact-shell" aria-label={isPT ? 'Contacto' : 'Contact'}>
+  <section class="contact-shell" aria-label="Contact">
     <div class="contact-card">
       <!-- LEFT -->
       <div class="contact-left">
         <h1 class="contact-title">{copy.h1}</h1>
         <p class="contact-subtitle">{copy.intro}</p>
 
-        <!-- ✅ Formspree form (keeps your HTML/CSS, removes Netlify-specific attrs) -->
+        <!-- ✅ Formspree (keeps your HTML/CSS) -->
         <form
           class="contact-form"
           method="POST"
@@ -234,7 +234,7 @@ const contactPageSchema = {
 
           <button class="submit-btn" type="submit">{copy.send}</button>
 
-          <!-- optional status line (won’t break anything if unstyled) -->
+          <!-- optional status line -->
           <p data-status aria-live="polite" style="margin-top: 10px;"></p>
         </form>
       </div>
@@ -328,11 +328,7 @@ const contactPageSchema = {
             src={contactImg.src}
             width={contactImg.width}
             height={contactImg.height}
-            alt={
-              isPT
-                ? 'Oficina de carpintaria com ferramentas e bancada de madeira'
-                : 'Woodworking workshop with tools and a wooden bench'
-            }
+            alt="Woodworking workshop with tools and a wooden bench"
             loading="lazy"
             decoding="async"
           />
@@ -343,7 +339,7 @@ const contactPageSchema = {
 </BaseLayout>
 
 <script define:vars={{ thankYouHref, sendingText: copy.sending, successText: copy.success, errorText: copy.error }}>
-  // Formspree AJAX submit + redirect to your local thank-you page (BASE_URL safe)
+  // Formspree AJAX submit + redirect to local thank-you page (BASE_URL safe)
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector('form[data-formspree="true"]');
     if (!(form instanceof HTMLFormElement)) return;
@@ -366,7 +362,6 @@ const contactPageSchema = {
 
         if (res.ok) {
           if (statusEl instanceof HTMLElement) statusEl.textContent = successText || "";
-          // optional: form.reset();
           window.location.assign(thankYouHref);
           return;
         }
