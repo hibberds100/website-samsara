@@ -456,7 +456,33 @@ const lang = "pt";
 
     if (checkoutBtn instanceof HTMLButtonElement) {
       checkoutBtn.addEventListener("click", () => {
-        alert("Próximo passo: Stripe Checkout");
+        checkoutBtn.addEventListener("click", async () => {
+  const cart = loadCart();
+  const shipCountry = getShipCountry(); // "PT" | "ES" | etc.
+
+  const langBase = getLangBase(); // "/en" or "/pt"
+  const lang = langBase === "/pt" ? "pt" : "en";
+
+  // Call your Worker endpoint
+  const res = await fetch("https://samsara-stripe-worker.abcd1234.workers.dev/create-checkout-session", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      items: cart,
+      shipCountry,
+      lang,
+      origin: window.location.origin,
+    }),
+  });
+
+  const data = await res.json();
+  if (!res.ok || !data?.url) {
+    alert(data?.error || "Checkout failed. Please try again.");
+    return;
+  }
+
+  window.location.href = data.url;
+});
       });
     }
   });

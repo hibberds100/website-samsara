@@ -7,13 +7,15 @@ import '../../assets/styles/pages/about.css';
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const href = (path: string) => `${basePath}${path}`;
 
-const SITE_URL = 'https://example.com'; // ✅ change later
+// ✅ Your real domain (no trailing slash)
+const SITE_URL = "https://samsara.pt";
 
-const lang = 'en';
-const canonicalPath = '/en/about';
-const canonicalUrl = `${SITE_URL}${canonicalPath}`;
-const ogImageUrl = `${SITE_URL}${aboutImg.src}`;
+const sitePath = `${SITE_URL}${basePath}`; // ✅ define first
 
+const lang = "en";
+const canonicalPath = "/en/about";
+const canonicalUrl = `${sitePath}${canonicalPath}`; // ✅ now safe
+const ogImageUrl = `${sitePath}${aboutImg.src}`;
 const copy = {
   title: 'About Samsara | Handmade Boards & Bespoke Carpentry in Portugal',
   metaDesc:
