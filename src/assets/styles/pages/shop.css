@@ -375,6 +375,7 @@
   color: #111 !important;
   -webkit-text-fill-color: #111 !important;
 }
+
 /* =====================================================
    5) Responsive
 ===================================================== */
@@ -403,27 +404,46 @@
     max-width: 100%;
   }
 
-  /* Nav becomes a horizontal scroll row on mobile */
+  /* ✅ MOBILE NAV FIX: pill-style horizontal scroll (no overlap) */
   .shop-nav {
     position: relative;
     top: auto;
     width: 100%;
 
     display: flex;
-    gap: 1.25rem;
+    flex-wrap: nowrap;
+    gap: 0.6rem;
+
     overflow-x: auto;
     padding-bottom: 0.5rem;
     -webkit-overflow-scrolling: touch;
   }
 
   .shop-nav a {
+    flex: 0 0 auto;              /* prevents squashing/overlap */
     white-space: nowrap;
-    padding: 0.4rem 0;
+
+    padding: 0.45rem 0.9rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+
+    border-radius: 999px;
+    border: 1px solid var(--border-soft);
+    background: rgba(255, 255, 255, 0.6);
+
     border-left: none;
-    border-bottom: 2px solid transparent;
-    min-width: 0;
-    max-width: 100%;
+    border-bottom: none;
   }
 
-  .shop-nav a.active { border-bottom-color: var(--brand); }
+  .shop-nav a:hover,
+  .shop-nav a:focus {
+    background: var(--brand);
+    color: var(--linen);
+  }
+
+  .shop-nav a.active {
+    background: var(--brand);
+    color: var(--linen);
+    border-color: var(--brand);
+  }
 }
