@@ -375,7 +375,6 @@
   color: #111 !important;
   -webkit-text-fill-color: #111 !important;
 }
-
 /* =====================================================
    5) Responsive
 ===================================================== */
@@ -385,14 +384,31 @@
 }
 
 @media (max-width: 900px) {
+  /* Reduce padding so nothing feels “off-screen” on small phones */
+  .shop-shell {
+    padding: 2rem 1rem 3rem;
+  }
+
   .shop-container {
     grid-template-columns: 1fr;
     gap: 1.75rem;
   }
 
+  /* Sidebar must become full-width and not look cut off */
+  .shop-sidebar {
+    width: 100%;
+    padding: 1.25rem 1rem;
+    height: fit-content;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  /* Nav becomes a horizontal scroll row on mobile */
   .shop-nav {
     position: relative;
     top: auto;
+    width: 100%;
+
     display: flex;
     gap: 1.25rem;
     overflow-x: auto;
@@ -405,11 +421,9 @@
     padding: 0.4rem 0;
     border-left: none;
     border-bottom: 2px solid transparent;
+    min-width: 0;
+    max-width: 100%;
   }
 
   .shop-nav a.active { border-bottom-color: var(--brand); }
-  .shop-sidebar { height: fit-content; }
-
-  /* ✅ Make sure sidebar doesn't force width */
-  .shop-sidebar { width: 100%; }
 }
