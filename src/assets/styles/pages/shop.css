@@ -383,7 +383,6 @@
   .product-grid { grid-template-columns: 1fr; }
   .catalog-grid { grid-template-columns: 1fr; }
 }
-
 @media (max-width: 900px) {
   /* Reduce padding so nothing feels “off-screen” on small phones */
   .shop-shell {
@@ -392,10 +391,10 @@
 
   .shop-container {
     grid-template-columns: 1fr;
-    gap: 1.75rem;
+    gap: 1.25rem;
   }
 
-  /* Sidebar must become full-width and not look cut off */
+  /* Sidebar becomes full-width */
   .shop-sidebar {
     width: 100%;
     padding: 1.25rem 1rem;
@@ -404,41 +403,36 @@
     max-width: 100%;
   }
 
-  /* ✅ MOBILE NAV FIX: pill-style horizontal scroll (no overlap) */
+  /* ✅ STACKED NAV (vertical, no overlap) */
   .shop-nav {
     position: relative;
     top: auto;
     width: 100%;
 
-    display: flex;
-    flex-wrap: nowrap;
+    display: grid;
     gap: 0.6rem;
-
-    overflow-x: auto;
-    padding-bottom: 0.5rem;
-    -webkit-overflow-scrolling: touch;
   }
 
   .shop-nav a {
-    flex: 0 0 auto;              /* prevents squashing/overlap */
-    white-space: nowrap;
+    display: block;
+    width: 100%;
 
-    padding: 0.45rem 0.9rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.05em;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
 
-    border-radius: 999px;
+    border-radius: 12px;
     border: 1px solid var(--border-soft);
     background: rgba(255, 255, 255, 0.6);
 
+    /* remove desktop left-border styling */
     border-left: none;
-    border-bottom: none;
   }
 
   .shop-nav a:hover,
   .shop-nav a:focus {
-    background: var(--brand);
-    color: var(--linen);
+    background: rgba(139, 90, 60, 0.12);
+    color: var(--hover-dark);
   }
 
   .shop-nav a.active {
