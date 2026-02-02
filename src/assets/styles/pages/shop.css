@@ -20,11 +20,11 @@
   background: var(--linen);
 }
 
+/* ✅ Centered container: avoids odd left anchoring */
 .shop-container {
   width: 100%;
   max-width: 1600px;
-  margin-left: 0;
-  margin-right: auto;
+  margin: 0 auto;
 
   display: grid;
   grid-template-columns: 320px minmax(0, 1fr);
@@ -32,7 +32,17 @@
   align-items: start;
 }
 
-.shop-content { min-width: 0; }
+/* ✅ CRITICAL: allow grid children to shrink (prevents mobile “zoomed out” scaling) */
+.shop-container > * {
+  min-width: 0;
+}
+
+/* ✅ Ensure content never exceeds viewport width */
+.shop-content {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
 
 /* =====================================================
    2) Sidebar Nav
@@ -123,6 +133,10 @@
 
   text-decoration: none;
   transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+  /* ✅ prevent card content forcing width */
+  min-width: 0;
+  max-width: 100%;
 }
 
 .product-card:hover,
@@ -141,7 +155,7 @@
 .product-media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;   /* 👈 THIS fixes the zoom */
+  object-fit: contain;
   background: var(--carousel-bg);
   display: block;
   transition: transform 0.35s ease;
@@ -189,12 +203,6 @@
   gap: 1.5rem;
 }
 
-.product-card,
-.catalog-card {
-  max-width: 100%;
-  min-width: 0;
-}
-
 .catalog-card {
   border-radius: 14px;
 
@@ -205,6 +213,10 @@
   border: 1px solid var(--border-soft);
   box-shadow: 0 12px 26px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+
+  /* ✅ prevent card content forcing width */
+  min-width: 0;
+  max-width: 100%;
 }
 
 .catalog-card:hover {
@@ -237,9 +249,9 @@
 .catalog-slide img {
   width: 100%;
   height: 100%;
-  object-fit: contain;           /* zooms OUT */
+  object-fit: contain;
   object-position: center;
-  background: var(--carousel-bg); /* avoids empty transparent look */
+  background: var(--carousel-bg);
   display: block;
 }
 
@@ -299,16 +311,22 @@
   opacity: 0.9;
 }
 
+/* ✅ IMPORTANT: allow children to shrink */
 .catalog-actions {
   display: flex;
   gap: 0.75rem;
   align-items: center;
   flex-wrap: wrap;
+  min-width: 0;
 }
 
 .catalog-select {
   flex: 1 1 260px;
-  min-width: 220px;
+
+  /* ✅ this was the main mobile width breaker */
+  min-width: 0;
+  width: 100%;
+
   height: 44px;
   padding: 0.6rem 0.85rem;
 
@@ -331,6 +349,9 @@
   cursor: pointer;
   transition: background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   white-space: nowrap;
+
+  /* ✅ allow it to shrink with the row */
+  min-width: 0;
 }
 
 .catalog-add:hover,
@@ -347,9 +368,7 @@
   box-shadow: none;
 }
 
-/* 4d) Dropdown visibility fix (SINGLE source of truth)
-   If options are still blank, your global theme is setting
-   select/option text-fill to transparent. This overrides it. */
+/* 4d) Dropdown visibility fix */
 .catalog-select,
 .catalog-select option {
   background-color: #fff !important;
@@ -390,4 +409,7 @@
 
   .shop-nav a.active { border-bottom-color: var(--brand); }
   .shop-sidebar { height: fit-content; }
+
+  /* ✅ Make sure sidebar doesn't force width */
+  .shop-sidebar { width: 100%; }
 }
