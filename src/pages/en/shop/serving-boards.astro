@@ -7,6 +7,8 @@ import "../../../assets/styles/pages/shop.css";
 import img1 from "../../../assets/images/products/product4.jpg";
 import img1b from "../../../assets/images/products/product4-1.jpg";
 
+import img2 from "../../../assets/images/products/product9.jpg";
+import img2b from "../../../assets/images/products/product9-1.jpg";
 
 const lang = "en";
 
@@ -26,10 +28,27 @@ const items = [
     { label: "50x25cm - Medium", price: 55 },
     { label: "75x40cm - Large", price: 75 },
     { label: "110x45cm - X-Large", price: 95 },
-  ],
-}
+ ],
+  },
 
-]
+  // ✅ NEW PRODUCT (same sizes + prices)
+  {
+    slug: "walnut-contrast-serving-board",
+    title: "Walnut and Oak Contrast Stripe Serving Board",
+    blurb:
+      "Handcrafted hardwood serving board with a bold contrast stripe design and softly chamfered edges. Built for everyday serving, charcuterie, and kitchen prep — finished by hand with food-safe oil for a durable, premium feel.",
+    images: [img2, img2b],
+    alts: [
+      "Handcrafted walnut serving board with contrast stripe design on a kitchen counter",
+    ],
+    sizes: [
+      { label: "50x25cm - Medium", price: 55 },
+      { label: "75x40cm - Large", price: 75 },
+      { label: "110x45cm - X-Large", price: 95 },
+    ],
+  },
+];
+
 ---
 
 <ShopLayout lang={lang} currentPage="serving-boards">
