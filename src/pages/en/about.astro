@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
-import founderImg from '../../assets/placeholders/founder.jpg';
-import '../../assets/styles/pages/about.css';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import aboutImg from "../../assets/images/products/workshop-craft2.jpg";
+import founderImg from "../../assets/placeholders/founder.jpg";
+import "../../assets/styles/pages/about.css";
 
 // ✅ GitHub Pages base path fix
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
@@ -18,80 +18,77 @@ const canonicalUrl = `${sitePath}${canonicalPath}`;
 const ogImageUrl = `${sitePath}${aboutImg.src}`;
 
 const copy = {
-  title: 'About Samsara | Handmade Boards & Bespoke Carpentry in Portugal',
+  title: "About Samsara | Handmade Boards & Bespoke Carpentry in Portugal",
   metaDesc:
-    'Learn about Samsara — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover who is behind the work, the process, and what makes us different.',
-  ogLocale: 'en_GB',
+    "Learn about Samsara — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover who is behind the work, the process, and what makes us different.",
+  ogLocale: "en_GB",
 
-  h1: 'About Samsara',
+  h1: "About Samsara",
   lede:
-    'Samsara is inspired by transformation — giving wood a new life through careful, intentional craft.',
+    "Samsara is rooted in transformation — inspired by Portugal’s light, rhythm, and way of living, and shaped by a lifelong passion for working with wood.",
 
-  storyTitle: 'Our Story',
+  storyTitle: "Our Story",
   storyP1:
-    'At Samsara, we believe in the beauty of transformation. Our name reflects renewal — and in the workshop we see that same journey in wood.',
+    "Samsara began after I moved to Portugal with my family. What was meant to be a new chapter quickly became something much deeper — long days of sun, sea air, slow food, and a culture that values craft and quality of life. It changed how I saw time, materials, and the meaning behind making something by hand.",
   storyP2:
-    'Every piece is made with intention: balancing beauty and function, respecting the material, and creating work that belongs naturally in your space.',
+    "Woodworking had always been a passion, but here it became purpose. In my workshop, surrounded by the same sand, sea, and warmth that inspired this journey, I shape each piece with care and intention — balancing beauty, durability, and honesty in every detail.",
 
-  quoteTitle: 'Samsara',
+  quoteTitle: "Samsara",
   quote:
-    '“Samsara is the endless cycle where a soul is reborn after death into a new body. This process continues until liberation is achieved.”',
+    "“Samsara is the endless cycle where a soul is reborn after death into a new body. This process continues until liberation is achieved.”",
 
-  // ✅ NEW Bio content
-  bioEyebrow: 'The Maker',
+  // ✅ Bio
+  bioEyebrow: "The Maker",
   bioTitle: "Hi — I’m Sam.",
   bioLede:
-    "Samsara is a small workshop in Portugal. I make gift-worthy boards and wooden pieces that feel good to use every day — designed simply, finished carefully, and built to last.",
+    "I make gift-worthy boards and wooden pieces that feel good to use every day — designed simply, finished carefully, and built to last.",
   bioP1:
-    "I make each piece from start to finish: selecting timber, milling, shaping, sanding, and finishing with food-safe oil. I’m drawn to honest materials and quiet details — clean lines, soft chamfers, and grain that looks alive.",
+    "Everything is made by hand from start to finish: selecting timber, milling, shaping, sanding, and finishing with food-safe oil. I’m drawn to honest materials and quiet details — clean lines, soft chamfers, and grain that looks alive.",
   bioBullets: [
     "Made by hand in small batches — no mass production.",
     "Responsibly sourced hardwoods chosen for durability and character.",
     "Built for real use: kitchens, hosting, and thoughtful gifts.",
   ],
-  bioCaption:
-    "Swap this placeholder for a real portrait whenever you’re ready.",
 
-  offerTitle: 'What We Offer',
+  offerTitle: "What We Offer",
   offerIntro:
-    'We make functional, timeless pieces — from kitchen essentials to bespoke carpentry — tailored to your needs.',
+    "We make functional, timeless pieces — from kitchen essentials to bespoke carpentry — tailored to your needs.",
   offerItems: [
-    'Handcrafted chopping & serving boards and end-grain blocks',
-    'Made-to-measure carpentry for homes, studios, and interiors',
-    'Custom sizing, finishes, and personal guidance',
+    "Handcrafted chopping & serving boards and end-grain blocks",
+    "Made-to-measure carpentry for homes, studios, and interiors",
+    "Custom sizing, finishes, and personal guidance",
   ],
 
-  differentTitle: 'What Makes Us Different',
+  differentTitle: "What Makes Us Different",
   differentIntro:
-    'We keep the process close, the standards high, and the materials honest.',
+    "Samsara isn’t a factory brand. It’s personal craft — shaped in Portugal, guided by experience, and built around the idea that quality should feel timeless.",
   differentItems: [
-    'Handmade in Portugal with attention to detail',
-    'Responsibly sourced hardwoods and durable finishes',
-    'Direct collaboration — your vision, our craft',
+    "Handmade in Portugal with attention to detail",
+    "Responsibly sourced hardwoods and durable finishes",
+    "Direct collaboration — your vision, our craft",
   ],
 
-  processEyebrow: 'Our Process',
-  processTitle: 'Every piece begins with intention, material, and time.',
+  processEyebrow: "Our Process",
+  processTitle: "Every piece begins with intention, material, and time.",
   steps: [
-    { n: '01', title: 'Design', text: 'We define the goal, dimensions, and details together.' },
-    { n: '02', title: 'Material Selection', text: 'We choose the right hardwoods for beauty and durability.' },
-    { n: '03', title: 'Handcrafting', text: 'Cut, shape, sand, and finish — all in our workshop.' },
-    { n: '04', title: 'Delivery', text: 'Packed with care and delivered ready to use.' },
+    { n: "01", title: "Design", text: "We define the goal, dimensions, and details together." },
+    { n: "02", title: "Material Selection", text: "We choose the right hardwoods for beauty and durability." },
+    { n: "03", title: "Handcrafting", text: "Cut, shape, sand, and finish — all in our workshop." },
+    { n: "04", title: "Delivery", text: "Packed with care and delivered ready to use." },
   ],
 
-  ctaTitle: 'Ready to start?',
-  ctaText: 'Share your idea — we’ll help turn it into something made to last.',
-  ctaPrimary: 'Contact',
-  ctaSecondary: 'Shop',
+  ctaTitle: "Ready to start?",
+  ctaText: "Share your idea — we’ll help turn it into something made to last.",
+  ctaPrimary: "Contact",
+  ctaSecondary: "Shop",
 
-  imgAlt:
-    'Close-up of a craftsperson shaping wood by hand in a warm workshop setting',
+  imgAlt: "Close-up of a craftsperson shaping wood by hand in a warm workshop setting",
 };
 
 const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Samsara',
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Samsara",
   url: SITE_URL,
 };
 
@@ -105,20 +102,20 @@ const personSchema = {
 };
 
 const aboutSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'AboutPage',
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
   name: copy.title,
   url: canonicalUrl,
-  inLanguage: 'en-GB',
-  isPartOf: { '@type': 'WebSite', name: 'Samsara', url: SITE_URL },
+  inLanguage: "en-GB",
+  isPartOf: { "@type": "WebSite", name: "Samsara", url: SITE_URL },
 };
 
 const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Home', item: `${SITE_URL}/en/` },
-    { '@type': 'ListItem', position: 2, name: 'About', item: canonicalUrl },
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/en/` },
+    { "@type": "ListItem", position: 2, name: "About", item: canonicalUrl },
   ],
 };
 ---
@@ -197,7 +194,6 @@ const breadcrumbSchema = {
 
         <div class="about-inner-divider"></div>
 
-        <!-- ✅ NEW BIO SECTION -->
         <section class="about-bio" aria-label="Founder">
           <div class="bio-card">
             <div class="bio-grid">
@@ -229,8 +225,6 @@ const breadcrumbSchema = {
                     decoding="async"
                   />
                 </figure>
-
-                <p class="bio-caption">{copy.bioCaption}</p>
               </aside>
             </div>
           </div>
