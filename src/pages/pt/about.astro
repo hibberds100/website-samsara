@@ -1,8 +1,8 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
-import founderImg from '../../assets/placeholders/founder.jpg';
-import '../../assets/styles/pages/about.css';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import aboutImg from "../../assets/images/products/workshop-craft2.jpg";
+import founderImg from "../../assets/placeholders/founder.jpg";
+import "../../assets/styles/pages/about.css";
 
 // ✅ GitHub Pages base path fix
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
@@ -20,80 +20,77 @@ const canonicalUrl = `${sitePath}${canonicalPath}`;
 const ogImageUrl = `${sitePath}${aboutImg.src}`;
 
 const copy = {
-  title: 'Sobre a Samsara | Carpintaria Artesanal, Feita Para Durar',
+  title: "Sobre a Samsara | Carpintaria Artesanal, Feita Para Durar",
   metaDesc:
-    'Conheça a Samsara — tábuas artesanais e carpintaria por medida feita em Portugal. Descubra quem está por trás do trabalho, o processo e o que nos torna diferentes.',
-  ogLocale: 'pt_PT',
+    "Conheça a Samsara — tábuas artesanais e carpintaria por medida feita em Portugal. Descubra quem está por trás do trabalho, o processo e o que nos torna diferentes.",
+  ogLocale: "pt_PT",
 
-  h1: 'Sobre a Samsara',
+  h1: "Sobre a Samsara",
   lede:
-    'A Samsara inspira-se na transformação — dar uma nova vida à madeira através de um trabalho cuidadoso e intencional.',
+    "A Samsara nasce da transformação — inspirada pela vida em Portugal e moldada por uma paixão antiga pela madeira.",
 
-  storyTitle: 'A Nossa História',
+  storyTitle: "A Nossa História",
   storyP1:
-    'Na Samsara, acreditamos na beleza da transformação. O nosso nome reflete renovação — e na oficina vemos esse mesmo percurso na madeira.',
+    "A Samsara começou quando me mudei para Portugal com a minha família. O que era para ser apenas um novo capítulo tornou-se rapidamente uma mudança de ritmo: o sol, o mar, a areia, a comida e, sobretudo, as pessoas — tudo isso trouxe uma nova forma de olhar para o tempo e para o valor das coisas bem feitas.",
   storyP2:
-    'Cada peça é feita com intenção: equilibrando beleza e função, respeitando o material e criando trabalho que encaixa naturalmente no seu espaço.',
+    "A marcenaria sempre foi uma paixão, mas aqui tornou-se propósito. Na oficina, transformo madeira em peças simples e duráveis — com linhas limpas, arestas suaves e atenção ao detalhe — para que cada tábua seja bonita, útil e feita para durar.",
 
-  quoteTitle: 'Samsara',
+  quoteTitle: "Samsara",
   quote:
-    '“Samsara é o ciclo interminável em que a alma renasce após a morte num novo corpo. Este processo continua até à libertação.”',
+    "“Samsara é o ciclo interminável em que a alma renasce após a morte num novo corpo. Este processo continua até à libertação.”",
 
-  // ✅ NEW Bio content
-  bioEyebrow: 'Quem faz',
-  bioTitle: 'Olá — eu sou o Sam.',
+  // ✅ Bio
+  bioEyebrow: "Quem faz",
+  bioTitle: "Olá — eu sou o Sam.",
   bioLede:
-    'A Samsara é uma pequena oficina em Portugal. Faço tábuas e peças em madeira “prontas a oferecer” — simples, bem acabadas e feitas para durar no dia a dia.',
+    "Faço tábuas e peças em madeira ‘prontas a oferecer’ — agradáveis de usar todos os dias, bem acabadas e pensadas para durar.",
   bioP1:
-    'Faço cada peça do início ao fim: escolha da madeira, corte, modelação, lixagem e acabamento com óleo alimentar. Gosto de materiais honestos e detalhes discretos — linhas limpas, arestas suaves e veios com vida.',
+    "Cada peça é feita por mim do início ao fim: escolha da madeira, corte, modelação, lixagem e acabamento com óleo alimentar. Gosto de materiais honestos e de um design discreto — o tipo de detalhes que se sente mais do que se explica.",
   bioBullets: [
-    'Feito à mão em pequenas quantidades — sem produção em massa.',
-    'Madeiras de origem responsável, escolhidas pela durabilidade e carácter.',
-    'Pensado para uso real: cozinha, receber amigos e oferecer.',
+    "Feito à mão em pequenas quantidades — sem produção em massa.",
+    "Madeiras de origem responsável, escolhidas pela durabilidade e carácter.",
+    "Pensado para uso real: cozinha, receber amigos e oferecer.",
   ],
-  bioCaption:
-    'Troque este placeholder por um retrato real quando quiser.',
 
-  offerTitle: 'O Que Fazemos',
+  offerTitle: "O Que Fazemos",
   offerIntro:
-    'Criamos peças funcionais e intemporais — desde essenciais de cozinha até carpintaria por medida — desenhadas à sua medida.',
+    "Criamos peças funcionais e intemporais — desde essenciais de cozinha até carpintaria por medida — desenhadas à sua medida.",
   offerItems: [
-    'Tábuas de cortar e servir artesanais e blocos end-grain',
-    'Carpintaria por medida para casas, estúdios e interiores',
-    'Dimensões, acabamentos e aconselhamento personalizado',
+    "Tábuas de cortar e servir artesanais e blocos end-grain",
+    "Carpintaria por medida para casas, estúdios e interiores",
+    "Dimensões, acabamentos e aconselhamento personalizado",
   ],
 
-  differentTitle: 'O Que Nos Torna Diferentes',
+  differentTitle: "O Que Nos Torna Diferentes",
   differentIntro:
-    'Mantemos o processo próximo, os padrões elevados e os materiais honestos.',
+    "A Samsara não é uma marca de fábrica. É trabalho artesanal e pessoal — feito com tempo, cuidado e materiais de qualidade.",
   differentItems: [
-    'Feito à mão em Portugal, com atenção ao detalhe',
-    'Madeiras de origem responsável e acabamentos duradouros',
-    'Acompanhamento direto — a sua visão, o nosso ofício',
+    "Feito à mão em Portugal, com atenção ao detalhe",
+    "Madeiras de origem responsável e acabamentos duradouros",
+    "Acompanhamento direto — a sua visão, o nosso ofício",
   ],
 
-  processEyebrow: 'O Nosso Processo',
-  processTitle: 'Cada peça começa com intenção, material e tempo.',
+  processEyebrow: "O Nosso Processo",
+  processTitle: "Cada peça começa com intenção, material e tempo.",
   steps: [
-    { n: '01', title: 'Desenho', text: 'Definimos consigo o objetivo, dimensões e detalhes.' },
-    { n: '02', title: 'Seleção de Materiais', text: 'Escolhemos madeiras certas para beleza e durabilidade.' },
-    { n: '03', title: 'Produção Artesanal', text: 'Cortar, moldar, lixar e finalizar — tudo na nossa oficina.' },
-    { n: '04', title: 'Entrega', text: 'Embalado com cuidado e entregue pronto a usar.' },
+    { n: "01", title: "Desenho", text: "Definimos consigo o objetivo, dimensões e detalhes." },
+    { n: "02", title: "Seleção de Materiais", text: "Escolhemos madeiras certas para beleza e durabilidade." },
+    { n: "03", title: "Produção Artesanal", text: "Cortar, moldar, lixar e finalizar — tudo na nossa oficina." },
+    { n: "04", title: "Entrega", text: "Embalado com cuidado e entregue pronto a usar." },
   ],
 
-  ctaTitle: 'Pronto para começar?',
-  ctaText: 'Partilhe a sua ideia — nós ajudamos a transformá-la em algo duradouro.',
-  ctaPrimary: 'Contactar',
-  ctaSecondary: 'Ver Produtos',
+  ctaTitle: "Pronto para começar?",
+  ctaText: "Partilhe a sua ideia — nós ajudamos a transformá-la em algo duradouro.",
+  ctaPrimary: "Contactar",
+  ctaSecondary: "Ver Produtos",
 
-  imgAlt:
-    'Mãos de um artesão a trabalhar madeira num ambiente de carpintaria artesanal',
+  imgAlt: "Mãos de um artesão a trabalhar madeira num ambiente de carpintaria artesanal",
 };
 
 const orgSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Samsara',
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Samsara",
   url: SITE_URL,
 };
 
@@ -107,20 +104,20 @@ const personSchema = {
 };
 
 const aboutSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'AboutPage',
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
   name: copy.title,
   url: canonicalUrl,
-  inLanguage: 'pt-PT',
-  isPartOf: { '@type': 'WebSite', name: 'Samsara', url: SITE_URL },
+  inLanguage: "pt-PT",
+  isPartOf: { "@type": "WebSite", name: "Samsara", url: SITE_URL },
 };
 
 const breadcrumbSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'BreadcrumbList',
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
   itemListElement: [
-    { '@type': 'ListItem', position: 1, name: 'Início', item: `${SITE_URL}/pt/` },
-    { '@type': 'ListItem', position: 2, name: 'Sobre', item: canonicalUrl },
+    { "@type": "ListItem", position: 1, name: "Início", item: `${SITE_URL}/pt/` },
+    { "@type": "ListItem", position: 2, name: "Sobre", item: canonicalUrl },
   ],
 };
 ---
@@ -199,7 +196,6 @@ const breadcrumbSchema = {
 
         <div class="about-inner-divider"></div>
 
-        <!-- ✅ NEW BIO SECTION -->
         <section class="about-bio" aria-label="Quem faz">
           <div class="bio-card">
             <div class="bio-grid">
@@ -231,8 +227,6 @@ const breadcrumbSchema = {
                     decoding="async"
                   />
                 </figure>
-
-                <p class="bio-caption">{copy.bioCaption}</p>
               </aside>
             </div>
           </div>
