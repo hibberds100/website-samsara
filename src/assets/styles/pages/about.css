@@ -271,3 +271,173 @@
   .about-title { font-size: 2.35rem; }
   .process-grid { grid-template-columns: 1fr; }
 }
+/* =====================================================
+   BIO / FOUNDER SECTION (Option 1)
+   Add to bottom of about.css
+===================================================== */
+
+.about-bio {
+  padding: 3rem;
+}
+
+.bio-card {
+  background: rgba(255,255,255,0.55);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 1.75rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+
+.bio-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+.bio-kicker {
+  display: inline-block;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.bio-title {
+  margin: 0 0 0.9rem;
+  color: var(--heading);
+  font-size: 2rem;
+  line-height: 1.15;
+  font-family: ui-serif, Georgia, serif;
+}
+
+.bio-lede {
+  margin: 0 0 1rem;
+  color: var(--muted);
+  max-width: 70ch;
+  font-size: 1.02rem;
+}
+
+.bio-text {
+  margin: 0 0 1rem;
+  color: var(--ink);
+  max-width: 70ch;
+}
+
+.bio-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.bio-list li {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
+  color: var(--ink);
+}
+
+.bio-list li::before {
+  content: "•";
+  color: var(--brand);
+  font-weight: 900;
+  line-height: 1;
+  margin-top: 0.25rem;
+}
+
+.bio-aside {
+  position: sticky;
+  top: 140px;
+  min-width: 0;
+}
+
+.bio-portrait {
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--border-soft);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  background: var(--carousel-bg);
+}
+
+.bio-portrait img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.bio-caption {
+  margin: 0.85rem 0 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.bio-cta-row {
+  display: inline-flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+}
+
+/* Use same button styling as about-btn */
+.bio-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1.3rem;
+  border-radius: 10px;
+  border: 1px solid var(--brand);
+  background: var(--linen);
+  color: var(--brand);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  transition: background-color 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.bio-btn:hover,
+.bio-btn:focus {
+  background: var(--brand);
+  color: var(--linen);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.10);
+}
+
+.bio-btn.secondary {
+  border-color: var(--border-soft);
+  background: var(--surface);
+  color: var(--brand);
+}
+
+.bio-btn.secondary:hover,
+.bio-btn.secondary:focus {
+  background: var(--btn-surface);
+  color: var(--hover-dark);
+}
+
+/* Responsive additions for bio */
+@media (max-width: 980px) {
+  .about-bio { padding: 2.25rem 1.75rem; }
+
+  .bio-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .bio-aside {
+    position: relative;
+    top: auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .about-bio { padding: 2rem 1.25rem; }
+  .bio-card { padding: 1.35rem; }
+  .bio-title { font-size: 1.75rem; }
+}

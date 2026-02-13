@@ -1,39 +1,56 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
+import founderImg from '../../assets/images/placeholders/founder.jpg';
 import '../../assets/styles/pages/about.css';
 
-// ✅ GitHub Pages base path fix (same principle as your redirect/header/footer)
+// ✅ GitHub Pages base path fix
 const basePath = import.meta.env.BASE_URL?.replace(/\/$/, "") || "";
 const href = (path: string) => `${basePath}${path}`;
 
 // ✅ Your real domain (no trailing slash)
 const SITE_URL = "https://samsara.pt";
-
-const sitePath = `${SITE_URL}${basePath}`; // ✅ define first
+const sitePath = `${SITE_URL}${basePath}`;
 
 const lang = "en";
 const canonicalPath = "/en/about";
-const canonicalUrl = `${sitePath}${canonicalPath}`; // ✅ now safe
+const canonicalUrl = `${sitePath}${canonicalPath}`;
 const ogImageUrl = `${sitePath}${aboutImg.src}`;
+
 const copy = {
   title: 'About Samsara | Handmade Boards & Bespoke Carpentry in Portugal',
   metaDesc:
-    'Learn about Samsara Carpentry — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover our story, process, and what makes us different.',
+    'Learn about Samsara — handcrafted chopping boards, end-grain butcher blocks, and bespoke carpentry made in Portugal. Discover who is behind the work, the process, and what makes us different.',
   ogLocale: 'en_GB',
 
   h1: 'About Samsara',
   lede:
     'Samsara is inspired by transformation — giving wood a new life through careful, intentional craft.',
+
+  storyTitle: 'Our Story',
+  storyP1:
+    'At Samsara, we believe in the beauty of transformation. Our name reflects renewal — and in the workshop we see that same journey in wood.',
+  storyP2:
+    'Every piece is made with intention: balancing beauty and function, respecting the material, and creating work that belongs naturally in your space.',
+
   quoteTitle: 'Samsara',
   quote:
     '“Samsara is the endless cycle where a soul is reborn after death into a new body. This process continues until liberation is achieved.”',
 
-  storyTitle: 'Our Story',
-  storyP1:
-    'At Samsara Carpentry, we believe in the beauty of transformation. Our name reflects renewal — and in the workshop we see that same journey in wood.',
-  storyP2:
-    'Every project is made with intention: balancing beauty and function, respecting the material, and creating pieces that belong naturally in your space.',
+  // ✅ NEW Bio content
+  bioEyebrow: 'The Maker',
+  bioTitle: "Hi — I’m Sam.",
+  bioLede:
+    "Samsara is a small workshop in Portugal. I make gift-worthy boards and wooden pieces that feel good to use every day — designed simply, finished carefully, and built to last.",
+  bioP1:
+    "I make each piece from start to finish: selecting timber, milling, shaping, sanding, and finishing with food-safe oil. I’m drawn to honest materials and quiet details — clean lines, soft chamfers, and grain that looks alive.",
+  bioBullets: [
+    "Made by hand in small batches — no mass production.",
+    "Responsibly sourced hardwoods chosen for durability and character.",
+    "Built for real use: kitchens, hosting, and thoughtful gifts.",
+  ],
+  bioCaption:
+    "Swap this placeholder for a real portrait whenever you’re ready.",
 
   offerTitle: 'What We Offer',
   offerIntro:
@@ -75,6 +92,15 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Samsara',
+  url: SITE_URL,
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sam Hibberd",
+  jobTitle: "Woodworker & Maker",
+  worksFor: { "@type": "Organization", name: "Samsara" },
   url: SITE_URL,
 };
 
@@ -127,6 +153,7 @@ const breadcrumbSchema = {
     <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/about`} />
 
     <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+    <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
     <script type="application/ld+json">{JSON.stringify(aboutSchema)}</script>
     <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
   </Fragment>
@@ -165,6 +192,47 @@ const breadcrumbSchema = {
               loading="lazy"
               decoding="async"
             />
+          </div>
+        </section>
+
+        <div class="about-inner-divider"></div>
+
+        <!-- ✅ NEW BIO SECTION -->
+        <section class="about-bio" aria-label="Founder">
+          <div class="bio-card">
+            <div class="bio-grid">
+              <div class="bio-main">
+                <span class="bio-kicker">{copy.bioEyebrow}</span>
+                <h2 class="bio-title">{copy.bioTitle}</h2>
+
+                <p class="bio-lede">{copy.bioLede}</p>
+                <p class="bio-text">{copy.bioP1}</p>
+
+                <ul class="bio-list">
+                  {copy.bioBullets.map((b) => <li><span>{b}</span></li>)}
+                </ul>
+
+                <div class="bio-cta-row">
+                  <a class="bio-btn" href={href("/en/contact")}>{copy.ctaPrimary}</a>
+                  <a class="bio-btn secondary" href={href("/en/shop")}>{copy.ctaSecondary}</a>
+                </div>
+              </div>
+
+              <aside class="bio-aside">
+                <figure class="bio-portrait">
+                  <img
+                    src={founderImg.src}
+                    width={founderImg.width}
+                    height={founderImg.height}
+                    alt="Portrait of Sam, the maker behind Samsara"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+
+                <p class="bio-caption">{copy.bioCaption}</p>
+              </aside>
+            </div>
           </div>
         </section>
 

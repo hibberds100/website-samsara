@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import aboutImg from '../../assets/images/products/workshop-craft2.jpg';
+import founderImg from '../../assets/images/placeholders/founder.jpg';
 import '../../assets/styles/pages/about.css';
 
 // ✅ GitHub Pages base path fix
@@ -21,21 +22,37 @@ const ogImageUrl = `${sitePath}${aboutImg.src}`;
 const copy = {
   title: 'Sobre a Samsara | Carpintaria Artesanal, Feita Para Durar',
   metaDesc:
-    'Conheça a Samsara Carpentry — tábuas artesanais e carpintaria por medida feita em Portugal. Descubra a nossa história, processo e o que nos torna diferentes.',
+    'Conheça a Samsara — tábuas artesanais e carpintaria por medida feita em Portugal. Descubra quem está por trás do trabalho, o processo e o que nos torna diferentes.',
   ogLocale: 'pt_PT',
 
   h1: 'Sobre a Samsara',
   lede:
     'A Samsara inspira-se na transformação — dar uma nova vida à madeira através de um trabalho cuidadoso e intencional.',
+
+  storyTitle: 'A Nossa História',
+  storyP1:
+    'Na Samsara, acreditamos na beleza da transformação. O nosso nome reflete renovação — e na oficina vemos esse mesmo percurso na madeira.',
+  storyP2:
+    'Cada peça é feita com intenção: equilibrando beleza e função, respeitando o material e criando trabalho que encaixa naturalmente no seu espaço.',
+
   quoteTitle: 'Samsara',
   quote:
     '“Samsara é o ciclo interminável em que a alma renasce após a morte num novo corpo. Este processo continua até à libertação.”',
 
-  storyTitle: 'A Nossa História',
-  storyP1:
-    'Na Samsara Carpentry, acreditamos na beleza da transformação. O nosso nome reflete o ciclo de renovação — e na oficina vemos esse mesmo percurso na madeira.',
-  storyP2:
-    'Cada projeto é feito com intenção: equilibrando beleza e função, respeitando o material e criando peças que encaixam naturalmente no seu espaço.',
+  // ✅ NEW Bio content
+  bioEyebrow: 'Quem faz',
+  bioTitle: 'Olá — eu sou o Sam.',
+  bioLede:
+    'A Samsara é uma pequena oficina em Portugal. Faço tábuas e peças em madeira “prontas a oferecer” — simples, bem acabadas e feitas para durar no dia a dia.',
+  bioP1:
+    'Faço cada peça do início ao fim: escolha da madeira, corte, modelação, lixagem e acabamento com óleo alimentar. Gosto de materiais honestos e detalhes discretos — linhas limpas, arestas suaves e veios com vida.',
+  bioBullets: [
+    'Feito à mão em pequenas quantidades — sem produção em massa.',
+    'Madeiras de origem responsável, escolhidas pela durabilidade e carácter.',
+    'Pensado para uso real: cozinha, receber amigos e oferecer.',
+  ],
+  bioCaption:
+    'Troque este placeholder por um retrato real quando quiser.',
 
   offerTitle: 'O Que Fazemos',
   offerIntro:
@@ -77,6 +94,15 @@ const orgSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Samsara',
+  url: SITE_URL,
+};
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Sam Hibberd",
+  jobTitle: "Marceneiro / Artesão",
+  worksFor: { "@type": "Organization", name: "Samsara" },
   url: SITE_URL,
 };
 
@@ -129,6 +155,7 @@ const breadcrumbSchema = {
     <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/en/about`} />
 
     <script type="application/ld+json">{JSON.stringify(orgSchema)}</script>
+    <script type="application/ld+json">{JSON.stringify(personSchema)}</script>
     <script type="application/ld+json">{JSON.stringify(aboutSchema)}</script>
     <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
   </Fragment>
@@ -167,6 +194,47 @@ const breadcrumbSchema = {
               loading="lazy"
               decoding="async"
             />
+          </div>
+        </section>
+
+        <div class="about-inner-divider"></div>
+
+        <!-- ✅ NEW BIO SECTION -->
+        <section class="about-bio" aria-label="Quem faz">
+          <div class="bio-card">
+            <div class="bio-grid">
+              <div class="bio-main">
+                <span class="bio-kicker">{copy.bioEyebrow}</span>
+                <h2 class="bio-title">{copy.bioTitle}</h2>
+
+                <p class="bio-lede">{copy.bioLede}</p>
+                <p class="bio-text">{copy.bioP1}</p>
+
+                <ul class="bio-list">
+                  {copy.bioBullets.map((b) => <li><span>{b}</span></li>)}
+                </ul>
+
+                <div class="bio-cta-row">
+                  <a class="bio-btn" href={href("/pt/contact")}>{copy.ctaPrimary}</a>
+                  <a class="bio-btn secondary" href={href("/pt/shop")}>{copy.ctaSecondary}</a>
+                </div>
+              </div>
+
+              <aside class="bio-aside">
+                <figure class="bio-portrait">
+                  <img
+                    src={founderImg.src}
+                    width={founderImg.width}
+                    height={founderImg.height}
+                    alt="Retrato do Sam, o artesão por trás da Samsara"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </figure>
+
+                <p class="bio-caption">{copy.bioCaption}</p>
+              </aside>
+            </div>
           </div>
         </section>
 
