@@ -1,6 +1,7 @@
 import { defineConfig } from "astro/config";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
-  output: "static",
-  site: "https://samsara.pt", // 🌍 Your real domain
+  site: "https://samsara.pt",
+  integrations: [sitemap()],
 });
